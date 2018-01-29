@@ -1,0 +1,72 @@
+body {
+  font-family: "Neue Helvetica W01",Helvetica,Arial,sans-serif;
+  background: #FFF;
+  margin:  0px;
+  font-size: 16px;
+}
+
+#header {
+  position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+#nav-menu {
+	width: 100%;
+	display: inline-block;
+	background-color: #202020;
+  list-style-type: none;
+}
+
+#nav-menu li {
+	float: left;
+}
+
+#nav-menu li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+#nav-menu li a:hover {
+    background-color: #111111;
+}
+
+
+#content {
+	margin: 80px 20px 20px 20px;
+}
+
+.modal-header, h4, .close {
+    background-color: #202020;
+    color:white !important;
+    text-align: center;
+    font-size: 20px;
+}
+.modal-footer {
+    background-color: #f9f9f9;
+}
+
+
+/* CLASSES */
+.ape-class-detail {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: auto;
+}
+
+.ape-class-name {
+  font-weight: bold;
+  font-size: 16px;
+  border-right: 1px solid black;
+  padding: 10px;
+}
+
+.ape-class-bio {
+  padding: 10px;
+}

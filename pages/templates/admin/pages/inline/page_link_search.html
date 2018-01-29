@@ -1,0 +1,46 @@
+{% load page_tags %}
+<select class="link-search-results" size="{{ size }}">
+    <optgroup label="Pages:">
+        {% for page in pages %}
+            <option value="{{ page.id }}" ct_value="{{ page|content_type_id }}"
+                    fullname="{{ page.name }}">{{ page.name }}</option>
+        {% empty %}
+            <option disabled>None</option>
+        {% endfor %}
+    </optgroup>
+
+    <optgroup label="Books:">
+        {% for brand, series_dict in brands_dict.items %}
+            <option value="{{ brand.id }}" ct_value="{{ brand|content_type_id }}" fullname="{{ brand.name }}">{{ brand.name }}:</option>
+            {% for series, volumes_dict in series_dict.items %}
+                <option value="{{ series.id }}" ct_value="{{ series|content_type_id }}" fullname="{{ series.name }}">{{ prefix }}{{ series.name }}:</option>
+                {% for volume, books_list in volumes_dict.items %}
+                    <option value="{{ volume.id }}" ct_value="{{ volume|content_type_id }}" fullname="{{ volume.name }}">{{ prefix }}{{ prefix }}{{ volume.name }}:</option>
+                    {% for book in books_list %}
+                        <option value="{{ book.id }}" ct_value="{{ book|content_type_id }}" fullname="{{ book.title }}">{{ prefix }}{{ prefix }}{{ prefix }}{{ book.profile.name }}</option>
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        {% empty %}
+            <option disabled>None</option>
+        {% endfor %}
+    </optgroup>
+
+    <optgroup label="Genres:">
+        {% for genre in genres %}
+            <option value="{{ genre.id }}" ct_value="{{ genre|content_type_id }}"
+                    fullname="{{ genre.name }}">{{ genre.name }}</option>
+        {% empty %}
+            <option disabled>None</option>
+        {% endfor %}
+    </optgroup>
+
+    <optgroup label="Contributors:">
+        {% for contributor in contributors %}
+            <option value="{{ contributor.id }}" ct_value="{{ contributor|content_type_id }}"
+                    fullname="{{ contributor.name }}">{{ contributor.name }}</option>
+        {% empty %}
+            <option disabled>None</option>
+        {% endfor %}
+    </optgroup>
+</select>

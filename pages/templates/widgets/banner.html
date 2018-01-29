@@ -1,0 +1,10 @@
+{% load page_tags %}
+<div class="page-banner">
+    {% if widget.genre_url %}
+        <a href="{{ widget.genre_url|wrapped_url }}">
+            {% include 'widgets/image.html' with url=widget.image.url %}
+        </a>
+    {% else %}
+        {% include 'widgets/image.html' with url=widget.image.url %}
+    {% endif %}
+</div>

@@ -1,0 +1,65 @@
+{% extends 'pages/page.html' %}
+{% load static page_tags %}
+
+{% block title %}
+    {{ genre.name }}
+{% endblock %}
+    
+{% block page_title %}&nbsp;{% endblock %}
+
+{% block content %}
+    <h3>{{ genre.name }}</h3>
+
+    {% if genre.new_releases %}
+        <div class="new-releases">
+            <div class="page-row-focus">
+                <h4>New Releases</h4>
+                    <div class="carousel">
+                        <div id="prev-items-{{ genre.id }}" class="slider-control prev"></div>
+                        <div id="widget-row-{{ genre.id }}" class="widget-row-focus">
+                            {% for movie in genre.new_releases %}
+                                <div class="row-focus-item" id="movie-{{ movie.id }}">
+                                    {% include 'widgets/items/movie.html' %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div id="next-items-{{ genre.id }}" class="slider-control next"></div>
+                        <div class="cheat"></div>
+                    </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <div class="movie-gallery">
+        <h4>All Movies</h4>
+        <div class="gallery-widget" id="gallery-widget-{{ genre.id }}">
+            {% for movie in genre.all_movies %}
+                <div class="gallery-item" id="movie-{{ movie.id }}">
+                    {% include 'widgets/items/movie.html' %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_body_content %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var widgetRowFocus =  $("#widget-row-{{ genre.id }}");
+            widgetRowFocus.bxSlider({
+                minSlides: 2,
+                maxSlides: 5,
+                slideWidth: 200,
+                slideMargin: 16,
+                pager: false,
+                adaptiveHeight: true,
+                nextSelector: "#next-items-{{ genre.id }}",
+                prevSelector: "#prev-items-{{ genre.id }}",
+                prevText: '<i class="fa fa-angle-left"></i>',
+                nextText: '<i class="fa fa-angle-right"></i>'
+            });
+            $('.carousel').css('margin-top','10px');
+        });
+    </script>
+{% endblock %}

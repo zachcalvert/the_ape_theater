@@ -1,0 +1,99 @@
+{% extends 'pages/page.html' %}
+{% load page_tags %}
+
+{% block title %}
+    My Reel
+{% endblock %}
+    
+{% block page_title %}&nbsp;{% endblock %}
+
+{% block content %}
+    <div class="user-favorites">
+        <div class="page-row-focus">
+            <h2>Favorites</h2>
+                <div class="carousel">
+                    <div id="prev-items-{{ request.user.id }}" class="slider-control prev"></div>
+                    <div id="widget-row-{{ request.user.id }}" class="widget-row-focus">
+                        {% for movie in favorites %}
+                            <div class="row-focus-item" id="movie-{{ movie.id }}">
+                                {% if movie.poster_url %}
+                                    <div class="movie-image-wrap">
+                                        <a href="{{ movie.profile_url }}">
+                                            <img class="movie-image" src="{{ movie.poster_url }}" alt="{{ movie.title }} image">
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div id="next-items-{{ request.user.id }}" class="slider-control next"></div>
+                    <div class="cheat"></div>
+                </div>
+        </div>
+    </div>
+
+    <div class="movie-gallery">
+        <h2>All</h2>
+        <div class="gallery-widget" id="user-reel-gallery">
+            {% for movie in user_movies %}
+                <div class="gallery-item" id="movie-{{ movie.id }}">
+                    {% if movie.poster_url %}
+                        <div class="movie-image-wrap">
+                            <a href="{{ movie.profile_url }}"><img class="movie-image"
+                                                                      src="{{ movie.poster_url }}"
+                                                                      alt="{{ movie.title }} image"></a>
+                        </div>
+                        
+                        {% if movie.title %}
+                            <p class="movie-title">{{ movie.title|safe }} - ({{ movie.year }})</p>
+                        {% endif %}
+
+                        {% if movie.id|has_rating:request.user %}
+                            {% with movie.id|get_rating:request.user as rating %}
+                                <div class="rate-it" data-score="{{ rating }}">
+                                    <a class="seen-it-link" href="javascript:;"></a>
+                                </div>
+                            {% endwith %}
+                        {% elif movie.id|has_been_seen:request.user %}
+                            <div class="rate-it">
+                                <a class="seen-it-link" href="javascript:;"></a>
+                            </div>
+                        {% else %}
+                            <div class="seen-it">
+                                <a class="seen-it-link" href="javascript:;">I've Seen This!</a>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="product-list-footer">
+        {% with user_books as page_obj %}
+            {% include 'pager.html' %}
+        {% endwith %}
+    </div>
+
+{% endblock %}
+
+{% block extra_body_content %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var widgetRowFocus =  $("#widget-row-{{ request.user.id }}");
+            widgetRowFocus.bxSlider({
+                minSlides: 2,
+                maxSlides: 5,
+                slideWidth: 200,
+                slideMargin: 16,
+                pager: false,
+                adaptiveHeight: true,
+                nextSelector: "#next-items-{{ request.user.id }}",
+                prevSelector: "#prev-items-{{ request.user.id }}",
+                prevText: '<i class="fa fa-angle-left"></i>',
+                nextText: '<i class="fa fa-angle-right"></i>'
+            });
+            $('.carousel').css('margin-top','10px');
+        });
+    </script>
+{% endblock %}

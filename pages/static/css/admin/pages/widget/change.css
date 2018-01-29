@@ -1,0 +1,27 @@
+.grp-row.link_id,
+.grp-row.link_type {
+    display: none;
+}
+
+fieldset.grp-module table.formset-table {
+    width: 100%;
+}
+
+fieldset.grp-module table.formset-table .ui-sortable {
+    position: static;
+    float: none;
+}
+fieldset.grp-module table.formset-table .grp-tools {
+    position: static;
+    right: 0;
+}
+
+.empty-form {
+    display: none;
+}
+
+select.link-search-results {
+    height: auto;
+    display: block;
+    margin-top: 1em !important;
+}

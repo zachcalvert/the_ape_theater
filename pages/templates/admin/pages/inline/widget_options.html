@@ -1,0 +1,15 @@
+{% regroup widgets|dictsort:"type_name_plural" by type_name_plural as optgroups %}
+
+<select size="{{ size }}" class="widget_id">
+    {% if optgroups %}
+        {% for optgroup in optgroups %}
+            <optgroup label="{{ optgroup.grouper|capfirst }}">
+                {% for widget in optgroup.list %}
+                    <option value="{{ widget.id }}">{{ widget.name }} ({{ widget.pages.count }} page{{ widget.pages.count|pluralize }})</option>
+                {% endfor %}
+            </optgroup>
+        {% endfor %}
+    {% else %}
+        <option>No Results</option>
+    {% endif %}
+</select>

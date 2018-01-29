@@ -1,0 +1,170 @@
+<style>
+    #page-preview {
+        padding: 0;
+        margin: 0;
+        font-size: larger;
+        height: 100%;
+        font-family: "Comic Sans MS";
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .text-colors {
+        display: inline-block;
+        padding: 1em;
+        margin: 5px;
+        border-width: 2px;
+        border-style: solid;
+    }
+
+    .text-colors li {
+        padding: 5px;
+        border-width: 2px;
+        border-style: solid;
+    }
+
+    .buy-button {
+        padding: 5px;
+        margin: 5px;
+        display: inline-block;
+    }
+
+    .bar {
+        width: 100%;
+        font-size: x-large;
+        font-weight: bold;
+        padding: 20px 0;
+    }
+
+    .bar .item {
+        padding: 0 1em;
+    }
+
+    #nav-bar {
+        margin-bottom: 1em;
+    }
+
+    #tab-bar {
+        margin-top: 1em;
+    }
+</style>
+
+<div id="page-preview-{{ platform }}">
+    <div id="nav-bar" class="bar">
+        <span class="item tint">Nav Bar Tint Color</span>
+        <span class="item title">Nav Bar Title Color</span>
+    </div>
+    <ul class="text-colors">
+        <li class="text_color">Text Color</li>
+        <li class="bold bold_text_color">Bold Text Color</li>
+        <li class="muted_text_color">Muted Text Color</li>
+        <li><span class="buy-button">Buy Button</span></li>
+    </ul>
+    <ul class="contrasting-background text-colors">
+        <li class="contrasting_text_color">Contrasting Text Color</li>
+        <li class="bold contrasting_bold_text_color">Contrasting Bold Text Color</li>
+        <li class="contrasting_muted_text_color">Contrasting Muted Text Color</li>
+        <li><span class="buy-button">Buy Button</span></li>
+    </ul>
+    <div id="tab-bar" class="bar">
+        <span class="item tint">Tab Bar Tint Color</span>
+    </div>
+</div>
+
+<script>
+    function style_preview_{{ platform }}() {
+        var $ = django.jQuery;
+
+        function defaulted_value(elem) {
+            var value = elem.val();
+            if (!value) {
+                value = elem.data("default-{{ platform }}");
+            }
+            return value;
+        }
+
+        var background_gradient = defaulted_value($("#id_background_gradient"));
+        var background_start = defaulted_value($("#id_background_start_color"));
+        var background_end = defaulted_value($("#id_background_end_color"));
+        var background_image = defaulted_value($("#id_background_image_url")) || $('.file-upload a').prop('href');
+        var contrasting_background_color = defaulted_value($("#id_contrasting_background_color"));
+
+        var text_color = defaulted_value($("#id_text_color"));
+        var bold_text_color = defaulted_value($("#id_bold_text_color"));
+        var muted_text_color = defaulted_value($("#id_muted_text_color"));
+        var border_color = defaulted_value($("#id_border_color"));
+
+        var buy_button_color = defaulted_value($("#id_buy_button_color"));
+        var buy_button_text_color = defaulted_value($("#id_buy_button_text_color"));
+
+        var contrasting_text_color = defaulted_value($("#id_contrasting_text_color"));
+        var contrasting_bold_text_color = defaulted_value($("#id_contrasting_bold_text_color"));
+        var contrasting_muted_text_color = defaulted_value($("#id_contrasting_muted_text_color"));
+        var contrasting_border_color = defaulted_value($("#id_contrasting_border_color"));
+
+        var nav_bar_color = defaulted_value($("#id_nav_bar_color"));
+        var nav_bar_tint_color = defaulted_value($("#id_nav_bar_tint_color"));
+        var nav_bar_title_color = defaulted_value($("#id_nav_bar_title_color"));
+        var tab_bar_color = defaulted_value($("#id_tab_bar_color"));
+        var tab_bar_tint_color = defaulted_value($("#id_tab_bar_tint_color"));
+
+        var preview = $("#page-preview-{{ platform }}");
+
+        if (background_image) {
+            // get background image width and height to add to the preview div css
+            var image = new Image();
+            image.onload = function() {
+                preview.css({
+                    'width': this.width + "px",
+                    'height': this.height + "px"
+                });
+            }
+            image.src = background_image.replace('original', 'web');
+            console.log(image.src);
+            preview.css({
+                'background': "url('" + background_image + "') no-repeat 0 0",
+                'background-size': "100% 100%"
+            });
+        } else if (background_gradient == 2) {
+            //show gradient
+            preview.css({
+                'background': "linear-gradient(" + background_start + ", " + background_end + ")"
+            });
+        } else {
+            preview.css({'background-color': background_start});
+        }
+
+        preview.find(".text_color").css({'color': text_color});
+        preview.find(".bold_text_color").css({'color': bold_text_color});
+        preview.find(".muted_text_color").css({'color': muted_text_color});
+
+        preview.find(".text-colors").css({'border-color': border_color});
+        preview.find(".text-colors li").css({'border-color': border_color});
+        preview.find(".contrasting-background.text-colors").css({'border-color': contrasting_border_color});
+        preview.find(".contrasting-background.text-colors li").css({'border-color': contrasting_border_color});
+
+        preview.find(".buy-button").css({
+            'background-color': buy_button_color,
+            'color': buy_button_text_color
+        });
+
+        preview.find(".contrasting-background").css({'background-color': contrasting_background_color});
+        preview.find(".contrasting_text_color").css({'color': contrasting_text_color});
+        preview.find(".contrasting_bold_text_color").css({'color': contrasting_bold_text_color});
+        preview.find(".contrasting_muted_text_color").css({'color': contrasting_muted_text_color});
+
+        preview.find("#nav-bar").css({'background-color': nav_bar_color});
+        preview.find("#nav-bar .tint").css({'color': nav_bar_tint_color});
+        preview.find("#nav-bar .title").css({'color': nav_bar_title_color});
+
+        preview.find("#tab-bar").css({'background-color': tab_bar_color});
+        preview.find("#tab-bar .tint").css({'color': tab_bar_tint_color});
+    }
+    django.jQuery(function ($) {
+        style_preview_{{ platform }}();
+        $(".previewable input").change(style_preview_{{ platform }});
+        $(".previewable select").change(style_preview_{{ platform }});
+    })
+</script>

@@ -1,0 +1,110 @@
+{% extends "admin/ajax_change_form.html" %}
+{% load admin_urls i18n %}
+
+
+{% block object-tools-items %}
+    {{ block.super }}
+    <li><a href="{% url 'page' original.pk %}" class="grp-state-focus" target="_blank">{% trans "View in API" %}</a></li>
+{% endblock %}
+
+
+{% block field_sets %}
+    <div id="used-slugs">
+        {% for page in slug_pages %}
+            <div class="slug-warning {{ page.slug }}">
+                This page will replace {{ page.name }}</a> as
+                the page matching the slug "{{ page.slug }}"
+            </div>
+        {% endfor %}
+    </div>
+    {{ block.super }}
+{% endblock %}
+
+{% block after_field_sets %}
+    <fieldset id="previewers" class="grp-module grp-collapse">
+        <h2 class="grp-collapse-handler">Live Preview</h2>
+        <ul>
+            {% for default in default_pages %}
+                <li><a href="#default-{{ default.default_for_platform }}">{{ default }}</a></li>
+            {% endfor %}
+        </ul>
+
+        {% for default in default_pages %}
+            <div id="default-{{ default.default_for_platform }}">
+            {% include "admin/pages/page_previewer.html" with platform=default.default_for_platform %}
+            </div>
+        {% endfor %}
+    </fieldset>
+    <script>
+    django.jQuery(function ($) {
+        $("#previewers").tabs();
+    });
+    </script>
+{% endblock %}
+
+{% block after_related_objects %}
+    {{ form.widget_form_count }}
+
+    <div class="grp-group grp-stacked">
+        <h2 class="grp-collapse-handler">Page Content</h2>
+        <ul class="grp-tools">
+            <li><a href="javascript://" class="grp-icon dh-undo-delete" title="Undo Deletes">Undo Deletes</a></li>
+            <li><a href="javascript://" class="grp-icon grp-open-handler dh-expand-all" title="Expand All"></a></li>
+            <li><a href="javascript://" class="grp-icon grp-close-handler dh-collapse-all" title="Collapse All"></a>
+            </li>
+        </ul>
+
+        <div id="widgets-list" class="grp-items ui-sortable grp-row">
+            {% for widget_form in form.widget_forms %}
+                {% include "admin/pages/inline/widget_form.html" %}
+            {% endfor %}
+        </div>
+
+        <div class="grp-module grp-transparent grp-dynamic-form">
+            <div class="grp-row">
+                <strong>Add a new...</strong>
+                <ul>
+                    {% for widget_type in widget_types|dictsort:"verbose_name" %}
+                        <li>
+                            <a href="{% url "admin:pages_page_widget_form" widget_type_name=widget_type.model_name %}"
+                               class="grp-add-handler dh-widget-form-add">
+                                {{ widget_type.verbose_name|capfirst }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="grp-module grp-transparent grp-dynamic-form">
+            <div class="grp-row">
+                <strong>
+                    <a href="#" class="grp-add-handler dh-existing-widget">Add an existing widget...</a>
+                </strong>
+
+                <div id="add-existing-options">
+                    <ul>
+                        <li><a href="#existing-page">By page</a></li>
+                        <li><a href="#existing-name">By name</a></li>
+                        <li><a href="#existing-id">Using id</a></li>
+                    </ul>
+                    <div id="existing-page" class="add-widget-tab">
+                        <input type="text" class="widget_page vTextField" placeholder="search by page name"
+                               data-api-url="{% url "admin:pages_page_widget_page_name_lookup" %}"><br/>
+                        <select class="widget_id"></select><br/>
+                        <a href="{% url "admin:pages_page_widget_form" %}" class="add-existing-widget">Add</a>
+                    </div>
+                    <div id="existing-name" class="add-widget-tab">
+                        <input type="text" class="widget_name vTextField" placeholder="search by name"
+                               data-api-url="{% url "admin:pages_page_widget_name_lookup" %}"><br/>
+                        <select class="widget_id"></select><br/>
+                        <a href="{% url "admin:pages_page_widget_form" %}" class="add-existing-widget">Add</a>
+                    </div>
+                    <div id="existing-id" class="add-widget-tab">
+                        <input type="text" class="widget_id" placeholder="enter id"/><br/>
+                        <a href="{% url "admin:pages_page_widget_form" %}" class="add-existing-widget">Add</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

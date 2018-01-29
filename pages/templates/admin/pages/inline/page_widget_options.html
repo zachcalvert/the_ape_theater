@@ -1,0 +1,14 @@
+{% load page_tags %}
+<select size="{{ size }}" class="widget_id">
+    {% if pages %}
+        {% for page in pages %}
+            <optgroup label="{{ page.name }}">
+                {% for widget in page.widgets %}
+                    <option value="{{ widget.id }}">{{ widget.name }} ({{ widget.type_name }})</option>
+                {% endfor %}
+            </optgroup>
+        {% endfor %}
+    {% else %}
+        <option>No Results</option>
+    {% endif %}
+</select>

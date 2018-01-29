@@ -1,0 +1,59 @@
+{% load cache %}
+
+{# Cache this rendered template to avoid HTTP calls. See common/header.html #}
+{% cache 300 admin_submenu request.user.id %}
+{% spaceless %}
+
+    <li class="row" id="admin-submenu">
+        <ul class="col-lg-6">{# Column 1 #}
+            <li>
+                <h4>
+                    <a href="{% url 'env_list' %}">
+                        Environments
+                        <span class="badge">{{ all_env_count }}</span>
+                    </a>
+                </h4>
+            </li>
+            {% for env in environments %}
+                <li class="depth-2">{{ env|render_link }}</li>
+            {% endfor %}
+
+            <li class="divider"></li>
+            <li>
+                <h4>
+                    <a href="{% url "resourcehandler_list" %}">
+                        Resource Handlers
+                        <span class="badge">{{ all_rh_count }}</span>
+                    </a>
+                </h4>
+            </li>
+            {% for rh in resource_handlers %}
+                <li class="depth-2">{{ rh|render_link }}</li>
+            {% endfor %}
+        </ul>
+
+        <ul class="col-lg-6">{# Column 2 #}
+            <li>
+                <a href="{% url "all_actions" %}">Actions</a>
+            </li>
+            {% include 'actions/action_category_admin_links.html' with placement="right" indent=2 %}
+            <li>
+                <a href="{% url "job_list" %}">Jobs</a>
+            </li>
+            <li>
+                <a href="{% url "user_list" %}">Users</a>
+            </li>
+            {% if navbar_data.config_managers_in_use %}
+                <li>
+                    <a href="{% url 'provider_list' %}">Configuration Managers</a>
+                </li>
+            {% endif %}
+            {% if navbar_data.cit_in_use %}
+                <li>
+                    <a href="{% url 'cit_list' %}">Continuous Infrastructure Testing</a>
+                </li>
+            {% endif %}
+        </ul>
+    </li>
+{% endspaceless %}
+{% endcache %}

@@ -1,0 +1,15 @@
+/* -----------  ----------- */
+@media screen and (max-width: 960px) {
+  html, body {
+    min-width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  #site-header {
+    position: fixed!important;
+    width: 100%;
+    z-index: 10;
+    top: 0;
+    border-bottom: 1px solid black;
+  }

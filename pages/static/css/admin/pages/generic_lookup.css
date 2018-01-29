@@ -1,0 +1,12 @@
+input.generic-field-lookup,
+input.generic-field-lookup:focus {
+    background-image: url('../../../grappelli/images/icons-s0e29227ce9.png');
+    background-repeat: no-repeat;
+    background-position: 100% -1707px;
+}
+
+select.search-results {
+    height: auto;
+    display: block;
+    margin-top: 1em !important;
+}

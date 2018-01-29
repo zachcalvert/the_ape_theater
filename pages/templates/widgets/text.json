@@ -1,0 +1,5 @@
+{
+    "type": "text",
+    "text": "{{ widget.json_content }}",
+    "text_color": "{{ widget.text_color }}"
+}
