@@ -1,8 +1,0 @@
-{% extends "admin/ajax_change_form.html" %}
-
-{% block after_field_sets %}
-    <fieldset class="grp-module grp-collapse">
-        <h2 class="grp-collapse-handler">Live Preview</h2>
-        {% include "admin/pages/page_previewer.html" with platform='default' %}
-    </fieldset>
-{% endblock %}
