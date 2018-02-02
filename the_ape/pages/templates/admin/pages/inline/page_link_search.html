@@ -1,0 +1,29 @@
+{% load page_tags %}
+<select class="link-search-results" size="{{ size }}">
+    <optgroup label="Pages:">
+        {% for page in pages %}
+            <option value="{{ page.id }}" ct_value="{{ page|content_type_id }}"
+                    fullname="{{ page.name }}">{{ page.name }}</option>
+        {% empty %}
+            <option disabled>None</option>
+        {% endfor %}
+    </optgroup>
+
+    <optgroup label="Events:">
+        {% for event in events %}
+            <option value="{{ event.id }}" ct_value="{{ event|content_type_id }}"
+                    fullname="{{ event.name }}">{{ event.name }}</option>
+        {% empty %}
+            <option disabled>None</option>
+        {% endfor %}
+    </optgroup>
+
+    <optgroup label="Classes:">
+        {% for ape_class in ape_classes %}
+            <option value="{{ ape_class.id }}" ct_value="{{ ape_class|content_type_id }}"
+                    fullname="{{ ape_class.name }}">{{ ape_class.name }}</option>
+        {% empty %}
+            <option disabled>None</option>
+        {% endfor %}
+    </optgroup>
+</select>

@@ -1,0 +1,36 @@
+{% load page_tags %}
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/slider.mini.js" defer></script>
+
+<div class="large-carousel carousel">
+    <div id="prev-items-{{ widget.id }}" class="slider-control prev"></div>
+    <ul id="carousel-{{ widget.id }}" class="bxslider">
+        {% for image in widget.images %}
+            <li>
+                <a href="#">
+                    {% include 'widgets/image.html' with url=image.url name=image.name %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div id="next-items-{{ widget.id }}" class="slider-control next"></div>
+</div>
+
+<script>
+    $(function () {
+        var carousel = $("#carousel-{{ widget.id }}");
+        carousel.bxSlider({
+            auto: true,
+            slideMargin: 10,
+            infiniteLoop: true,
+            nextSelector: "#next-items-{{ widget.id }}",
+            prevSelector: "#prev-items-{{ widget.id }}",
+            prevText: "<i class=\"slider-chevrons fa fa-chevron-left\"></i>",
+            nextText: "<i class=\"slider-chevrons fa fa-chevron-right\"></i>",
+            pager: false,
+            onSlideAfter: function() {
+                carousel.startAuto()
+            }
+        });
+    });
+</script>

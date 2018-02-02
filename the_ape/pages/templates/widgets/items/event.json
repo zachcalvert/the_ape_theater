@@ -1,0 +1,11 @@
+{% load page_tags %}
+{
+    "id": "{{ item.id }}",
+    "title": "{{ item.name }}",
+    {% if item.banner %}
+        {% include 'widgets/image.json' with url=item.banner.image.url %},
+    {% endif %}
+    "time": "{{ item.start_time }}",
+    "path": "{{ item.get_api_url }}",
+    "url": "{{ item.get_absolute_url }}"
+}

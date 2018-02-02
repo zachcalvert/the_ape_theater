@@ -1,0 +1,28 @@
+{% load page_tags %}
+
+{
+	"id": "{{ page.id }}", 
+	"page": "{{ page.name }}",
+
+	"widgets": [
+		{% for widget in page.widgets %}
+			{% if widget.bannerwidget %}
+				{% with widget.bannerwidget as widget %}
+					{% include widget.template_name %}{% loopcomma %}
+					{% endwith %}
+			{% elif widget.eventswidget %}
+				{% with widget.eventswidget as widget %}
+					{% include widget.template_name %}{% loopcomma %}
+				{% endwith %}
+			{% elif widget.peoplewidget %}
+				{% with widget.peoplewidget as widget %}
+					{% include widget.template_name %}{% loopcomma %}
+				{% endwith %}
+			{% elif widget.imagecarouselwidget %}
+				{% with widget.imagecarouselwidget as widget %}
+					{% include 'widgets/image_carousel.json' %}{% loopcomma %}
+				{% endwith %}
+			{% endif %}
+		{% endfor %}
+	]
+}

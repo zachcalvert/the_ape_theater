@@ -1,0 +1,36 @@
+/* -----------  ----------- */
+@media screen and (max-width: 767px) {
+  
+    #logout {
+        float:none;
+    }
+    .gallery-item {
+        background-color: inherit;
+        border: none;
+        text-align: center;
+        font-weight: bold;
+        font-size: 11px;
+        padding: 0px;
+        margin: 0 auto 20px 0;
+        display: inline-block;
+    }
+    .widget-person-image {
+        width: 300px;
+    }
+
+}
+
+@media screen and (max-width: 540px) {
+
+    .gallery-item {
+        background-color: inherit;
+        border: none;
+        text-align: center;
+        font-weight: bold;
+        font-size: 11px;
+        padding: 0px;
+        width: 160px;
+        margin: 0 auto 20px 0;
+        display: inline-block;
+    }
+}

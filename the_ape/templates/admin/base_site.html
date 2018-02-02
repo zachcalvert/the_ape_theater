@@ -1,0 +1,7 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrahead %}
+    <link rel="icon" href="{{STATIC_URL}}images/favicon.ico" sizes="48x48" />
+{% endblock %}

@@ -1,0 +1,143 @@
+/*! project specific CSS goes here. */
+
+body {
+	padding-top: 31px;
+    background: #E1E3E4;
+    margin:  0px;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    border: none;
+}
+
+input[type="radio"] {
+    -webkit-appearance: checkbox; /* Chrome, Safari, Opera */
+    -moz-appearance: checkbox;    /* Firefox */
+    -ms-appearance: checkbox;     /* not currently supported */
+}
+
+/* start navigation bar */
+.container {
+    margin-left: 0!important;
+    margin-right: 0!important;
+    width: 100%;
+}
+
+.navbar-nav {
+    float: right;
+    margin: 0;
+    width: 85%;
+}
+
+#logout {
+    float: right;
+}
+/* end navigation bar */
+
+
+/* start main page layout */
+.page-content {
+    padding: 0 20px;
+    margin: 20px 0 0 0; /* 20px for the fixed nav bar */
+}
+
+.page-content h2 {
+    color: black;
+    padding: 0px;
+    margin-top: 10px;
+}
+
+
+#widgets-list {
+    margin: 20px 0 10px 0;
+    padding:0;
+}
+
+/* end main page layout */
+
+
+/* start banner widget */
+.page-banner {
+    margin: 0 -20px 1px -20px;
+}
+/* end banner widget */
+
+
+/* gallery widget */
+.gallery-widget {
+    width: 100%;
+    text-align: center;
+    position:  relative;
+    overflow: hidden;
+}
+
+.gallery-item {
+    background-color: inherit;
+    border: none;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+    display: inline-block;
+}
+
+.gallery-title-only-container {
+    position:relative;
+    top:-60px;
+}
+
+.gallery-title-only-link {
+    font-size:18px !important;
+}
+
+.gallery-item-image-wrap {
+    height: 240px;
+}
+/* end gallery widget */
+
+
+/* start image carousel widget */
+.large-carousel {
+    margin-left: -20px;
+    margin-right: -20px;
+}
+/* end image carousel widget */
+
+
+/* ----- people widget ------*/
+.person-image-wrap {
+    width: 150px;
+    padding: 0;
+}
+
+.person-image-wrap a {
+    color: black;
+    font-size: 12px;
+}
+
+.widget-person-image {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+/* ----- end people widget ------*/
+
+
+/* ----- person focus widget ------*/
+
+/* ----- end person focus widget ------*/
+
+
+/* ----- event focus widget ------*/
+.event-page-banner img {
+    width: 100%;
+}
+.event-page-bio {
+    font-size: 16px;
+    text-align: center;
+    padding: 5px 25px;
+}
+/* ----- end event focus widget ------*/

@@ -1,0 +1,12 @@
+{% load page_tags %}
+<div class="person-image-wrap">
+    <a href="{{ person.url }}">
+        {% if person.image %}
+            <img class="widget-person-image" src="{{ person.image.url }}" 
+                alt="{{ person.name }} image">{{ person.name }}
+        {% else %}
+            <img class="widget-person-image" src="{{ person.image.url }}" 
+                alt="{{ person.name }} image">{{ person.name }}
+        {% endif %}
+    </a>
+</div>

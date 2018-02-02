@@ -1,0 +1,48 @@
+.dh-innards {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.widget-form-content {
+    padding-left: 1em;
+}
+.widget-form-content table {
+    width: 90%;
+}
+
+.empty-form {
+    display: none;
+}
+
+#page_form .grp-tools {
+    right: auto;
+}
+
+.grp-tools .dh-undo-delete {
+    width: auto;
+    padding: 5px;
+    font-weight: bold;
+}
+
+#add-existing-options button {
+    color: #000000;
+}
+
+.formset-table .ui-sortable {
+    float: none;
+}
+
+.item-form.ui-sortable-helper {
+    width: initial !important;
+}
+
+select.link-search-results,
+select.widget_id {
+    height: auto;
+    display: block;
+    margin-top: 1em !important;
+}
+
+#used-slugs {
+    display: none;
+}

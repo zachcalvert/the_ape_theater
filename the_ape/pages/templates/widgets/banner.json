@@ -1,0 +1,7 @@
+{
+    "type": "banner",
+    {% if widget.link %}
+   		"page_path": "{{ widget.link_url }}",
+    {% endif %}
+    {% include 'widgets/image.json' with url=widget.image.url  %}
+}

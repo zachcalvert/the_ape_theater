@@ -1,0 +1,20 @@
+{% load page_tags %}
+
+<div class="gallery">
+    <h2>{{ widget.name|safe }}</h2>
+    <div class="gallery-widget" id="gallery-widget-{{ widget.id }}">
+    	{% if widget.eventswidget %}
+	        {% for event in widget.items %}
+	            <div class="gallery-item" id="event-{{ event.id }}">
+	                {% include 'widgets/items/event.html' %}
+	            </div>
+	        {% endfor %}
+	    {% else %}
+	    	{% for person in widget.items %}
+	            <div class="gallery-item" id="person-{{ person.id }}">
+	                {% include 'widgets/items/person.html' %}
+	            </div>
+	        {% endfor %}
+	    {% endif %}
+    </div>
+</div>
