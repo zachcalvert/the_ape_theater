@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ ape_class.name }} }| The Ape{% endblock %}
+{% block page_title %}{{ ape_class.name }}{% endblock %}
+
+{% block content %}
+	{{ ape_class.banner_url }}
+	<div class="ape-class-page-banner">
+		<img src="{{ ape_class.banner.image.url }}" />
+	</div>
+	<div class="ape-class-page-bio">
+		<p>{{ ape_class.bio }}</p>
+	</div>
+	<div class="ape-class-page-tickets">
+		<button>Register</button>
+	</div>
+{% endblock %}

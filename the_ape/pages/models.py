@@ -171,7 +171,7 @@ class Page(models.Model):
 
     def to_data(self):
         data = {
-            'title': self.name,
+            'name': self.name,
         }
         widgets = [w for w in self.widgets if w.is_active]
         data['widgets'] = [widget.get_subclass().to_data() for widget in widgets]
@@ -379,6 +379,7 @@ class PeopleWidget(GroupWidget):
             ('row_focus', 'Row'),
         ),
     )
+    source_house_team = models.ForeignKey(HouseTeam, null=True, blank=True)
 
     class Meta:
         verbose_name = "group of people"
@@ -389,10 +390,20 @@ class PeopleWidget(GroupWidget):
 
     @property
     def items(self):
+        if self.source_house_team:
+            people = Person.objects.filter(house_team=self.source_house_team)
+            return people
         if self.pk and self.people.exists():
-            handpicked = Person.objects.filter(people_widgets=self)
+            people = Person.objects.filter(people_widgets=self)
             return handpicked
         return Person.objects.all()
+
+    def item_data(self, item):
+        data = super(PeopleWidget, self).item_data(item)
+        data.update({
+            "image": item.headshot.url
+        })
+        return data
 
 
 class ApeClassFocusWidget(Widget):
@@ -429,10 +440,18 @@ class ApeClassesWidget(GroupWidget):
 
     @property
     def items(self):
-        if self.pk and self.people.exists():
+        if self.pk and self.ape_classes.exists():
             handpicked = ApeClass.objects.filter(ape_classes_widgets=self)
             return handpicked
         return ApeClass.objects.all()
+
+    def item_data(self, item):
+        data = super(ApeClassesWidget, self).item_data(item)
+        data.update({
+            "image": item.banner.image.url,
+            "type": item.class_type
+        })
+        return data
 
 
 class BannerWidget(Widget, PageLinkMixin):

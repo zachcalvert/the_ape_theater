@@ -246,8 +246,16 @@ class EventFocusWidgetForm(WidgetForm):
         }
 
 
+class ApeClassWidgetForm(WidgetForm):
+    item_model = pages.models.ApeClass
+
+
+class PersonWidgetForm(WidgetForm):
+    item_model = Person
+
+
 class EventWidgetForm(WidgetForm):
-    item_model = pages.models.Event
+    item_model = Event
 
 
 class BannerWidgetForm(WidgetForm):
@@ -276,7 +284,9 @@ def get_widget_form(widget_type=None, prefix='__prefix__', inline=True, data=Non
         pages.models.ImageCarouselWidget: ImageCarouselWidgetForm,
         pages.models.EventFocusWidget: EventFocusWidgetForm,
         pages.models.EventsWidget: EventWidgetForm,
-        pages.models.BannerWidget: BannerWidgetForm
+        pages.models.BannerWidget: BannerWidgetForm,
+        pages.models.PeopleWidget: PersonWidgetForm,
+        pages.models.ApeClassesWidget: ApeClassWidgetForm
     }
     if widget_type in registry:
         BaseForm = registry.get(widget_type)

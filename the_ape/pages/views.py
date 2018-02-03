@@ -57,6 +57,12 @@ def widget_for_group(group, **kwargs):
 class PageView(JSONView):
     content_type = "text/json"
 
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.path == 'favicon.ico':
+            return HttpResponse(status_code=200)
+
+        return super(PageView, self).dispatch(request, *args, **kwargs)
+
     def get_page(self, page_id=None, page_slug=None, **kwargs):
         if page_id:
             page = get_object_or_404(Page, id=page_id)
@@ -134,7 +140,7 @@ class ApeClassWrapperView(WebPageWrapperView):
     context_object_name = "ape_class"
 
     def get_api_url(self, ape_class_id, *args, **kwargs):
-        return reverse('class', kwargs={'class_id': ape_class_id}, urlconf='pages.api_urls')
+        return reverse('ape_class', kwargs={'ape_class_id': ape_class_id}, urlconf='pages.api_urls')
 
     def get_context_data(self, ape_class_id, **kwargs):
         context = super(ApeClassWrapperView, self).get_context_data(**kwargs)

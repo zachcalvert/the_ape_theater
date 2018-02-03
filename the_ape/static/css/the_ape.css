@@ -57,6 +57,9 @@ input[type="radio"] {
     padding:0;
 }
 
+#widgets-list h2 {
+    margin-top: 30px;
+}
 /* end main page layout */
 
 
@@ -144,6 +147,17 @@ input[type="radio"] {
     font-size: 14px
 }
 /* end gallery widget event item */
+
+
+/* start gallery widget ape class item */
+.ape-class-image {
+    width: 400px;
+}
+.ape-class-name {
+    font-weight: bold;
+    font-size: 14px
+}
+/* end gallery widget class item item */
 
 
 /* start image carousel widget */

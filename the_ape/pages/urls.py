@@ -8,7 +8,7 @@ import pages.views as views
 urlpatterns = [
     url(r'^$', login_required(views.SlugPageWrapperView.as_view(page_slug='home')), name='home'),
 
-    url(r'^classes/(?P<class_id>\d+)', views.ApeClassWrapperView.as_view(), name='class_wrapper'),
+    url(r'^classes/(?P<ape_class_id>\d+)', views.ApeClassWrapperView.as_view(), name='ape_class_wrapper'),
     url(r'^events/(?P<event_id>\d+)', views.EventWrapperView.as_view(), name='event_wrapper'),
     url(r'^people/(?P<person_id>\d+)', views.PersonWrapperView.as_view(), name='person_wrapper'),
 

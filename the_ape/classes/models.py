@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from people.models import Person
 
@@ -18,6 +19,7 @@ class ApeClass(models.Model):
     bio = models.TextField()
     active = models.BooleanField(default=True)
     class_type = models.CharField(choices=TYPE_CHOICES, max_length=50)
+    banner = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
 
     class Meta(object):
         verbose_name = 'Ape Class'
@@ -25,6 +27,24 @@ class ApeClass(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_api_url(self):
+        return reverse('ape_class', kwargs={'ape_class_id': self.pk})
+
+    def get_absolute_url(self):
+        return reverse('ape_class_wrapper', kwargs={'ape_class_id': self.pk})
+
+    def to_data(self):
+        data = {
+            "id": self.id,
+            "name": self.name,
+            "bio": self.bio,
+            "type": self.class_type
+        }
+        if self.banner:
+            data['banner_url'] = self.banner.image.url
+
+        return data
 
 
 class ApeClassSession(models.Model):

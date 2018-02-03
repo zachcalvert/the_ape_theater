@@ -1,0 +1,10 @@
+{% load page_tags %}
+
+<div class="ape-class-image-wrap">
+    <a href="{{ ape_class.path|wrapped_url }}">
+        <img class="ape-class-image" src="{{ ape_class.image }}" 
+                alt="{{ ape_class.name }} image">
+    </a>
+</div>
+
+<p class="ape-class-name">{{ ape_class.name|safe }}</p>
