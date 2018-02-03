@@ -80,7 +80,7 @@ class Widget(AbstractWidget):
     def to_data(self):
         data = {
             "id": self.id,
-            "title": self.name,
+            "name": self.name,
         }
         return data
 
@@ -302,7 +302,7 @@ class GroupWidget(AbstractGroupWidget):
     def item_data(self, item):
         data = {
             "id": item.id,
-            "title": item.name,
+            "name": item.name,
             "path": item.get_api_url(),
         }
         return data

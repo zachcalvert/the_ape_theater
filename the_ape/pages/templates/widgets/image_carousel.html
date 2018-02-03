@@ -7,7 +7,7 @@
     <ul id="carousel-{{ widget.id }}" class="bxslider">
         {% for image in widget.images %}
             <li>
-                <a href="image.path|wrapped_url">
+                <a href="{{ image.path|wrapped_url }}">
                     {% include 'widgets/image.html' with url=image.image.url name=image.name %}
                 </a>
             </li>
@@ -28,6 +28,7 @@
             prevText: "<i class=\"slider-chevrons fa fa-chevron-left\"></i>",
             nextText: "<i class=\"slider-chevrons fa fa-chevron-right\"></i>",
             pager: false,
+            speed: 500,
             onSlideAfter: function() {
                 carousel.startAuto()
             }

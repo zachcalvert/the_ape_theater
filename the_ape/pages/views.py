@@ -82,6 +82,8 @@ class WebPageWrapperView(TemplateView):
 
     def dispatch(self, request, *args, **kwargs):
         try:
+            if self.request.path == 'favicon.ico':
+                return HttpResponse(status_code=200)
             resolver_match = resolve(self.get_api_url(*args, **kwargs), self.url_namespace)
         except Resolver404:
             raise Http404

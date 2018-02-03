@@ -1,23 +1,12 @@
 {% load page_tags %}
 
-{% if event.image %}
-    <div class="event-image-wrap">
-        <a href="{{ event.url }}">
-            <img class="event-image" src="{{ event.image }}" 
-                    alt="{{ event.name }} image">
-        </a>
-    </div>
-    
-    {% if event.title %}
-        <p class="event-name">{{ event.name|safe }}</p>
-    {% endif %}
+<div class="event-image-wrap">
+    <a href="{{ event.path|wrapped_url }}">
+        <img class="event-image" src="{{ event.image }}" 
+                alt="{{ event.name }} image">
+    </a>
+</div>
 
-{% else %}
-    <div class="event-name-only-container">
-        <a class="event-name-only-link" href="{{ event.url }}">
-        {% if event.title %}
-            <strong>{{ event.title|safe }}</strong>
-        {% endif %}
-        </a>
-    </div>
-{% endif %}
+<p class="event-name">{{ event.name|safe }}</p>
+
+
