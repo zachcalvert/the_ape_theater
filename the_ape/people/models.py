@@ -24,7 +24,7 @@ class Person(models.Model):
     class Meta(object):
         verbose_name = 'Person'
         verbose_name_plural = 'People'
-        ordering = ['first_name',]
+        ordering = ['first_name']
 
     def __str__(self):
         return '{} {}'.format(self.first_name, self.last_name)
@@ -44,11 +44,11 @@ class Person(models.Model):
             "id": self.id,
             "name": self.name,
             "bio": self.bio,
-            "teaches": teaches,
-            "performs": performs,
-            "house_team": house_team
+            "teaches": self.teaches,
+            "performs": self.performs,
+            "house_team": str(self.house_team)
         }
         if self.headshot:
-            data['image_url'] = self.headshot.image.url
+            data['image_url'] = self.headshot.url
 
         return data

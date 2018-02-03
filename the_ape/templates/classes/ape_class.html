@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}{{ ape_class.name }} }| The Ape{% endblock %}
-{% block page_title %}{{ ape_class.name }}{% endblock %}
+{% block page_title %}<div class="ape-class-page-name">{{ ape_class.name }}</div>{% endblock %}
 
 {% block content %}
 	{{ ape_class.banner_url }}

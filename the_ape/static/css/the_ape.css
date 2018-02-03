@@ -207,12 +207,21 @@ input[type="radio"] {
 /* ----- end people widget ------*/
 
 
-/* ----- person focus widget ------*/
+/* ----- start person detail page ------*/
+.person-page-name {
+    margin-top: 30px;
+}
+.person-page-headshot img {
+    width: 400px;
+}
 
-/* ----- end person focus widget ------*/
+/* ----- end person detail page ------*/
 
 
-/* ----- event page ------*/
+/* ----- event detail page ------*/
+.event-page-name {
+    margin-top: 30px;
+}
 .event-page-banner img {
     width: 100%;
 }
@@ -224,4 +233,10 @@ input[type="radio"] {
 .event-page-tickets {
     text-align: center;
 }
-/* ----- end event page ------*/
+/* ----- end event detail page ------*/
+
+/* ----- start class detail page ------*/
+.ape-class-page-name {
+    margin-top: 30px;
+}
+/* ----- end class detail page ------*/
