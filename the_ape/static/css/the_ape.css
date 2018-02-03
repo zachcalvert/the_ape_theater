@@ -131,7 +131,7 @@ input[type="radio"] {
 /* ----- end person focus widget ------*/
 
 
-/* ----- event focus widget ------*/
+/* ----- event page ------*/
 .event-page-banner img {
     width: 100%;
 }
@@ -140,4 +140,7 @@ input[type="radio"] {
     text-align: center;
     padding: 5px 25px;
 }
-/* ----- end event focus widget ------*/
+.event-page-tickets {
+    text-align: center;
+}
+/* ----- end event page ------*/

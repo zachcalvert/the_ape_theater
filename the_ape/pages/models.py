@@ -14,6 +14,7 @@ from model_utils.managers import InheritanceManager
 
 from classes.models import ApeClass, Student
 from events.models import Event
+from pages.fields import SortedManyToManyField
 from people.models import Person, HouseTeam
 
 
@@ -41,8 +42,8 @@ class AbstractWidget(models.Model):
 
 
 class Widget(AbstractWidget):
-    start_date = models.DateTimeField(null=True, blank=True)
-    end_date = models.DateTimeField(null=True, blank=True)
+    start_date = models.DateTimeField(null=True, blank=True, help_text="Time at which this widget will turn on")
+    end_date = models.DateTimeField(null=True, blank=True, help_text="Time at which this widget will turn off")
 
     @staticmethod
     def autocomplete_search_fields():
@@ -68,16 +69,20 @@ class Widget(AbstractWidget):
     def type_name_plural(self):
         return self.type_name(plural=True)
 
+    @property
+    def is_active(self):
+        if self.start_date and self.start_date > datetime.now():
+            return False
+        if self.end_date and self.end_date < datetime.now():
+            return False
+        return True
 
-class WidgetItemManager(models.Manager):
-    use_for_related_fields = True
-
-    def active(self):
-        return self.exclude(
-            start_date__gt=datetime.now()
-        ).exclude(
-            end_date__lt=datetime.now()
-        )
+    def to_data(self):
+        data = {
+            "id": self.id,
+            "title": self.name,
+        }
+        return data
 
 
 class WidgetItem(models.Model):
@@ -85,13 +90,19 @@ class WidgetItem(models.Model):
     Abstract base class for items that are contained inside widgets
     """
     sort_order = models.IntegerField()
-    start_date = models.DateTimeField(null=True, blank=True)
-    end_date = models.DateTimeField(null=True, blank=True)
-
-    objects = WidgetItemManager()
+    start_date = models.DateTimeField(null=True, blank=True, help_text="Time at which this item will turn on")
+    end_date = models.DateTimeField(null=True, blank=True, help_text="Time at which this item will turn off")
 
     class Meta:
         abstract = True
+
+    @property
+    def is_active(self):
+        if self.start_date and self.start_date > datetime.now():
+            return False
+        if self.end_date and self.end_date < datetime.now():
+            return False
+        return True
 
 
 class PageToWidget(models.Model):
@@ -142,7 +153,7 @@ class Page(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     draft = models.BooleanField(default=False)
 
-    widgets_base = models.ManyToManyField(
+    widgets_base = SortedManyToManyField(
         Widget,
         through=PageToWidget,
         related_name='pages'
@@ -158,9 +169,18 @@ class Page(models.Model):
     def autocomplete_search_fields():
         return ("id__iexact", "name__icontains", "slug__icontains")
 
+    def to_data(self):
+        data = {
+            'title': self.name,
+        }
+        widgets = [w for w in self.widgets if w.is_active]
+        data['widgets'] = [widget.get_subclass().to_data() for widget in widgets]
+        return data
+
     @property
     def widgets(self):
-        return self.widgets_base.active().order_by('page_to_widgets__sort_order')
+        widgets = list(self.widgets_base.select_subclasses().order_by('page_to_widgets__sort_order'))
+        return widgets
 
     @widgets.setter
     def widgets(self, some_widgets):
@@ -176,6 +196,12 @@ class Page(models.Model):
             else:
                 sort_order += 1
         return self.page_to_widgets.create(widget=widget, sort_order=sort_order)
+
+    def get_url(self):
+        if self.slug:
+            return reverse('slug_page_wrapper', kwargs={"page_slug": self.slug})
+        else:
+            return reverse('page_id_wrapper', kwargs={'page_id': self.id, 'slug': self.link_slug})
 
     def get_api_url(self):
         return reverse("page", kwargs={"page_id": self.id})
@@ -215,7 +241,6 @@ class PageLinkWidgetItem(WidgetItem, PageLinkMixin):
 
 class TextWidget(Widget):
     content = models.TextField()
-    template_name = "widgets/text.json"
 
     class Meta:
         verbose_name = "block of text"
@@ -223,11 +248,19 @@ class TextWidget(Widget):
 
     @property
     def json_content(self):
-        return self.content.replace("\n", r"\n").replace("\r", r"\r")
+        return self.content.replace("\n", r"").replace("\r", r"")
+
+    def to_data(self, *args, **kwargs):
+        data = super(TextWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": "text",
+            "text": self.json_content,
+        })
+        return data
 
 
 class AbstractGroupWidget(Widget):
-    template_name = "widgets/group.json"
+    group_type = None
 
     class Meta:
         abstract = True
@@ -235,11 +268,21 @@ class AbstractGroupWidget(Widget):
     def item_type(self):
         raise NotImplementedError("Group widgets need to say their item_type")
 
-    def item_template_name(self):
-        return "widgets/items/{}.json".format(self.item_type())
+    def item_data(self, item):
+        raise NotImplementedError()
 
-    def see_all_url(self):
-        return None
+    def to_data(self, *args, **kwargs):
+        data = super(AbstractGroupWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": self.display_type,
+            "item_type": self.item_type(),
+            "items": [
+                self.item_data(item) for item in self.items.all()
+            ]
+        })
+        if self.group_type:
+            data["group_type"] = self.group_type
+        return data
 
 
 class GroupWidget(AbstractGroupWidget):
@@ -247,7 +290,7 @@ class GroupWidget(AbstractGroupWidget):
     A group of classes, events, or people
     """
     class DefaultMeta:
-        required_fields = ['display_type',]
+        required_fields = ['display_type']
 
     class Meta:
         abstract = True
@@ -256,10 +299,25 @@ class GroupWidget(AbstractGroupWidget):
     def items(self):
         raise NotImplementedError()
 
+    def item_data(self, item):
+        data = {
+            "id": item.id,
+            "title": item.name,
+            "path": item.get_api_url(),
+        }
+        return data
+
 
 class EventFocusWidget(Widget):
-    template_name = "widgets/event_focus.json"
     event = models.ForeignKey(Event, null=True, blank=True)
+
+    def to_data(self, *args, **kwargs):
+        data = super(EventFocusWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": "event_focus",
+            "book": self.event.to_data(*args, **kwargs)
+        })
+        return data
 
 
 class EventsWidget(GroupWidget):
@@ -279,7 +337,6 @@ class EventsWidget(GroupWidget):
         verbose_name = "group of events"
         verbose_name_plural = "groups of events"
 
-
     def item_type(self):
         return "event"
 
@@ -290,10 +347,24 @@ class EventsWidget(GroupWidget):
             return handpicked
         return Event.objects.all()
 
+    def item_data(self, item):
+        data = super(EventsWidget, self).item_data(item)
+        data.update({
+            "image": item.banner.image.url
+        })
+        return data
+
 
 class PersonFocusWidget(Widget):
-    template_name = "widgets/person_focus.json"
     person = models.ForeignKey(Person, null=True, blank=True)
+
+    def to_data(self, *args, **kwargs):
+        data = super(PersonFocusWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": "person_focus",
+            "book": self.person.to_data(*args, **kwargs)
+        })
+        return data
 
 
 class PeopleWidget(GroupWidget):
@@ -313,7 +384,6 @@ class PeopleWidget(GroupWidget):
         verbose_name = "group of people"
         verbose_name_plural = "groups of people"
 
-
     def item_type(self):
         return "person"
 
@@ -325,21 +395,82 @@ class PeopleWidget(GroupWidget):
         return Person.objects.all()
 
 
+class ApeClassFocusWidget(Widget):
+    ape_class = models.ForeignKey(ApeClass, null=True, blank=True)
+
+    def to_data(self, *args, **kwargs):
+        data = super(ApeClassFocusWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": "ape_class_focus",
+            "ape_class": self.ape_class.to_data(*args, **kwargs)
+        })
+        return data
+
+
+class ApeClassesWidget(GroupWidget):
+    ape_classes = models.ManyToManyField(ApeClass, blank=True, related_name='ape_classes_widgets')
+    display_type = models.CharField(
+        max_length=100,
+        default='gallery',
+        null=True,
+        blank=True,
+        choices=(
+            ('gallery', 'Cover Gallery'),
+            ('row_focus', 'Row'),
+        ),
+    )
+
+    class Meta:
+        verbose_name = "group of ape classes"
+        verbose_name_plural = "groups of ape classes"
+
+    def item_type(self):
+        return "ape_class"
+
+    @property
+    def items(self):
+        if self.pk and self.people.exists():
+            handpicked = ApeClass.objects.filter(ape_classes_widgets=self)
+            return handpicked
+        return ApeClass.objects.all()
+
+
 class BannerWidget(Widget, PageLinkMixin):
     image = models.ImageField()
-    template_name = "widgets/banner.json"
 
     class Meta(Widget.Meta):
         verbose_name = "banner"
         verbose_name_plural = "banners"
 
+    def to_data(self, *args, **kwargs):
+        data = super(BannerWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": "banner",
+            "image":  {"url": self.image.url}
+        })
+        try:
+            if self.link_url:
+                data["page_path"] = self.link_url
+        except AttributeError:
+            pass
+        return data
+
 
 class ImageCarouselWidget(Widget):
-    template_name = "widgets/image_carousel.json"
 
     class Meta:
         verbose_name = "carousel of big images"
         verbose_name_plural = "carousels of big images"
+
+    def to_data(self, *args, **kwargs):
+        data = super(ImageCarouselWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": "image_carousel",
+            "images": [
+                image.to_data() for image in self.images.all()
+            ]
+        })
+        return data
 
 
 class ImageCarouselItem(PageLinkWidgetItem):
@@ -349,7 +480,19 @@ class ImageCarouselItem(PageLinkWidgetItem):
     class Meta:
         verbose_name = "image"
         verbose_name_plural = "images"
+        ordering = ["sort_order"]
 
     def clean(self):
         if not self.link:
             raise ValidationError({'link': ["This field is required."]})
+
+    def image_as_data(self, image):
+        return {"url": image.url}
+
+    def to_data(self):
+        return {
+            "image": self.image_as_data(self.image),
+            "path": self.link_url,
+            "start_date": self.start_date,
+            "end_date": self.end_date,
+        }

@@ -19,3 +19,16 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse('event_wrapper', kwargs={'event_id': self.pk})
+
+    def to_data(self):
+        data = {
+            "id": self.id,
+            "name": self.name,
+            "bio": self.bio,
+            "start_time": str(self.start_time),
+            "ticket_price": self.ticket_price
+        }
+        if self.banner:
+            data['banner_url'] = self.banner.image.url
+
+        return data

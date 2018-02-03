@@ -7,8 +7,8 @@
     <ul id="carousel-{{ widget.id }}" class="bxslider">
         {% for image in widget.images %}
             <li>
-                <a href="#">
-                    {% include 'widgets/image.html' with url=image.url name=image.name %}
+                <a href="image.path|wrapped_url">
+                    {% include 'widgets/image.html' with url=image.image.url name=image.name %}
                 </a>
             </li>
         {% endfor %}

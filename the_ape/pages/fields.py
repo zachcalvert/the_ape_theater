@@ -1,4 +1,6 @@
+from django import forms
 from django.db import models
+from django.utils.functional import curry
 
 class SortedManyToManyField(models.ManyToManyField):
 
@@ -36,3 +38,14 @@ class SortedManyToManyField(models.ManyToManyField):
                 }
                 self.rel.through.objects.create(**kwargs)
         return instance
+
+
+class SortedModelMultipleChoiceField(forms.ModelMultipleChoiceField):
+    def clean(self, value):
+        if len(value) > len(set(value)):
+            raise ValidationError("Cannot have duplicates")
+
+        qs = super(SortedModelMultipleChoiceField, self).clean(value)  # get all results in one query
+        by_pk = dict([(str(b.pk), b) for b in qs])  # make them easily fetchable by primary key
+        sorted_models = [by_pk[pk] for pk in value]
+        return sorted_models

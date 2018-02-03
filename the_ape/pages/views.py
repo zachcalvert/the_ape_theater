@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse, Resolver404, resolve
 from django.http import Http404, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template.response import TemplateResponse
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
@@ -13,7 +13,8 @@ from django.views.generic import View, TemplateView
 
 from classes.models import ApeClass, Student
 from events.models import Event
-from pages.models import Page
+from pages.models import Page, EventsWidget, PeopleWidget, ApeClassesWidget, \
+    ImageCarouselWidget, BannerWidget
 from people.models import Person, HouseTeam
 
 
@@ -24,23 +25,51 @@ class JSONHttpResponse(HttpResponse):
         super(JSONHttpResponse, self).__init__(content, *args, **kwargs)
 
 
-class PageView(TemplateView):
-    template_name = 'page.json'
+class JSONView(View):
 
-    def get_context_data(self, **kwargs):
-        context = super(PageView, self).get_context_data(**kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        data = super(JSONView, self).dispatch(request, *args, **kwargs)
 
-        if kwargs.get('page_slug'):
-            page = Page.objects.get(slug=kwargs['page_slug'])
+        if isinstance(data, HttpResponse):
+            return data
         else:
-            try:
-                page = Page.objects.get(id=kwargs['page_id'])
-            except KeyError:
-                return 'what'
+            return JSONHttpResponse(data)
 
-        context['page'] = page
 
-        return context
+def widget_for_group(group, **kwargs):
+    """
+    Create (but don't save) a widget of the correct subclass of CatalogGroupWidget based on the contents of the group.
+
+    Widget is created using **kwargs
+    :return:
+    """
+    if isinstance(group, Event):
+        widget_class = EventsWidget
+    elif isinstance(group, Person):
+        widget_class = PeopleWidget
+    else:
+        widget_class = ApeClassesWidget
+
+    kwargs.setdefault('name', group.name)
+    return widget_class(**kwargs)
+
+
+class PageView(JSONView):
+    content_type = "text/json"
+
+    def get_page(self, page_id=None, page_slug=None, **kwargs):
+        if page_id:
+            page = get_object_or_404(Page, id=page_id)
+        elif page_slug:
+            page = Page.objects.get(slug=page_slug)
+        else:
+            raise Http404()
+        return page
+
+    def get(self, request, *args, **kwargs):
+        page = self.get_page(**kwargs)
+        page_data = page.to_data()
+        return page_data
 
 
 class WebPageWrapperView(TemplateView):
@@ -84,6 +113,12 @@ class WebPageWrapperView(TemplateView):
         return context
 
 
+class PageIDWrapperView(WebPageWrapperView):
+
+    def get_api_url(self, page_id=None, slug=None, *args, **kwargs):
+        return reverse('page', kwargs={'page_id': page_id, 'slug': slug}, urlconf='display.api_urls')
+
+
 class SlugPageWrapperView(WebPageWrapperView):
     page_slug = None
 
@@ -96,8 +131,14 @@ class ApeClassWrapperView(WebPageWrapperView):
     template_name = "classes/ape_class.html"
     context_object_name = "ape_class"
 
-    def get_api_url(self, class_id, *args, **kwargs):
-        return reverse('class', kwargs={'class_id': class_id}, urlconf='pages.api_urls')
+    def get_api_url(self, ape_class_id, *args, **kwargs):
+        return reverse('class', kwargs={'class_id': ape_class_id}, urlconf='pages.api_urls')
+
+    def get_context_data(self, ape_class_id, **kwargs):
+        context = super(ApeClassWrapperView, self).get_context_data(**kwargs)
+        ape_class = get_object_or_404(ApeClass, pk=ape_class_id)
+        context['class'] = ape_class
+        return context
 
 
 class EventWrapperView(WebPageWrapperView):
@@ -107,79 +148,46 @@ class EventWrapperView(WebPageWrapperView):
     def get_api_url(self, event_id, *args, **kwargs):
         return reverse('event', kwargs={'event_id': event_id}, urlconf='pages.api_urls')
 
+    def get_context_data(self, event_id, **kwargs):
+        context = super(EventWrapperView, self).get_context_data(**kwargs)
+        event = get_object_or_404(Event, pk=event_id)
+        context['event'] = event
+        return context
+
 
 class PersonWrapperView(WebPageWrapperView):
-    template_name = "people/person_focus.html"
+    template_name = "people/person.html"
     context_object_name = "person"
 
     def get_api_url(self, person_id, *args, **kwargs):
         return reverse('person', kwargs={'person_id': person_id}, urlconf='pages.api_urls')
 
+    def get_context_data(self, person_id, **kwargs):
+        context = super(PersonWrapperView, self).get_context_data(**kwargs)
+        person = get_object_or_404(Person, pk=person_id)
+        context['person'] = person
+        return context
 
-class EventView(View):
-    def event_data(self, event):
-        event_dict = {
-            'id': event.id,
-            'name': event.name,
-            'bio': event.bio,
-            'start_time': str(event.start_time),
-            'max_tickets': event.max_tickets,
-            'tickets_sold': event.tickets_sold,
-            'ticket_price': str(event.ticket_price),
-            'banner_url': event.banner.image.url
-        }
 
-        return event_dict
+class EventView(JSONView):
 
     def get(self, request, event_id):
-        try:
-            event = Event.objects.get(id=event_id)
-        except Event.DoesNotExist:
-            raise Http404()
-
-        api_dict = self.event_data(event)
-
-        return HttpResponse(json.dumps(api_dict))
+        event = get_object_or_404(Event, pk=event_id)
+        data = event.to_data()
+        return data
 
 
-class PersonView(View):
-    def person_data(self, person):
-        person_dict = {
-            'id': person.id,
-            'name': person.name,
-            'image_url': person.image.url,
-            'house_team': person.house_team.name,
-            'url': person.get_absolute_url()
-        }
-        return person_dict
+class PersonView(JSONView):
 
     def get(self, request, person_id):
-        try:
-            person = Person.objects.get(id=person_id)
-        except Person.DoesNotExist:
-            raise Http404()
-
-        api_dict = self.person_data(person)
-
-        return HttpResponse(json.dumps(api_dict))
+        person = get_object_or_404(Person, pk=person_id)
+        data = person.to_data()
+        return data
 
 
-class ApeClassView(View):
-    def ape_class_data(self, ape_class):
-        ape_class_dict = {
-            'id': ape_class.id,
-            'name': ape_class.name,
-            'bio': ape_class.bio,
-        }
-
-        return ape_class_dict
+class ApeClassView(JSONView):
 
     def get(self, request, ape_class_id):
-        try:
-            ape_class = ApeClass.objects.get(id=ape_class_id)
-        except ApeClass.DoesNotExist:
-            raise Http404()
-
-        api_dict = self.ape_class_data(ape_class)
-
-        return HttpResponse(json.dumps(api_dict))
+        ape_class = get_object_or_404(ApeClass, pk=ape_class_id)
+        data = ape_class.to_data()
+        return data

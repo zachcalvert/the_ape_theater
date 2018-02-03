@@ -261,8 +261,6 @@ class GroupWidgetForm(WidgetForm):
 
 
 def get_widget_form(widget_type=None, prefix='__prefix__', inline=True, data=None, *args, **kwargs):
-    import pdb
-    pdb.set_trace()
     prefix = "widget-{}".format(prefix)
     kwargs['prefix'] = prefix
     if data:
@@ -277,7 +275,7 @@ def get_widget_form(widget_type=None, prefix='__prefix__', inline=True, data=Non
     registry = {
         pages.models.ImageCarouselWidget: ImageCarouselWidgetForm,
         pages.models.EventFocusWidget: EventFocusWidgetForm,
-        pages.models.EventWidget: EventWidgetForm,
+        pages.models.EventsWidget: EventWidgetForm,
         pages.models.BannerWidget: BannerWidgetForm
     }
     if widget_type in registry:
@@ -348,7 +346,7 @@ class PageForm(forms.ModelForm):
                 if hasattr(widget, 'get_proxied_widget'):
                     widget = widget.get_proxied_widget()
                 kwargs['instance'] = widget
-                widget_form = get_widget_form(type(widget), prefix=str(i), **kwargs)
+                widget_form = get_widget_form(type(widget.get_subclass()), prefix=str(i), **kwargs)
                 self.widget_forms.append(widget_form)
 
     def is_valid(self):

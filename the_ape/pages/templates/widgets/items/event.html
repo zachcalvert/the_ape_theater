@@ -1,15 +1,15 @@
 {% load page_tags %}
 
-{% if event.banner %}
+{% if event.image %}
     <div class="event-image-wrap">
         <a href="{{ event.url }}">
-            <img class="event-image" src="{{ event.banner.image.url }}" 
+            <img class="event-image" src="{{ event.image }}" 
                     alt="{{ event.name }} image">
         </a>
     </div>
     
     {% if event.title %}
-        <p class="event-name">{{ event.title|safe }}</p>
+        <p class="event-name">{{ event.name|safe }}</p>
     {% endif %}
 
 {% else %}
