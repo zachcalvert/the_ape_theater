@@ -68,6 +68,8 @@ input[type="radio"] {
 
 
 /* gallery widget */
+/* gallery widget */
+
 .gallery-widget {
     width: 100%;
     text-align: center;
@@ -81,28 +83,93 @@ input[type="radio"] {
     text-align: center;
     font-weight: bold;
     font-size: 11px;
+    padding: 0 10px 10px;
+    margin: 0 auto 0 0;
     display: inline-block;
+    vertical-align: bottom;
+}
+
+.gallery-item h3 {
+    padding: 10px;
+}
+
+.gallery-item p {
+    text-align: center;
+    padding: 0;
+}
+
+.gallery-item-image-wrap {
+    height: 255px;
+}
+
+.gallery-item-image {
+    height:auto;
+    width: 100%;
+}
+
+.gallery-item-title {
+    font-size:14px;
+    margin: 8px 0 3px 0;
+    position:relative;
+    overflow: hidden;
+}
+
+.gallery-item-subtitle {
+    font-weight: normal;
+    font-size:14px;
+    overflow: hidden;
 }
 
 .gallery-title-only-container {
     position:relative;
-    top:-60px;
+    vertical-align: middle;
 }
 
 .gallery-title-only-link {
     font-size:18px !important;
 }
 
-.gallery-item-image-wrap {
-    height: 240px;
+.gallery-title-only-link:hover {
+    color: #ba2d00 !important;
 }
 /* end gallery widget */
 
 
+/* start gallery widget event item */
+.event-image {
+    width: 400px;
+}
+.event-name {
+    font-weight: bold;
+    font-size: 14px
+}
+/* end gallery widget event item */
+
+
 /* start image carousel widget */
-.large-carousel {
-    margin-left: -20px;
-    margin-right: -20px;
+.carousel {
+    text-align: center;
+    position: relative;
+}
+.carousel i {
+    font-size: 32px;
+    color: #000;
+}
+.bx-wrapper {
+    width: 86%;
+}
+.slider-control.prev {
+    text-align: right;
+    position: absolute;
+    top: 40%;
+    left: 1%;
+}
+
+.slider-control.next {
+    text-align: left;
+    position: absolute;
+    top: 40%;
+    right: 1%;
 }
 /* end image carousel widget */
 
