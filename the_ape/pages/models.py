@@ -362,7 +362,7 @@ class PersonFocusWidget(Widget):
         data = super(PersonFocusWidget, self).to_data(*args, **kwargs)
         data.update({
             "type": "person_focus",
-            "book": self.person.to_data(*args, **kwargs)
+            "person": self.person.to_data(*args, **kwargs)
         })
         return data
 

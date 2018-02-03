@@ -207,6 +207,30 @@ input[type="radio"] {
 /* ----- end people widget ------*/
 
 
+/* ----- start person focus widget ------*/
+.person-focus {
+    height: auto;
+    padding: 0 20px;
+    display: inline-block;
+}
+.person-focus-image {
+    width: 300px;
+    float: left;
+    padding: 10px;
+}
+
+.person-focus-name {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+.person-focus-bio {
+    padding: 10px;
+    margin: 0px 30px;
+}
+/* ----- start person focus widget ------*/
+
+
 /* ----- start person detail page ------*/
 .person-page-name {
     margin-top: 30px;
