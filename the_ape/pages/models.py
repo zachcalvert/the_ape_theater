@@ -1,6 +1,9 @@
+import os
 import re
 from datetime import datetime, timedelta
+from audiofield.fields import AudioField
 
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
@@ -584,3 +587,27 @@ class ImageCarouselItem(PageLinkWidgetItem):
             "start_date": self.start_date,
             "end_date": self.end_date,
         }
+
+
+class AudioWidget(Widget):
+    audio_file = AudioField(upload_to='../audio_files', blank=True,
+                            ext_whitelist=(".mp3", ".wav", ".ogg"),
+                            help_text=("Allowed type - .mp3, .wav, .ogg"))
+
+    def to_data(self, *args, **kwargs):
+        data = super(AudioWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": "audio",
+            "audio_file_player": self.audio_file_player(),
+        })
+        return data
+
+    def audio_file_player(self):
+        """audio player tag for admin"""
+        if self.audio_file:
+            file_url = settings.MEDIA_URL + str(self.audio_file)
+            player_string = '<ul class="playlist"><li style="width:250px;">\
+            <a href="%s">%s</a></li></ul>' % (file_url, os.path.basename(self.name))
+            return player_string
+    audio_file_player.allow_tags = True
+    audio_file_player.short_description = 'Audio file player'
