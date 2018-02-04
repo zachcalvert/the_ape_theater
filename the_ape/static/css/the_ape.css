@@ -1,7 +1,6 @@
 /*! project specific CSS goes here. */
 
 body {
-	padding-top: 31px;
     background: #E1E3E4;
     margin:  0px;
 }
@@ -41,7 +40,7 @@ input[type="radio"] {
 
 /* start main page layout */
 .page-content {
-    padding: 0 20px;
+    padding: 11px 20px;
     margin: 20px 0 0 0; /* 20px for the fixed nav bar */
 }
 
