@@ -428,13 +428,15 @@ class PeopleWidget(GroupWidget):
 
     @property
     def items(self):
+        people = Person.objects.all()
+
         if self.source_house_team:
             people = Person.objects.filter(house_team=self.source_house_team)
             return people
         if self.pk and self.people.exists():
             people = Person.objects.filter(people_widgets=self)
-            return handpicked
-        return Person.objects.all()
+            return handpicked | people
+        return people
 
     def item_data(self, item):
         data = super(PeopleWidget, self).item_data(item)
@@ -468,6 +470,17 @@ class ApeClassesWidget(GroupWidget):
             ('row_focus', 'Row'),
         ),
     )
+    class_type = models.CharField(
+        max_length=100,
+        default='gallery',
+        null=True,
+        blank=True,
+        choices=(
+            ('IMPROV', 'Improv'),
+            ('SKETCH', 'Sketch'),
+            ('ACTING', 'Acting'),
+        ),
+    )
 
     class Meta:
         verbose_name = "group of ape classes"
@@ -478,10 +491,13 @@ class ApeClassesWidget(GroupWidget):
 
     @property
     def items(self):
+        ape_classes = ApeClass.objects.all()
+        if self.class_type:
+            ape_classes = ape_classes.filter(class_type=self.class_type)
         if self.pk and self.ape_classes.exists():
             handpicked = ApeClass.objects.filter(ape_classes_widgets=self)
-            return handpicked
-        return ApeClass.objects.all()
+            return handpicked | ape_classes
+        return ape_classes
 
     def item_data(self, item):
         data = super(ApeClassesWidget, self).item_data(item)
