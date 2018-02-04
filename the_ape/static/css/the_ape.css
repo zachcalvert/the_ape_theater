@@ -43,7 +43,6 @@ input[type="radio"] {
 }
 
 .page-content h2 {
-    color: black;
     padding: 0px;
     margin-top: 10px;
 }
@@ -208,7 +207,6 @@ input[type="radio"] {
     padding: 0 20px;
     display: inline-block;
     border-radius: 10px;
-    background: #FFF;
     margin: 5px 0;
 }
 .person-focus-image {

@@ -4,6 +4,48 @@
     {{ page.name|safe }} | The Ape
 {% endblock %}
 
+{% block extra_head_css %}
+  <style>
+      #content {
+          {% if page.background.type == "gradient" and page.background.start_color and page.background.end_color %}
+              background: linear-gradient({{ page.background.start_color }}, {{ page.background.end_color }});
+          {% elif page.background.color %}
+              background-color: {{ page.background.color }};
+          {% endif %}
+
+        {% if page.text_color %}
+            color: {{ page.text_color }} !important;
+        {% endif %}
+      }
+
+      {% if page.text_color %}
+          .slider-control a {
+              fill: {{ page.text_color }};
+          }
+          .widget-header-separator {
+              border-color: {{ page.text_color }};
+          }
+          .slider-chevrons, a.see-all {
+              color: {{ page.text_color }};
+          }
+      {% endif %}
+
+      {%  if page.buy_button_color %}
+          #content .buy-button-container .button,
+          #content .buy-bundle-button .button {
+              background: {{ page.buy_button_color }};
+          }
+      {% endif %}
+
+      {%  if page.buy_button_text_color %}
+          #content .buy-button-container .button,
+          #content .buy-bundle-button .button {
+              color: {{ page.buy_button_text_color }};
+          }
+      {% endif %}
+  </style>
+{% endblock %}
+
 {% block messages %}
     {% if messages %}
       <ul class="messages">

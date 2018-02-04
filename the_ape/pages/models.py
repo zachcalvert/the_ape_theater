@@ -14,7 +14,7 @@ from model_utils.managers import InheritanceManager
 
 from classes.models import ApeClass, Student
 from events.models import Event
-from pages.fields import SortedManyToManyField
+from pages.fields import SortedManyToManyField, ColorField
 from people.models import Person, HouseTeam
 
 
@@ -153,6 +153,20 @@ class Page(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     draft = models.BooleanField(default=False)
 
+    # page color
+    background_gradient = models.NullBooleanField()
+    background_start_color = ColorField(max_length=10, null=True, blank=True)
+    background_end_color = ColorField(max_length=10, null=True, blank=True,
+                                      help_text="Also used as fade color for background image "
+                                                "if specified (default is dominant image color)")
+
+    # text color
+    text_color = ColorField(max_length=10, null=True, blank=True)
+
+    # buy button
+    buy_button_color = ColorField(max_length=10, null=True, blank=True)
+    buy_button_text_color = ColorField(max_length=10, null=True, blank=True)
+
     widgets_base = SortedManyToManyField(
         Widget,
         through=PageToWidget,
@@ -169,11 +183,33 @@ class Page(models.Model):
     def autocomplete_search_fields():
         return ("id__iexact", "name__icontains", "slug__icontains")
 
+    def background_data(self):
+        if self.background_gradient:
+            return {
+                "type": "gradient",
+                "start_color": self.background_start_color,
+                "end_color": self.background_end_color,
+            }
+        else:
+            return {
+                "type": "solid_color",
+                "color": self.background_start_color
+            }
+
     def to_data(self):
         data = {
             'name': self.name,
+            'background': self.background_data()
         }
+        direct_data_fields = [
+            'text_color',
+            'buy_button_color',
+            'buy_button_text_color',
+        ]
+        for field in direct_data_fields:
+            data[field] = getattr(self, field, None)
         widgets = [w for w in self.widgets if w.is_active]
+
         data['widgets'] = [widget.get_subclass().to_data() for widget in widgets]
         return data
 

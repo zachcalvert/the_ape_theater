@@ -22,6 +22,8 @@
       <link href="{{ STATIC_URL }}css/responsive.css" rel="stylesheet">
     {% endblock %}
 
+    {% block extra_head_css %}{% endblock %}
+
     {% block head_js %}
       <script src="{{ STATIC_URL }}js/jquery-2.1.4.min.js"></script>
       <script src="{{ STATIC_URL }}js/bootstrap.min.js" type="application/javascript"></script>
@@ -55,22 +57,24 @@
       </div>
     {% endblock %}
 
-    <div class="page-content">
-      <h2>{% block page_title %}{% endblock %}</h2>
+    <div id="content">
+      <div class="page-content">
+        <h2>{% block page_title %}{% endblock %}</h2>
 
 
-      {% block messages %}
-        {% if messages %}
-          <ul class="messages">
-              {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-              {% endfor %}
-          </ul>
-        {% endif %}
-      {% endblock %}
+        {% block messages %}
+          {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+          {% endif %}
+        {% endblock %}
 
-      {% block content %}{% endblock %}  
-      {% block extra_body_content %}{% endblock %}
+        {% block content %}{% endblock %}  
+        {% block extra_body_content %}{% endblock %}
+      </div>
     </div>
 
     {% block extra_js %}{% endblock %}

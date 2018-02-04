@@ -103,6 +103,20 @@ class PageAdmin(SortedManyToManyAdmin, SaveAsNewAdmin):
         (None, {
             'fields': ('name', ('created', 'last_modified', 'slug'), 'draft')
         }),
+        ("Background", {
+            "classes": ("grp-collapse grp-closed", "previewable"),
+            'fields': (
+                'background_gradient',
+                ('background_start_color', 'background_end_color'),
+            )
+        }),
+        ("Text Color", {
+            "classes": ("grp-collapse grp-closed", "previewable"),
+            'fields': (
+                ('text_color',),
+                ('buy_button_color', 'buy_button_text_color'),
+            )
+        }),
     )
     form = PageForm
     formfield_overrides = {
