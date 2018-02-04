@@ -1,9 +1,7 @@
 {% load page_tags %}
 
 <div class="page-text">
-    <span class="{{ widget.css_class }}">
-        <p style="color: {{ widget.text_color }}">
-            {{ widget.text|json_safe }}
-        </p>
-    </span>
+    <p style="color: {{ widget.text_color }}; text-align: center;">
+        {{ widget.text|json_safe }}
+    </p>
 </div>

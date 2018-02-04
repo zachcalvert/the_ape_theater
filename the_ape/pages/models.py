@@ -277,6 +277,7 @@ class PageLinkWidgetItem(WidgetItem, PageLinkMixin):
 
 class TextWidget(Widget):
     content = models.TextField()
+    text_color = ColorField(blank=True)
 
     class Meta:
         verbose_name = "block of text"
@@ -291,6 +292,7 @@ class TextWidget(Widget):
         data.update({
             "type": "text",
             "text": self.json_content,
+            "text_color": self.text_color,
         })
         return data
 
