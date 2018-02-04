@@ -236,6 +236,16 @@ class ImageCarouselWidgetForm(AbstractGroupWidgetForm):
     item_model = pages.models.ImageCarouselItem
 
 
+class PersonFocusWidgetForm(WidgetForm):
+    item_model = pages.models.PersonFocusWidget
+
+    class Meta:
+        fields = '__all__'
+        widgets = {
+            'person': FilteredSelect(),
+        }
+
+
 class EventFocusWidgetForm(WidgetForm):
     item_model = pages.models.EventFocusWidget
 
@@ -285,7 +295,7 @@ def get_widget_form(widget_type=None, prefix='__prefix__', inline=True, data=Non
         pages.models.EventFocusWidget: EventFocusWidgetForm,
         pages.models.EventsWidget: EventWidgetForm,
         pages.models.BannerWidget: BannerWidgetForm,
-        pages.models.PeopleWidget: PersonWidgetForm,
+        pages.models.PersonFocusWidget: PersonFocusWidgetForm,
         pages.models.ApeClassesWidget: ApeClassWidgetForm
     }
     if widget_type in registry:
@@ -347,7 +357,7 @@ class PageForm(forms.ModelForm):
                 self.widget_forms.append(widget_form)
 
         elif self.instance and self.instance.pk:
-            widgets = self.instance.widgets_base.order_by('page_to_widgets__sort_order')
+            widgets = self.instance.widgets_base.select_subclasses().order_by('page_to_widgets__sort_order')
 
             self.initial['widget_form_count'] = widgets.count()
 
@@ -356,7 +366,7 @@ class PageForm(forms.ModelForm):
                 if hasattr(widget, 'get_proxied_widget'):
                     widget = widget.get_proxied_widget()
                 kwargs['instance'] = widget
-                widget_form = get_widget_form(type(widget.get_subclass()), prefix=str(i), **kwargs)
+                widget_form = get_widget_form(type(widget), prefix=str(i), **kwargs)
                 self.widget_forms.append(widget_form)
 
     def is_valid(self):
