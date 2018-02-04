@@ -370,6 +370,11 @@ class EventsWidget(GroupWidget):
             ('row_focus', 'Row'),
         ),
     )
+    upcoming_events = models.BooleanField(default=False)
+    upcoming_events_window = models.IntegerField(
+        blank=True, null=True,
+        help_text="Number of days in future for which events will display."
+    )
 
     class Meta:
         verbose_name = "group of events"
@@ -380,10 +385,20 @@ class EventsWidget(GroupWidget):
 
     @property
     def items(self):
+        events = Event.objects.all()
+
+        if self.upcoming_events:
+            events = events.filter(start_time__gt=datetime.now())
+
+            if self.upcoming_events_window is not None:
+                window_end = datetime.now() + timedelta(days=int(self.upcoming_events_window))
+                events = events.filter(start_time__lt=window_end)
+            events = events.order_by('-start_time')
+
         if self.pk and self.events.exists():
             handpicked = Event.objects.filter(events_widgets=self)
-            return handpicked
-        return Event.objects.all()
+            events = handpicked | events
+        return events
 
     def item_data(self, item):
         data = super(EventsWidget, self).item_data(item)
