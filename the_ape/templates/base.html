@@ -49,7 +49,7 @@
               <li><a href="{% url 'slug_page_wrapper' page_slug='classes' %}">Classes</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='events' %}">Events</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='people' %}">People</a></li>
-              <li><a href="{% url 'about' %}">About</a></li>
+              <li><a href="{% url 'slug_page_wrapper' page_slug='about' %}">About</a></li>
               <li id="logout"><a href="{% url 'logout' %}">Logout</a></li>
             </ul>
           </div>
@@ -60,7 +60,6 @@
     <div id="content">
       <div class="page-content">
         <h2>{% block page_title %}{% endblock %}</h2>
-
 
         {% block messages %}
           {% if messages %}
