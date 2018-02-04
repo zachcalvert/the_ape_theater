@@ -3,6 +3,7 @@ from urllib.parse import urlsplit, SplitResult
 from django.contrib.contenttypes.models import ContentType
 from django.template import Node, Variable, Library
 from django.core.urlresolvers import reverse
+from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 register = Library()
@@ -55,3 +56,11 @@ def verbose_name(obj, caps=True, plural=False):
     if caps:
         name = capfirst(name)
     return name
+
+
+@register.filter
+def json_safe(string):
+    """
+    Takes a json formatted string, and formats if for display in html
+    """
+    return mark_safe(string.replace(r"\n", "\n").replace(r"\r", "\r"))

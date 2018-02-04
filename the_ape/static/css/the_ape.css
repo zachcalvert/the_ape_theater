@@ -1,5 +1,3 @@
-/*! project specific CSS goes here. */
-
 body {
     background: #E1E3E4;
     margin:  0px;
@@ -70,8 +68,6 @@ input[type="radio"] {
 
 
 /* gallery widget */
-/* gallery widget */
-
 .gallery-widget {
     width: 100%;
     text-align: center;
@@ -211,13 +207,15 @@ input[type="radio"] {
     height: auto;
     padding: 0 20px;
     display: inline-block;
+    border-radius: 10px;
+    background: #FFF;
+    margin: 5px 0;
 }
 .person-focus-image {
     width: 300px;
     float: left;
     padding: 10px;
 }
-
 .person-focus-name {
     text-align: center;
     font-weight: bold;
@@ -237,7 +235,6 @@ input[type="radio"] {
 .person-page-headshot img {
     width: 400px;
 }
-
 /* ----- end person detail page ------*/
 
 
