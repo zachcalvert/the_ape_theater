@@ -145,7 +145,7 @@ class ApeClassWrapperView(WebPageWrapperView):
     def get_context_data(self, ape_class_id, **kwargs):
         context = super(ApeClassWrapperView, self).get_context_data(**kwargs)
         ape_class = get_object_or_404(ApeClass, pk=ape_class_id)
-        context['class'] = ape_class
+        context['class'] = ape_class.to_data()
         return context
 
 
@@ -159,7 +159,7 @@ class EventWrapperView(WebPageWrapperView):
     def get_context_data(self, event_id, **kwargs):
         context = super(EventWrapperView, self).get_context_data(**kwargs)
         event = get_object_or_404(Event, pk=event_id)
-        context['event'] = event
+        context['event'] = event.to_data()
         return context
 
 
@@ -173,7 +173,7 @@ class PersonWrapperView(WebPageWrapperView):
     def get_context_data(self, person_id, **kwargs):
         context = super(PersonWrapperView, self).get_context_data(**kwargs)
         person = get_object_or_404(Person, pk=person_id)
-        context['person'] = person
+        context['person'] = person.to_data()
         return context
 
 
