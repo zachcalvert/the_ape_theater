@@ -124,7 +124,7 @@ class WebPageWrapperView(TemplateView):
 class PageIDWrapperView(WebPageWrapperView):
 
     def get_api_url(self, page_id=None, slug=None, *args, **kwargs):
-        return reverse('page', kwargs={'page_id': page_id, 'slug': slug}, urlconf='display.api_urls')
+        return reverse('page', kwargs={'page_id': page_id}, urlconf='pages.api_urls')
 
 
 class SlugPageWrapperView(WebPageWrapperView):

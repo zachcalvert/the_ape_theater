@@ -356,7 +356,7 @@ class EventFocusWidget(Widget):
         data = super(EventFocusWidget, self).to_data(*args, **kwargs)
         data.update({
             "type": "event_focus",
-            "book": self.event.to_data(*args, **kwargs)
+            "event": self.event.to_data(*args, **kwargs)
         })
         return data
 
@@ -527,7 +527,7 @@ class ApeClassesWidget(GroupWidget):
 
 
 class BannerWidget(Widget, PageLinkMixin):
-    image = models.ImageField()
+    image = models.ImageField(upload_to='images/banner/')
 
     class Meta(Widget.Meta):
         verbose_name = "banner"
@@ -590,7 +590,7 @@ class ImageCarouselItem(PageLinkWidgetItem):
 
 
 class AudioWidget(Widget):
-    audio_file = AudioField(upload_to='audio_files', blank=True,
+    audio_file = AudioField(upload_to='audio', blank=True,
                             ext_whitelist=(".mp3", ".wav", ".ogg"),
                             help_text=("Allowed type - .mp3, .wav, .ogg"))
     description = models.TextField(null=True, blank=True)
@@ -615,7 +615,7 @@ class AudioWidget(Widget):
 
 
 class VideoWidget(Widget):
-    video_file = models.FileField()
+    video_file = models.FileField(upload_to='videos', help_text="Allowed type - .mp4, .ogg")
     description = models.TextField(null=True, blank=True)
 
     def to_data(self, *args, **kwargs):

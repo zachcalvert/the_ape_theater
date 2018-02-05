@@ -30,7 +30,7 @@ input[type="radio"] {
     width: 85%;
 }
 
-#logout {
+#login, #logout {
     float: right;
 }
 /* end navigation bar */
@@ -38,13 +38,14 @@ input[type="radio"] {
 
 /* start main page layout */
 .page-content {
-    padding: 11px 20px;
+    padding: 11px 10px;
     margin: 20px 0 0 0; /* 20px for the fixed nav bar */
 }
 
 .page-content h2 {
     padding: 0px;
     margin-top: 10px;
+    margin-left: 28px;
 }
 
 
@@ -218,21 +219,50 @@ input[type="radio"] {
     text-align: center;
     font-weight: bold;
     font-size: 24px;
+    padding: 5px 0;
 }
 .person-focus-bio {
+    padding: 10px 0;
+    text-align: justify;
+}
+/* ----- start end focus widget ------*/
+
+/* ----- start event focus widget ------*/
+.event-focus {
+    height: auto;
+    padding: 0 20px;
+    display: inline-block;
+    border-radius: 10px;
+}
+.event-focus-image {
+    text-align: center
+    padding: 10px;
+}
+.event-focus-name {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+.event-focus-bio {
     padding: 10px;
     margin: 0px 30px;
 }
-/* ----- start person focus widget ------*/
+/* ----- end person focus widget ------*/
 
 
 /* ----- start audio widget ------*/
+.page-audio {
+    text-align: center;
+}
 .page-audio audio {
     width: 90%;
 }
 /* ----- end audio widget ------*/
 
 /* ----- start video widget ------*/
+.page-video {
+    text-align: center;
+}
 .page-video video {
     width: 90%;
 }
@@ -240,11 +270,9 @@ input[type="radio"] {
 
 
 /* ----- start person detail page ------*/
-.person-page-name {
-    margin-top: 30px;
-}
-.person-page-headshot img {
-    width: 400px;
+.person-detail {
+    margin-top: 40px;
+    margin-left: 0px;
 }
 /* ----- end person detail page ------*/
 

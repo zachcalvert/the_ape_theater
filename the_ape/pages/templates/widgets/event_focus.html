@@ -1,0 +1,13 @@
+{% load page_tags %}
+<div class="event-focus">
+	<div class="event-focus-image">
+    	{% include 'widgets/image.html' with url=widget.event.banner_url %}
+    </div>
+    <div class="event-focus-right-column">
+    	<div class="event-focus-name">{{ widget.event.name }}</div>
+    	<div class="event-focus-bio">{{ widget.event.bio }}</div>
+	</div>
+	<div class="event-page-tickets">
+		<button>TICKETS</button>
+	</div>
+</div>

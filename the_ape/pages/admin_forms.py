@@ -424,3 +424,13 @@ class PageForm(forms.ModelForm):
                     widget.delete()
 
         return page
+
+
+class PersonForm(forms.ModelForm):
+
+    class Meta:
+        model = Person
+        fields = '__all__'
+        widgets = {
+            'videos': FilteredSelect(),
+        }

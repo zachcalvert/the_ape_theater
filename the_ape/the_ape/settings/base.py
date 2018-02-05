@@ -64,10 +64,10 @@ USE_TZ = True
 
 ########## MEDIA CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = normpath(join(SITE_ROOT, 'static', 'images'))
+MEDIA_ROOT = normpath(join(SITE_ROOT, 'static', 'media'))
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
-MEDIA_URL = '/static/images/'
+MEDIA_URL = '/static/media/'
 ########## END MEDIA CONFIGURATION
 
 

@@ -20,6 +20,7 @@ class Person(models.Model):
     teaches = models.BooleanField(default=False)
     performs = models.BooleanField(default=True)
     house_team = models.ForeignKey(HouseTeam, null=True, blank=True)
+    videos = models.ManyToManyField('pages.VideoWidget', blank=True)
 
     class Meta(object):
         verbose_name = 'Person'
@@ -37,7 +38,7 @@ class Person(models.Model):
         return reverse('person', kwargs={'person_id': self.pk})
 
     def get_absolute_url(self):
-        return reverse('event_wrapper', kwargs={'event_id': self.pk})
+        return reverse('person_wrapper', kwargs={'person_id': self.pk})
 
     def to_data(self):
         data = {
@@ -50,5 +51,7 @@ class Person(models.Model):
         }
         if self.headshot:
             data['image_url'] = self.headshot.url
+        if self.videos.exists():
+            data['videos'] = [{"video_source": video.video_file.url} for video in self.videos.all()]
 
         return data

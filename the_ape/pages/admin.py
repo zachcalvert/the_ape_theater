@@ -95,7 +95,7 @@ class SaveAsNewAdmin(admin.ModelAdmin):
 
 class PageAdmin(SortedManyToManyAdmin, SaveAsNewAdmin):
     search_fields = ['name', 'slug']
-    list_display = ['name', 'url', 'created', 'last_modified', 'draft']
+    list_display = ['name', 'slug', 'url', 'created', 'last_modified', 'draft']
     list_filter = ['slug', 'draft']
     date_hierarchy = 'created'
     readonly_fields = ('created', 'last_modified')

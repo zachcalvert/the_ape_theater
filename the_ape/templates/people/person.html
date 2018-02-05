@@ -1,13 +1,34 @@
 {% extends 'base.html' %}
 
 {% block title %}{{ person.name }} | The Ape{% endblock %}
-{% block page_title %}<div class="person-page-name">{{ person.name }}</div>{% endblock %}
 
 {% block content %}
-	<div class="person-page-headshot">
-		<img src="{{ person.headshot.url }}" />
+	<div class="person-detail">
+		<div class="person-focus">
+			<div class="person-focus-image">
+		    	{% include 'widgets/image.html' with url=person.headshot.url %}
+		    </div>
+		    <div class="person-focus-right-column">
+		    	<div class="person-focus-name">{{ person.name }}</div>
+		    	<div class="person-focus-bio">{{ person.bio }}</div>
+			</div>
+		</div>
 	</div>
-	<div class="person-page-bio">
-		<p>{{ person.bio }}</p>
+
+	<div class="person-detail-media">
+		{% if person.videos.exists %}
+			<h2>Reel</h2>
+			{% for widget in person.videos.all %}
+				<div class="page-video">
+				    <h2>{{ widget.name }}</h2>
+				    {% if widget.description %}<p>{{ widget.description }}</p>{% endif %}
+					<video controls>
+					  <source src="{{ widget.video_file.url }}" type="video/mp4">
+					  <source src="{{ widget.video_file.url }}" type="video/ogg">
+					Your browser does not support the video tag.
+					</video>
+				</div>
+			{% endfor %}
+		{% endif %}
 	</div>
 {% endblock %}
