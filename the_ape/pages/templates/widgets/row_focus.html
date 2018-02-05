@@ -1,0 +1,41 @@
+{% load page_tags %}
+<div class="page-row">
+    <h3>{{ widget.name }}</h3>
+    <div class="carousel">
+        <div id="prev-items-{{ widget.id }}" class="slider-control prev"></div>
+        <div id="widget-row-{{ widget.id }}" class="widget-row">
+            {% if widget.item_type == "event" %}
+                {% for item in widget.items %}
+                    <div class="row-widget-item">
+                        <a class="cover " href="{{ item.path|wrapped_url }}" title="{{ item.name }}">
+                            {% include 'widgets/image.html' with url=item.image name=item.title alt_text=item.name %}
+                        </a>
+                        <p>{{ item.name }}</p>
+                        <p>{{ item.event_day }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div id="next-items-{{ widget.id }}" class="slider-control next"></div>
+        <div class="cheat"></div>
+    </div>
+    <!-- end .carousel -->
+</div>
+<script>
+    $(document).ready(function () {
+        var widgetRow =  $("#widget-row-{{ widget.id }}");
+        widgetRow.bxSlider({
+            minSlides: 2,
+            maxSlides: 5,
+            slideWidth: 300,
+            slideMargin: 34,
+            adaptiveHeight: true,
+            pager: false,
+            nextSelector: "#next-items-{{ widget.id }}",
+            prevSelector: "#prev-items-{{ widget.id }}",
+            prevText: "<i class=\"slider-chevrons fa fa-chevron-left\"></i>",
+            nextText: "<i class=\"slider-chevrons fa fa-chevron-right\"></i>",
+            onSlideAfter: function() { widgetRow.trigger("scroll") }
+        });
+    });
+</script>

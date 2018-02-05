@@ -154,6 +154,130 @@ input[type="radio"] {
 }
 /* end gallery widget class item item */
 
+/* ----- people widget ------*/
+.person-image-wrap {
+    width: 150px;
+    padding: 0;
+}
+
+.person-image-wrap a {
+    color: black;
+    font-size: 12px;
+}
+
+.widget-person-image {
+    width: 150px;
+    margin-bottom: 10px;
+}
+/* ----- end people widget ------*/
+
+
+/* ----- start person focus widget ------*/
+.person-focus {
+    height: auto;
+    padding: 0 20px;
+    display: inline-block;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+.person-focus-image {
+    width: 250px;
+    float: left;
+    padding: 10px;
+}
+.person-focus-image img {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    padding: 4px;
+}
+.person-focus-right-column {
+    overflow: hidden;
+    display: block;
+    padding: 10px;
+}
+.person-focus-name {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 5px 0;
+}
+.person-focus-bio {
+    padding: 10px 0;
+    text-align: justify;
+}
+/* ----- start end focus widget ------*/
+
+/* ----- start event focus widget ------*/
+.event-focus {
+    height: auto;
+    padding: 0 20px;
+    display: inline-block;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+.event-focus-image {
+    width: 300px;
+    float: left;
+    padding: 10px;
+}
+.event-focus-image img {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    padding: 4px;
+}
+.event-focus-right-column {
+    overflow: hidden;
+    display: block;
+    padding: 10px;
+}
+.event-focus-name {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 5px 0;
+}
+.event-focus-bio {
+    padding: 10px;
+    text-align: justify;
+}
+/* ----- end person focus widget ------*/
+
+
+/* ----- start ape class focus widget ------*/
+.ape-class-focus {
+    height: auto;
+    padding: 0 20px;
+    display: inline-block;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+.ape-class-focus-image {
+    width: 300px;
+    float: left;
+    padding: 10px;
+}
+.ape-class-focus-image img {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    padding: 4px;
+}
+.ape-class-focus-right-column {
+    overflow: hidden;
+    display: block;
+    padding: 10px;
+}
+.ape-class-focus-name {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 5px 0;
+}
+.ape-class-focus-bio {
+    padding: 10px 0;
+    text-align: justify;
+}
+/* ----- end person focus widget ------*/
+
 
 /* start image carousel widget */
 .carousel {
@@ -181,73 +305,6 @@ input[type="radio"] {
     right: 1%;
 }
 /* end image carousel widget */
-
-
-/* ----- people widget ------*/
-.person-image-wrap {
-    width: 150px;
-    padding: 0;
-}
-
-.person-image-wrap a {
-    color: black;
-    font-size: 12px;
-}
-
-.widget-person-image {
-    width: 150px;
-    margin-bottom: 10px;
-}
-
-/* ----- end people widget ------*/
-
-
-/* ----- start person focus widget ------*/
-.person-focus {
-    height: auto;
-    padding: 0 20px;
-    display: inline-block;
-    border-radius: 10px;
-    margin: 5px 0;
-}
-.person-focus-image {
-    width: 300px;
-    float: left;
-    padding: 10px;
-}
-.person-focus-name {
-    text-align: center;
-    font-weight: bold;
-    font-size: 24px;
-    padding: 5px 0;
-}
-.person-focus-bio {
-    padding: 10px 0;
-    text-align: justify;
-}
-/* ----- start end focus widget ------*/
-
-/* ----- start event focus widget ------*/
-.event-focus {
-    height: auto;
-    padding: 0 20px;
-    display: inline-block;
-    border-radius: 10px;
-}
-.event-focus-image {
-    text-align: center
-    padding: 10px;
-}
-.event-focus-name {
-    text-align: center;
-    font-weight: bold;
-    font-size: 24px;
-}
-.event-focus-bio {
-    padding: 10px;
-    margin: 0px 30px;
-}
-/* ----- end person focus widget ------*/
 
 
 /* ----- start audio widget ------*/

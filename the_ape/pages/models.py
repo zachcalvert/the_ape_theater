@@ -396,7 +396,7 @@ class EventsWidget(GroupWidget):
             if self.upcoming_events_window is not None:
                 window_end = datetime.now() + timedelta(days=int(self.upcoming_events_window))
                 events = events.filter(start_time__lt=window_end)
-            events = events.order_by('-start_time')
+            events = events.order_by('start_time')
 
         if self.pk and self.events.exists():
             handpicked = Event.objects.filter(events_widgets=self)
@@ -406,7 +406,8 @@ class EventsWidget(GroupWidget):
     def item_data(self, item):
         data = super(EventsWidget, self).item_data(item)
         data.update({
-            "image": item.banner.image.url
+            "image": item.banner.image.url,
+            "event_day": item.event_day()
         })
         return data
 
