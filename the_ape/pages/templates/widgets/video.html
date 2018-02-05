@@ -1,0 +1,9 @@
+<div class="page-video">
+    <h2>{{ widget.name }}</h2>
+    {% if widget.description %}<p>{{ widget.description }}</p>{% endif %}
+	<video controls>
+	  <source src="{{ widget.video_source }}" type="video/mp4">
+	  <source src="{{ widget.video_source }}" type="video/ogg">
+	Your browser does not support the video tag.
+	</video>
+</div>

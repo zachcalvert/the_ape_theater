@@ -612,3 +612,17 @@ class AudioWidget(Widget):
             return player_string
     audio_file_player.allow_tags = True
     audio_file_player.short_description = 'Audio file player'
+
+
+class VideoWidget(Widget):
+    video_file = models.FileField()
+    description = models.TextField(null=True, blank=True)
+
+    def to_data(self, *args, **kwargs):
+        data = super(VideoWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": "video",
+            "description": self.description,
+            "video_source": self.video_file.url,
+        })
+        return data

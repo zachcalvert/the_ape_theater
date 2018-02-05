@@ -230,8 +230,13 @@ input[type="radio"] {
 .page-audio audio {
     width: 90%;
 }
-
 /* ----- end audio widget ------*/
+
+/* ----- start video widget ------*/
+.page-video video {
+    width: 90%;
+}
+/* ----- end video widget ------*/
 
 
 /* ----- start person detail page ------*/
