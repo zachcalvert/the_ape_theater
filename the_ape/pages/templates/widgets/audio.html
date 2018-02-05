@@ -1,5 +1,8 @@
 {% load page_tags %}
 <div class="page-audio">
-    <p>{{ widget.name }}</p>
-    {{ widget.audio_file_player|safe }}
+    <h2>{{ widget.name }}</h2>
+    {% if widget.description %}<p>{{ widget.description }}</p>{% endif %}
+    <audio controls="controls">
+	  <source src="{{ widget.audio_source }}" type="audio/mpeg" />
+	</audio>
 </div>

@@ -590,20 +590,21 @@ class ImageCarouselItem(PageLinkWidgetItem):
 
 
 class AudioWidget(Widget):
-    audio_file = AudioField(upload_to='../audio_files', blank=True,
+    audio_file = AudioField(upload_to='audio_files', blank=True,
                             ext_whitelist=(".mp3", ".wav", ".ogg"),
                             help_text=("Allowed type - .mp3, .wav, .ogg"))
+    description = models.TextField(null=True, blank=True)
 
     def to_data(self, *args, **kwargs):
         data = super(AudioWidget, self).to_data(*args, **kwargs)
         data.update({
             "type": "audio",
-            "audio_file_player": self.audio_file_player(),
+            "description": self.description,
+            "audio_source": self.audio_file.url,
         })
         return data
 
     def audio_file_player(self):
-        """audio player tag for admin"""
         if self.audio_file:
             file_url = settings.MEDIA_URL + str(self.audio_file)
             player_string = '<ul class="playlist"><li style="width:250px;">\
