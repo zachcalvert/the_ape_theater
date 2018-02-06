@@ -155,19 +155,26 @@ input[type="radio"] {
 /* end gallery widget class item item */
 
 /* ----- people widget ------*/
-.person-image-wrap {
+.widget-person {
     width: 150px;
     padding: 0;
 }
-
-.person-image-wrap a {
+.widget-person a {
     color: black;
     font-size: 12px;
 }
-
+.widget-person-image-wrap {
+    margin-bottom: 5px;
+}
 .widget-person-image {
     width: 150px;
-    margin-bottom: 10px;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    padding: 4px;
+}
+.widget-person-name {
+    text-align: center;
 }
 /* ----- end people widget ------*/
 
@@ -179,6 +186,8 @@ input[type="radio"] {
     display: inline-block;
     border-radius: 10px;
     margin: 5px 0;
+    width: 100%;
+    max-width: 1000px;
 }
 .person-focus-image {
     width: 250px;
@@ -359,3 +368,9 @@ input[type="radio"] {
     width: 400px;
 }
 /* ----- end class detail page ------*/
+
+/* ----- start house team detail page ------*/
+.house-team-banner {
+    margin: 0 -10px;
+}
+/* ----- end house team detail page ------*/

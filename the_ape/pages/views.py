@@ -88,8 +88,8 @@ class WebPageWrapperView(TemplateView):
 
     def dispatch(self, request, *args, **kwargs):
         try:
-            if self.request.path == 'favicon.ico':
-                return HttpResponse(status_code=200)
+            if 'favicon.ico' in self.request.path:
+                return HttpResponse(200)
             resolver_match = resolve(self.get_api_url(*args, **kwargs), self.url_namespace)
         except Resolver404:
             raise Http404
@@ -177,6 +177,20 @@ class PersonWrapperView(WebPageWrapperView):
         return context
 
 
+class HouseTeamWrapperView(WebPageWrapperView):
+    template_name = "people/house_team.html"
+    context_object_name = "person"
+
+    def get_api_url(self, house_team_id, *args, **kwargs):
+        return reverse('house_team', kwargs={'house_team_id': house_team_id}, urlconf='pages.api_urls')
+
+    def get_context_data(self, house_team_id, **kwargs):
+        context = super(HouseTeamWrapperView, self).get_context_data(**kwargs)
+        house_team = get_object_or_404(HouseTeam, pk=house_team_id)
+        context['house_team'] = house_team.to_data()
+        return context
+
+
 class EventView(JSONView):
 
     def get(self, request, event_id):
@@ -198,4 +212,12 @@ class ApeClassView(JSONView):
     def get(self, request, ape_class_id):
         ape_class = get_object_or_404(ApeClass, pk=ape_class_id)
         data = ape_class.to_data()
+        return data
+
+
+class HouseTeamView(JSONView):
+
+    def get(self, request, house_team_id):
+        house_team = get_object_or_404(HouseTeam, pk=house_team_id)
+        data = house_team.to_data()
         return data

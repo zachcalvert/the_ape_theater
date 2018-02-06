@@ -1,7 +1,9 @@
 {% load page_tags %}
 <div class="person-focus">
 	<div class="person-focus-image">
-    	{% include 'widgets/image.html' with url=widget.person.image_url %}
+		<a href="{% url 'person_wrapper' widget.person.id %}">
+    		{% include 'widgets/image.html' with url=widget.person.image_url %}
+    	</a>
     </div>
     <div class="person-focus-right-column">
     	<div class="person-focus-name">{{ widget.person.name }}</div>

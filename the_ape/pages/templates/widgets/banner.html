@@ -1,4 +1,10 @@
 {% load page_tags %}
 <div class="page-banner">
-    {% include 'widgets/image.html' with url=widget.image.url %}
+    {% if widget.page_path %}
+        <a class="page-banner-image-link" href="{{ widget.page_path|wrapped_url }}">
+    {% endif %}
+    {% include 'widgets/image.html' with url=widget.image.url name=widget.title %}
+    {% if widget.page_path %}
+        </a>
+    {% endif %}
 </div>

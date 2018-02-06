@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ house_team.name }} | The Ape{% endblock %}
+
+{% block content %}
+	<div class="house-team-detail">
+		<div class="house-team-banner">
+	    	{% include 'widgets/image.html' with url=house_team.banner_url %}
+	    </div>
+	    <div class="house-team-members">
+	    	{% for person in house_team.performers %}
+	    		<div class="person-focus">
+					<div class="person-focus-image">
+				    	{% include 'widgets/image.html' with url=person.image_url %}
+				    </div>
+				    <div class="person-focus-right-column">
+				    	<div class="person-focus-name">{{ person.name }}</div>
+				    	<div class="person-focus-bio">{{ person.bio }}</div>
+					</div>
+				</div>
+	    	{% endfor %}
+		</div>
+	</div>
+
+	<div class="house-team-detail-media">
+		{% if house_team.videos %}
+			<h2>Reel</h2>
+			{% for video in house_team.videos %}
+				<div class="page-video">
+				    <h2>{{ video.name }}</h2>
+				    {% if video.description %}<p>{{ video.description }}</p>{% endif %}
+					<video controls>
+					  <source src="{{ video.video_source }}" type="video/mp4">
+					  <source src="{{ video.video_source }}" type="video/ogg">
+					Your browser does not support the video tag.
+					</video>
+				</div>
+			{% endfor %}
+		{% endif %}
+	</div>
+{% endblock %}

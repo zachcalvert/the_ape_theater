@@ -4,12 +4,31 @@ from django.urls import reverse
 
 class HouseTeam(models.Model):
     name = models.CharField(max_length=50)
-
-    def performers(self):
-        return Person.objects.filter(performs=True, house_team=self)
+    banner = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
 
     def __str__(self):
         return self.name
+
+    def get_api_url(self):
+        return reverse('house_team', kwargs={'house_team_id': self.pk})
+
+    def get_absolute_url(self):
+        return reverse('house_team', kwargs={'house_team_id': self.pk})
+
+
+    def to_data(self, members=True):
+        data = {
+            "id": self.id,
+            "name": self.name,
+            "path": self.get_api_url()
+        }
+        if members:
+            data["performers"] = [
+                performer.to_data() for performer in self.performers.all()
+            ]
+        if self.banner:
+            data['banner_url'] = self.banner.image.url
+        return data
 
 
 class Person(models.Model):
@@ -19,7 +38,7 @@ class Person(models.Model):
     headshot = models.ImageField(null=True, blank=True)
     teaches = models.BooleanField(default=False)
     performs = models.BooleanField(default=True)
-    house_team = models.ForeignKey(HouseTeam, null=True, blank=True)
+    house_team = models.ForeignKey(HouseTeam, null=True, blank=True, related_name='performers')
     videos = models.ManyToManyField('pages.VideoWidget', blank=True)
 
     class Meta(object):
@@ -47,8 +66,9 @@ class Person(models.Model):
             "bio": self.bio,
             "teaches": self.teaches,
             "performs": self.performs,
-            "house_team": str(self.house_team)
         }
+        if self.house_team:
+            data["house_team"] = self.house_team.to_data(members=False)
         if self.headshot:
             data['image_url'] = self.headshot.url
         if self.videos.exists():

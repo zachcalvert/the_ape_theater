@@ -1,6 +1,6 @@
 """Common settings and globals."""
 
-
+import os
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 
@@ -237,3 +237,9 @@ FREQ_TYPE_VALUE = 8000  # 0-Keep original, 8000-8000Hz, 16000-16000Hz, 22050-220
 
 CONVERT_TYPE_VALUE = 0 # 0-Keep original, 1-Convert to MP3, 2-Convert to WAV, 3-Convert to OGG
 ########## END AUDIOFIELD FRONTEND CONFIG
+
+
+# STRIPE SETTINGS
+STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE', '')
+STRIPE_SECRET = os.getenv('STRIPE_SECRET', '')
+# END STRIPE SETTINGS

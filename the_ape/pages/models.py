@@ -146,7 +146,8 @@ class Page(models.Model):
         ("home", "Home"),
         ("classes", "Classes"),
         ("events", "Events"),
-        ("people", "People"),
+        ("faculty", "Faculty"),
+        ("performers", "Performers"),
         ("about", "About"),
     )
 
@@ -454,7 +455,7 @@ class PeopleWidget(GroupWidget):
             return people
         if self.pk and self.people.exists():
             people = Person.objects.filter(people_widgets=self)
-            return handpicked | people
+
         return people
 
     def item_data(self, item):
