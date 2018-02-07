@@ -102,6 +102,8 @@ ENV/
 
 #static
 staticfiles/
+the_ape/static/images
+the_ape/static/media
 
 # mac os bs
 .DS_Store

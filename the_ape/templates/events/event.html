@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}{{ event.name }}{% endblock %}
-{% block page_title %}<div class="event-page-name">{{ event.name }}</div>{% endblock %}
 
 {% block content %}
 	<div class="event-page-banner">
 		<img src="{{ event.banner_url }}" />
 	</div>
+	<div class="event-page-name">
+		<h2>{{ event.name }}</h2>
+	</div>
 	<div class="event-page-bio">
 		<p>{{ event.bio }}</p>
 	</div>
-	<div class="event-page-tickets">
+	<div class="event-tickets-button">
 		<button>TICKETS</button>
 	</div>
 {% endblock %}

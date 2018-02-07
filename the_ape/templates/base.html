@@ -51,6 +51,7 @@
               <li><a href="{% url 'slug_page_wrapper' page_slug='performers' %}">Performers</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='faculty' %}">Faculty</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='about' %}">About</a></li>
+              <li id="cart"><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
               {% if request.user.is_authenticated %}
                 <li id="logout"><a href="{% url 'logout' %}">Logout</a></li>
               {% else %}

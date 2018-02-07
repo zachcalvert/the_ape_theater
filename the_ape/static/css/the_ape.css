@@ -30,7 +30,7 @@ input[type="radio"] {
     width: 85%;
 }
 
-#login, #logout {
+#login, #logout, #cart {
     float: right;
 }
 /* end navigation bar */
@@ -94,6 +94,7 @@ input[type="radio"] {
 .gallery-item p {
     text-align: center;
     padding: 0;
+    margin-bottom: 0px;
 }
 
 .gallery-item-image-wrap {
@@ -346,6 +347,9 @@ input[type="radio"] {
 /* ----- event detail page ------*/
 .event-page-name {
     margin-top: 30px;
+}
+.event-page-banner {
+    margin: 0 -10px;
 }
 .event-page-banner img {
     width: 100%;

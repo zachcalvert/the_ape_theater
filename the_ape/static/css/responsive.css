@@ -1,7 +1,7 @@
 /* -----------  ----------- */
 @media screen and (max-width: 767px) {
   
-    #logout {
+    #login, #logout, #cart {
         float:none;
     }
     .gallery-item {
@@ -14,23 +14,31 @@
         margin: 0 auto 20px 0;
         display: inline-block;
     }
+    .widget-person {
+        width: 300px;
+    }
     .widget-person-image {
         width: 300px;
+    }
+    .person-focus-image {
+        width: 300px;
+    }
+    .person-focus-name {
+        font-size: 30px;
     }
 
 }
 
-@media screen and (max-width: 540px) {
-
-    .gallery-item {
-        background-color: inherit;
-        border: none;
-        text-align: center;
-        font-weight: bold;
-        font-size: 11px;
-        padding: 0px;
-        width: 160px;
-        margin: 0 auto 20px 0;
+/* -----------  ----------- */
+@media screen and (max-width: 660px) {
+    .person-focus-right-column {
         display: inline-block;
     }
+    .person-focus-image {
+        width: 400px;
+    }
+    .person-focus-name {
+        font-size: 30px;
+    }
+
 }
