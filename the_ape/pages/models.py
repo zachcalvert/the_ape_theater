@@ -168,8 +168,8 @@ class Page(models.Model):
     text_color = ColorField(max_length=10, null=True, blank=True)
 
     # buy button
-    buy_button_color = ColorField(max_length=10, null=True, blank=True)
-    buy_button_text_color = ColorField(max_length=10, null=True, blank=True)
+    button_color = ColorField(max_length=10, null=True, blank=True)
+    button_text_color = ColorField(max_length=10, null=True, blank=True)
 
     widgets_base = SortedManyToManyField(
         Widget,
@@ -207,8 +207,8 @@ class Page(models.Model):
         }
         direct_data_fields = [
             'text_color',
-            'buy_button_color',
-            'buy_button_text_color',
+            'button_color',
+            'button_text_color',
         ]
         for field in direct_data_fields:
             data[field] = getattr(self, field, None)

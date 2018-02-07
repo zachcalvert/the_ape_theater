@@ -114,7 +114,7 @@ class PageAdmin(SortedManyToManyAdmin, SaveAsNewAdmin):
             "classes": ("grp-collapse grp-closed", "previewable"),
             'fields': (
                 ('text_color',),
-                ('buy_button_color', 'buy_button_text_color'),
+                ('button_color', 'button_text_color'),
             )
         }),
     )

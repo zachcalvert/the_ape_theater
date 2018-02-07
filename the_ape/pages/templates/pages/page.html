@@ -34,17 +34,15 @@
           }
       {% endif %}
 
-      {%  if page.buy_button_color %}
-          #content .buy-button-container .button,
-          #content .buy-bundle-button .button {
-              background: {{ page.buy_button_color }};
+      {%  if page.button_color %}
+          .ape-button {
+              background: {{ page.button_color }};
           }
       {% endif %}
 
-      {%  if page.buy_button_text_color %}
-          #content .buy-button-container .button,
-          #content .buy-bundle-button .button {
-              color: {{ page.buy_button_text_color }};
+      {%  if page.button_text_color %}
+          #content .ape-button {
+              color: {{ page.button_text_color }};
           }
       {% endif %}
   </style>
