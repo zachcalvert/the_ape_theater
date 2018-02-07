@@ -408,7 +408,11 @@ a:hover {
     font-size: 18px;
     margin-top: 50px;
 }
-
+.ape-map {
+    display: inline-block;
+    width: 50%;
+    height: 300px;
+}
 .about-the-ape-map {
     border:0; 
     display: inline-block;

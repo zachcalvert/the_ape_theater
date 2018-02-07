@@ -26,6 +26,17 @@
         font-size: 30px;
     }
 
+    .about-the-ape-text {
+        width: 100%;
+        margin: 10px;
+        display: block;
+    }
+    .ape-map {
+        display: block;
+        width: 100%;
+        height: 400px;
+    }
+
 }
 
 /* -----------  ----------- */
