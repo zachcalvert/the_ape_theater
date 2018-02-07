@@ -1,0 +1,13 @@
+{% load page_tags %}
+<div class="ape-class-focus">
+	<div class="ape-class-focus-image">
+    	{% include 'widgets/image.html' with url=widget.ape_class.banner_url %}
+    </div>
+    <div class="ape-class-focus-right-column">
+    	<div class="ape-class-focus-name">{{ widget.ape_class.name }}</div>
+    	<div class="ape-class-focus-bio">{{ widget.ape_class.bio }}</div>
+	</div>
+	<div class="ape-class-page-tickets">
+		<button>REGISTER</button>
+	</div>
+</div>
