@@ -47,10 +47,10 @@
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
               <li><a href="{% url 'slug_page_wrapper' page_slug='classes' %}">Classes</a></li>
-              <li><a href="{% url 'slug_page_wrapper' page_slug='events' %}">Events</a></li>
+              <li><a href="{% url 'slug_page_wrapper' page_slug='shows' %}">Shows</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='performers' %}">Performers</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='faculty' %}">Faculty</a></li>
-              <li><a href="{% url 'slug_page_wrapper' page_slug='about' %}">About</a></li>
+              <li><a href="{% url 'slug_page_wrapper' page_slug='media' %}">Watch</a></li>
               <li id="cart"><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
               {% if request.user.is_authenticated %}
                 <li id="logout"><a href="{% url 'logout' %}">Logout</a></li>

@@ -145,10 +145,10 @@ class Page(models.Model):
     SLUG_CHOICES = (
         ("home", "Home"),
         ("classes", "Classes"),
-        ("events", "Events"),
+        ("shows", "Shows"),
         ("faculty", "Faculty"),
         ("performers", "Performers"),
-        ("about", "About"),
+        ("media", "Media"),
     )
 
     name = models.CharField(max_length=255)
