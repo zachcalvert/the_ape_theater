@@ -1,9 +1,5 @@
 /* -----------  ----------- */
 @media screen and (max-width: 767px) {
-  
-    #login, #logout, #cart {
-        float:none;
-    }
     .gallery-item {
         background-color: inherit;
         border: none;

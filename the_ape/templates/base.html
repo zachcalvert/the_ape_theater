@@ -51,11 +51,24 @@
               <li><a href="{% url 'slug_page_wrapper' page_slug='performers' %}">Performers</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='faculty' %}">Faculty</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='media' %}">Watch</a></li>
-              <li id="cart"><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
               {% if request.user.is_authenticated %}
                 <li id="logout"><a href="{% url 'logout' %}">Logout</a></li>
               {% else %}
-                <li id="login"><a href="{% url 'login' %}">Login</a></li>
+                <li id="logout"><a href="#">Register</a></li>
+              {% endif %}
+
+              {% if not request.user.is_authenticated %}
+                <form class='navbar-form navbar-right' method='POST' action='{% url "login" %}'>{% csrf_token %}
+                  <div class="form-group">
+                    <input type='text' class='form-control' name='username' placeholder='Username' />
+                  </div>
+                  <div class="form-group">
+                    <input type='password' class='form-control' name='password' placeholder='Password' />
+                  </div>
+                  <button type='submit' class='btn btn-default'>Login</button>
+                </form>
               {% endif %}
             </ul>
           </div>

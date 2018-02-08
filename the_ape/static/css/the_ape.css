@@ -40,9 +40,7 @@ a:hover {
 }
 
 .navbar-nav {
-    float: right;
     margin: 0;
-    width: 85%;
 }
 
 #login, #logout, #cart {
