@@ -7,7 +7,6 @@
             {% if widget.item_type == "event" %}
                 {% for item in widget.items %}
                     <div class="row-widget-item">
-                        <p>{{ item.event_day }}</p>
                         <a class="cover " href="{{ item.path|wrapped_url }}" title="{{ item.name }}">
                             {% include 'widgets/image.html' with url=item.image name=item.title alt_text=item.name %}
                         </a>

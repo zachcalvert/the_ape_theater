@@ -341,12 +341,15 @@ form.navbar-right {
     top: 40%;
     left: 1%;
 }
-
 .slider-control.next {
     text-align: left;
     position: absolute;
     top: 40%;
     right: 1%;
+}
+.slider-chevrons {
+    text-shadow: 2px 2px #e6ecf0;
+    -webkit-text-stroke: 2px #e6ecf0;
 }
 /* end image carousel widget */
 
