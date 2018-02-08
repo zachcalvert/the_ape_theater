@@ -1,3 +1,17 @@
+
+
+
+/* -----------  ----------- */
+@media screen and (max-width: 1000px) {
+    #login {
+        display: block;
+    }
+    form.navbar-right {
+        display: none;
+    }
+}
+
+
 /* -----------  ----------- */
 @media screen and (max-width: 767px) {
     .gallery-item {

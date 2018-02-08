@@ -56,21 +56,21 @@
               {% if request.user.is_authenticated %}
                 <li id="logout"><a href="{% url 'auth_logout' %}">Logout</a></li>
               {% else %}
-                <li id="logout"><a href="{% url 'registration_register' %}">Register</a></li>
-              {% endif %}
-
-              {% if not request.user.is_authenticated %}
-                <form class='navbar-form navbar-right' method='POST' action='{% url "auth_login" %}'>{% csrf_token %}
-                  <div class="form-group">
-                    <input size="15" type='text' class='form-control' name='username' placeholder='Username' />
-                  </div>
-                  <div class="form-group">
-                    <input size="15" type='password' class='form-control' name='password' placeholder='Password' />
-                  </div>
-                  <button type='submit' class='btn btn-default btn-login'>Login</button>
-                </form>
+                <li id="login"><a href="{% url 'auth_login' %}">Login</a></li>
+                <li id="register"><a href="{% url 'registration_register' %}">Sign up</a></li>
               {% endif %}
             </ul>
+            {% if not request.user.is_authenticated %}
+              <form class='navbar-form navbar-right' method='POST' action='{% url "auth_login" %}'>{% csrf_token %}
+                    <div class="form-group">
+                      <input size="15" type='text' class='form-control' name='username' placeholder='username' />
+                    </div>
+                    <div class="form-group">
+                      <input size="15" type='password' class='form-control' name='password' placeholder='password' />
+                    </div>
+                    <button type='submit' class='btn btn-default btn-login'>Login</button>
+                  </form>
+              {% endif %}
           </div>
         </div>
       </div>
