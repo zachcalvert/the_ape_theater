@@ -16,8 +16,21 @@ input[type="radio"] {
     -moz-appearance: checkbox;    /* Firefox */
     -ms-appearance: checkbox;     /* not currently supported */
 }
+.navbar input[type="text"]{
+    height: 25px;
+}
+.navbar input[type="password"]{
+    height: 25px;
+}
 a:hover {
     text-decoration: none;
+}
+.btn-login {
+    font-size: 12px;
+    padding: 4px 10px;
+}
+.navbar-right {
+    margin-top: 12px;
 }
 
 /* start buy/register button */

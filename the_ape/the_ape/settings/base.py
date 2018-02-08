@@ -166,7 +166,8 @@ DJANGO_APPS = (
     'django_extensions',
     'grappelli',
     'audiofield',
-
+    'registration',
+    'crispy_forms',
     # Useful template tags:
     # 'django.contrib.humanize',
 
@@ -239,7 +240,21 @@ CONVERT_TYPE_VALUE = 0 # 0-Keep original, 1-Convert to MP3, 2-Convert to WAV, 3-
 ########## END AUDIOFIELD FRONTEND CONFIG
 
 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+# REGISTRATION REDUX SETTINGS
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+# END REGISTRATION SETTINGS
+
+
 # STRIPE SETTINGS
 STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE', '')
 STRIPE_SECRET = os.getenv('STRIPE_SECRET', '')
 # END STRIPE SETTINGS
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyCag3DYHBy7Nw1dYbruTA5qCVV9c9GxRVA'
