@@ -15,7 +15,7 @@ from .base import *
 DEBUG = False
 TEMPLATE_DEBUG = False
 
-STATIC_ROOT = '/home/zachc/dev/the_ape/staticfiles/'
+STATIC_ROOT = '/home/zach/dev/the_ape/staticfiles/'
 
 def get_env_setting(setting):
     """ Get the environment setting or return exception """
@@ -27,7 +27,7 @@ def get_env_setting(setting):
 
 ########## HOST CONFIGURATION
 # See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
-ALLOWED_HOSTS = ['.eulerscookbook.org','127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.theapetheater.org','127.0.0.1', 'localhost']
 ########## END HOST CONFIGURATION
 
 ########## EMAIL CONFIGURATION
