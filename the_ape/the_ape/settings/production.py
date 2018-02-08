@@ -61,8 +61,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'apedb',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'ape_dba',
+        'PASSWORD': 'Knoacabub0',
         'HOST': 'localhost',
         'PORT': '3306',
     }
