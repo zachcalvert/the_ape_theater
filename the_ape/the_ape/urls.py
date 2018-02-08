@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('pages.api_urls')),
     url(r'^grappelli/', include('grappelli.urls')),
-    url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 
     url(r'', include('pages.urls')),
 ]
