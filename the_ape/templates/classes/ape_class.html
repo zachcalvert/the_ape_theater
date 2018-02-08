@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block title %}{{ ape_class.name }} | The Ape{% endblock %}
-{% block page_title %}<div class="ape-class-page-name">{{ ape_class.name }}</div>{% endblock %}
 
 {% block content %}
 
@@ -15,10 +14,9 @@
 		    	<div class="ape-class-focus-bio">{{ ape_class.bio }}</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="ape-class-next-session">Next session of {{ ape_class.name }} starts in x days!</div>
-	<div class="ape-class-page-tickets">
-		<button class="ape-button">Reserve your spot</button>
+		<div class="ape-class-next-session">Next session of {{ ape_class.name }} starts in x days!</div>
+		<div class="ape-class-page-tickets">
+			<button class="ape-button">Reserve your spot</button>
+		</div>
 	</div>
 {% endblock %}
