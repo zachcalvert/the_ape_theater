@@ -2,6 +2,7 @@
 
 from __future__ import absolute_import
 
+import os
 from os import environ
 
 from .base import *
@@ -60,9 +61,9 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'apedb',
-        'USER': 'ape_dba',
-        'PASSWORD': 'Knoacabub0',
+        'NAME': os.environ.get('DATABASE_NAME', ''),
+        'USER': os.environ.get('DATABASE_USER', ''),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', ''),
         'HOST': 'localhost',
         'PORT': '3306',
     }
