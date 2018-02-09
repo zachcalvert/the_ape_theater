@@ -89,7 +89,9 @@ class SaveAsNewAdmin(admin.ModelAdmin):
         instead of the newly created object's change view.
         """
         if "_saveasnew" in request.POST:
-            request.POST['_continue'] = True
+            post = request.POST.copy()
+            post['_continue'] = True
+            request.POST = post
         return super(SaveAsNewAdmin, self).response_add(request, obj=obj, post_url_continue=post_url_continue)
 
 
@@ -270,3 +272,10 @@ for model in WIDGET_MODELS:
         admin.site.register(model, GroupWidgetAdmin)
     except AlreadyRegistered:
         pass
+
+
+class EventAdmin(SaveAsNewAdmin):
+    list_display = ['name_with_date']
+
+
+admin.site.register(Event, EventAdmin)

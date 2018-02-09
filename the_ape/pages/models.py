@@ -408,7 +408,8 @@ class EventsWidget(GroupWidget):
         data = super(EventsWidget, self).item_data(item)
         data.update({
             "image": item.banner.image.url,
-            "event_day": item.event_day()
+            "event_day": item.event_day(),
+            "name_with_date": item.name_with_date
         })
         return data
 

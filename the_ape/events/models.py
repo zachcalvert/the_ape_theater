@@ -39,8 +39,15 @@ class Event(models.Model):
     ticket_price = models.DecimalField(decimal_places=2, max_digits=5)
     banner = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
 
+    class Meta:
+        ordering = ['start_time']
+
     def __str__(self):
         return self.name
+
+    @property
+    def name_with_date(self):
+        return '{}: {}'.format(self.name, self.event_day())
 
     def get_api_url(self):
         return reverse('event', kwargs={'event_id': self.pk})
@@ -81,7 +88,8 @@ class Event(models.Model):
             "bio": self.bio,
             "start_time": self.start_time,
             "event_day": self.event_day(),
-            "ticket_price": self.ticket_price
+            "ticket_price": self.ticket_price,
+            "name_with_date": self.name_with_date
         }
         if self.banner:
             data['banner_url'] = self.banner.image.url
