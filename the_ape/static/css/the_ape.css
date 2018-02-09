@@ -30,6 +30,9 @@ input[type="radio"] {
 .ape-button:hover {
     opacity: 1;
 }
+a.ape-button:hover {
+    text-decoration: none;
+}
 
 /* start navigation bar */
 .container {

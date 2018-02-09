@@ -14,7 +14,7 @@ from django.utils.text import capfirst
 from django.contrib.admin.templatetags.admin_static import static
 from django.forms import Select, TextInput
 
-from classes.models import Student, ApeClass
+from classes.models import ApeClass
 from events.models import Event
 import pages.models
 from people.models import HouseTeam, Person

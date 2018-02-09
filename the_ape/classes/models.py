@@ -2,12 +2,6 @@ from django.core.management import call_command
 from django.db import models
 from django.urls import reverse
 
-from people.models import Person
-
-
-class Student(Person):
-    classes = models.ManyToManyField('ApeClassSession', through='ClassMember', related_name='students')
-
 
 class ApeClass(models.Model):
     TYPE_CHOICES = (
@@ -21,6 +15,13 @@ class ApeClass(models.Model):
     active = models.BooleanField(default=True)
     class_type = models.CharField(choices=TYPE_CHOICES, max_length=50)
     banner = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
+
+    teacher = models.ForeignKey('people.Person', null=True, blank=True)
+    start_date = models.DateTimeField(null=True, blank=True)
+    num_sessions = models.IntegerField(help_text='Number of Sessions', default=4)
+    max_enrollment = models.IntegerField(help_text='Max number of students', default=12)
+    enrollment_opens = models.DateField(null=True, blank=True)
+    enrollment_closes = models.DateField(null=True, blank=True)
 
     class Meta(object):
         verbose_name = 'Ape Class'
@@ -65,26 +66,3 @@ class ApeClass(models.Model):
         super(ApeClass, self).save(*args, **kwargs)
         if collectstatic:
             call_command('collectstatic', verbosity=1, interactive=False)
-
-
-class ApeClassSession(models.Model):
-    ape_class = models.ForeignKey(ApeClass)
-    teacher = models.ForeignKey('people.Person')
-    start_date = models.DateTimeField(null=True)
-    num_sessions = models.IntegerField(help_text='Number of Sessions')
-    max_enrollment = models.IntegerField(help_text='Max number of students')
-
-    enrollment_opens = models.DateField(null=True)
-    enrollment_closes = models.DateField(null=True)
-
-    class Meta(object):
-        verbose_name = 'Ape Class Session'
-        verbose_name_plural = 'Ape Class Sessions'
-
-    def __str__(self):
-        return '{0} - starting {1}'.format(self.ape_class.name, self.start_date)
-
-
-class ClassMember(models.Model):
-    student = models.ForeignKey(Student, related_name='class_membership')
-    ape_class_session = models.ForeignKey(ApeClassSession, related_name='class_membership')

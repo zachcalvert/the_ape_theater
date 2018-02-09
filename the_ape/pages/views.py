@@ -11,7 +11,7 @@ from django.template.loader import get_template
 from django.urls import reverse
 from django.views.generic import View, TemplateView
 
-from classes.models import ApeClass, Student
+from classes.models import ApeClass
 from events.models import Event
 from pages.models import Page, EventsWidget, PeopleWidget, ApeClassesWidget, \
     ImageCarouselWidget, BannerWidget

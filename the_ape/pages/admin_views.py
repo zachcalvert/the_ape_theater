@@ -6,7 +6,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 
-from classes.models import ApeClass, Student
+from classes.models import ApeClass
 from events.models import Event
 from pages.models import Page, Widget, PageToWidget
 from pages.admin_forms import get_widget_form

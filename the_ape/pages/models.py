@@ -16,7 +16,7 @@ from django.urls import reverse
 
 from model_utils.managers import InheritanceManager
 
-from classes.models import ApeClass, Student
+from classes.models import ApeClass
 from events.models import Event
 from pages.fields import SortedManyToManyField, ColorField
 from people.models import Person, HouseTeam

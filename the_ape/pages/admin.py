@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy
 
 from grappelli.forms import GrappelliSortableHiddenMixin
 
-from classes.models import Student, ApeClass
+from classes.models import ApeClass
 from events.models import Event
 from pages.admin_forms import FilteredSelect, PageForm, get_widget_form
 from pages.admin_views import WidgetFormView, WidgetNameLookupView, WidgetPageLookupView

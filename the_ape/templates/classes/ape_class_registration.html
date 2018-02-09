@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Register for {{ ape_class.name }} | The Ape{% endblock %}
+
+{% block content %}
+
+	<div class="ape-class-detail">
+		<div class="ape-class-focus">
+			<div class="ape-class-focus-image">
+		    	{% include 'widgets/image.html' with url=ape_class.banner_url %}
+		    </div>
+		    <div class="ape-class-focus-right-column">
+		    	<form action="{% url 'register_for_class' ape_class.id %}" method="post">
+				    {% csrf_token %}
+				    {{ form }}
+				    <input type="submit" value="Submit" />
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
