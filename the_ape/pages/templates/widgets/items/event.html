@@ -1,12 +1,11 @@
 {% load page_tags %}
-
-<p class="event-name">{{ event.name|safe }}</p>
 <div class="event-image-wrap">
     <a href="{{ event.path|wrapped_url }}">
         <img class="event-image" src="{{ event.image }}" 
                 alt="{{ event.name }} image">
     </a>
 </div>
+<p class="event-name">{{ event.name|safe }}</p>
 <div >
 	<button class="ape-button">TICKETS</button>
 </div>

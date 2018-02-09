@@ -85,8 +85,10 @@ form.navbar-right {
     background: #222;
     border: 1px solid #080808;
     color: #f9f9f9;
-    padding: 10px 20px;
-    margin: -1px -10px 5px;
+    padding: 11px 20px;
+    margin: -1px -10px 25px;
+    color: #999;
+    font-size: 18px;
 }
 /* end main page layout */
 
@@ -104,7 +106,7 @@ form.navbar-right {
     text-align: center;
     position:  relative;
     overflow: hidden;
-    padding-bottom: 5px;
+    padding-bottom: 20px;
 }
 
 .gallery-item {
@@ -113,10 +115,11 @@ form.navbar-right {
     text-align: center;
     font-weight: bold;
     font-size: 11px;
-    padding: 5px;
+    padding: 10px 20px;
     display: inline-block;
     vertical-align: bottom;
     border-radius: 5px;
+    margin-bottom: 10px;
 }
 .gallery-item:hover {
     background: #F9F9F9;
@@ -172,6 +175,7 @@ form.navbar-right {
 /* start gallery widget event item */
 .event-image {
     width: 400px;
+    padding: 0 0 5px 0;
 }
 .event-name {
     font-weight: bold;
@@ -183,6 +187,7 @@ form.navbar-right {
 /* start gallery widget ape class item */
 .ape-class-image {
     width: 400px;
+    padding: 0 0 5px 0;
 }
 .ape-class-name {
     font-weight: bold;
