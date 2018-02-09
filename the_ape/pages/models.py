@@ -9,6 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
+from django.core.management import call_command
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.urls import reverse
@@ -549,6 +550,25 @@ class BannerWidget(Widget, PageLinkMixin):
             pass
         return data
 
+    def save(self, *args, **kwargs):
+        """
+        We collect static when images change because it seems easier than
+        implementing webpack
+        """
+        collectstatic = False
+
+        if self.pk is not None:
+            orig = BannerWidget.objects.get(pk=self.pk)
+            if orig.image != self.image:
+                print('image changed')
+                collectstatic = True
+        else:
+            collectstatic = True  # this is a newly created instance
+
+        super(BannerWidget, self).save(*args, **kwargs)
+        if collectstatic:
+            call_command('collectstatic', verbosity=1, interactive=False)
+
 
 class ImageCarouselWidget(Widget):
 
@@ -591,6 +611,25 @@ class ImageCarouselItem(PageLinkWidgetItem):
             "end_date": self.end_date,
         }
 
+    def save(self, *args, **kwargs):
+        """
+        We collect static when images change because it seems easier than
+        implementing webpack
+        """
+        collectstatic = False
+
+        if self.pk is not None:
+            orig = ImageCarouselItem.objects.get(pk=self.pk)
+            if orig.image != self.image:
+                print('image changed')
+                collectstatic = True
+        else:
+            collectstatic = True  # this is a newly created instance
+
+        super(ImageCarouselItem, self).save(*args, **kwargs)
+        if collectstatic:
+            call_command('collectstatic', verbosity=1, interactive=False)
+
 
 class AudioWidget(Widget):
     audio_file = AudioField(upload_to='audio', blank=True,
@@ -616,6 +655,25 @@ class AudioWidget(Widget):
     audio_file_player.allow_tags = True
     audio_file_player.short_description = 'Audio file player'
 
+    def save(self, *args, **kwargs):
+        """
+        We collect static when audio changes because it seems easier than
+        implementing webpack
+        """
+        collectstatic = False
+
+        if self.pk is not None:
+            orig = AudioWidget.objects.get(pk=self.pk)
+            if orig.audio_file != self.audio_file:
+                print('audio changed')
+                collectstatic = True
+        else:
+            collectstatic = True  # this is a newly created instance
+
+        super(AudioWidget, self).save(*args, **kwargs)
+        if collectstatic:
+            call_command('collectstatic', verbosity=1, interactive=False)
+
 
 class VideoWidget(Widget):
     video_file = models.FileField(upload_to='videos', help_text="Allowed type - .mp4, .ogg")
@@ -629,3 +687,22 @@ class VideoWidget(Widget):
             "video_source": self.video_file.url,
         })
         return data
+
+    def save(self, *args, **kwargs):
+        """
+        We collect static when video changes because it seems easier than
+        implementing webpack
+        """
+        collectstatic = False
+
+        if self.pk is not None:
+            orig = VideoWidget.objects.get(pk=self.pk)
+            if orig.video_file != self.video_file:
+                print('video changed')
+                collectstatic = True
+        else:
+            collectstatic = True  # this is a newly created instance
+
+        super(VideoWidget, self).save(*args, **kwargs)
+        if collectstatic:
+            call_command('collectstatic', verbosity=1, interactive=False)

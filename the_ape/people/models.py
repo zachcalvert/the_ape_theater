@@ -1,3 +1,4 @@
+from django.core.management import call_command
 from django.db import models
 from django.urls import reverse
 
@@ -75,3 +76,22 @@ class Person(models.Model):
             data['videos'] = [{"video_source": video.video_file.url} for video in self.videos.all()]
 
         return data
+
+    def save(self, *args, **kwargs):
+        """
+        We collect static when images change because it seems easier than
+        implementing webpack
+        """
+        collectstatic = False
+
+        if self.pk is not None:
+            orig = Person.objects.get(pk=self.pk)
+            if orig.headshot != self.headshot:
+                print('headshot changed')
+                collectstatic = True
+        else:
+            collectstatic = True  # this is a newly created instance
+
+        super(Person, self).save(*args, **kwargs)
+        if collectstatic:
+            call_command('collectstatic', verbosity=1, interactive=False)

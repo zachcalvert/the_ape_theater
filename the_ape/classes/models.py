@@ -1,3 +1,4 @@
+from django.core.management import call_command
 from django.db import models
 from django.urls import reverse
 
@@ -45,6 +46,25 @@ class ApeClass(models.Model):
             data['banner_url'] = self.banner.image.url
 
         return data
+
+    def save(self, *args, **kwargs):
+        """
+        We collect static when banners change because it seems easier than
+        implementing webpack
+        """
+        collectstatic = False
+
+        if self.pk is not None:
+            orig = ApeClass.objects.get(pk=self.pk)
+            if orig.banner != self.banner:
+                print('banner changed')
+                collectstatic = True
+        else:
+            collectstatic = True  # this is a newly created instance
+
+        super(ApeClass, self).save(*args, **kwargs)
+        if collectstatic:
+            call_command('collectstatic', verbosity=1, interactive=False)
 
 
 class ApeClassSession(models.Model):
