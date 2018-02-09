@@ -66,3 +66,16 @@
     }
 
 }
+
+/* -----------  ----------- */
+@media screen and (max-width: 500px) {
+    .person-detail {
+        margin-top: 0px;
+    }
+    .person-focus {
+        padding: 10px 0px;
+    }
+    .person-focus-image {
+        width: 100%;
+    }
+}
