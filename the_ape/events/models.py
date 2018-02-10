@@ -4,17 +4,18 @@ from datetime import datetime, timedelta
 from django.core.management import call_command
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 from classes.forms import ApeClassRegistrationForm
 
 WEEKDAYS = (
-    (0, 'Monday'),
-    (1, 'Tuesday'),
-    (2, 'Wednesday'),
-    (3, 'Thursday'),
-    (4, 'Friday'),
-    (5, 'Saturday'),
-    (6, 'Sunday'),
+    (1, 'Monday'),
+    (2, 'Tuesday'),
+    (3, 'Wednesday'),
+    (4, 'Thursday'),
+    (5, 'Friday'),
+    (6, 'Saturday'),
+    (7, 'Sunday'),
 )
 
 MONTHS = (
@@ -64,25 +65,25 @@ class Event(models.Model):
         """
         day = ''
         time = ''
-        if self.start_time.date() == datetime.today():
+        start_time = timezone.localtime(self.start_time)
+        if start_time.date() == datetime.today():
             day = 'Tonight'
-        elif self.start_time.date() == datetime.today() + timedelta(days=1):
+        elif start_time.date() == datetime.today() + timedelta(days=1):
             day = 'Tomorrow'
         else:
-            # if it's within a week
-            if self.start_time.date() <= datetime.today().date() + timedelta(days=6):
-                day = 'This '
-                day_index = self.start_time.date().weekday()
-                day += WEEKDAYS[day_index][1]
-            else:
-                day_index = self.start_time.date().weekday()
-                day = WEEKDAYS[day_index][1]
-                month_index = self.start_time.month - 1
-                month = MONTHS[month_index][1]
-                day += ', {month} {date}'.format(month=month,
-                                                 date=self.start_time.day)
+            day_index = start_time.date().weekday()
+            day = WEEKDAYS[day_index][1]
+            month_index = start_time.month - 1
+            month = MONTHS[month_index][1]
+            day += ', {month} {date}'.format(month=month,
+                                             date=start_time.day)
+        hour = start_time.hour
+        if hour > 12:
+            hour = str(hour - 12) + ' pm'
+        else:
+            hour = str(hour) + ' am'
 
-        return day
+        return '{}, {}'.format(day, hour)
 
     def to_data(self):
         data = {
