@@ -1,21 +1,16 @@
-{% extends 'base.html' %}
-
-{% block title %} Register for {{ ape_class.name }} | The Ape{% endblock %}
-
-{% block content %}
-
-	<div class="ape-class-detail">
-		<div class="ape-class-focus">
-			<div class="ape-class-focus-image">
-		    	{% include 'widgets/image.html' with url=ape_class.banner_url %}
-		    </div>
-		    <div class="ape-class-focus-right-column">
-		    	<form action="{% url 'register_for_class' ape_class.id %}" method="post">
-				    {% csrf_token %}
-				    {{ form }}
-				    <input type="submit" value="Submit" />
-				</form>
-			</div>
-		</div>
-	</div>
-{% endblock %}
+<div class="modal fade ape-modal" id="register-for-class">
+	<form class="well" method="post" action="{% url 'register_for_class' ape_class.id %}">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal">×</button>
+	    <h3>Reserve a place in {{ ape_class.name }}</h3>
+	  </div>
+	  <div class="modal-body">
+	       {% csrf_token %}
+	       {{ form }}
+	  </div>
+	  <div class="modal-footer">
+	       <input class="btn btn-primary" type="submit" value="Save" />
+	       <input name="cancel" class="btn" type="submit" value="Cancel"/>
+	  </div>
+	</form>
+</div>

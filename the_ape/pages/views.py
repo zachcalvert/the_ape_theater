@@ -11,6 +11,8 @@ from django.template.loader import get_template
 from django.urls import reverse
 from django.views.generic import View, TemplateView
 
+from accounts.models import ClassMember, UserProfile
+from classes.forms import ApeClassRegistrationForm
 from classes.models import ApeClass
 from events.models import Event
 from pages.models import Page, EventsWidget, PeopleWidget, ApeClassesWidget, \
@@ -145,7 +147,17 @@ class ApeClassWrapperView(WebPageWrapperView):
     def get_context_data(self, ape_class_id, **kwargs):
         context = super(ApeClassWrapperView, self).get_context_data(**kwargs)
         ape_class = get_object_or_404(ApeClass, pk=ape_class_id)
+        form = ApeClassRegistrationForm()
+        if self.request.user:
+            try:
+                is_registered = ClassMember.objects.filter(student=self.request.user.profile, ape_class=ape_class).exists()
+            except UserProfile.DoesNotExist:
+                is_registered = False
+        else:
+            is_registered = False
         context['class'] = ape_class.to_data()
+        context['form'] = form
+        context['is_registered'] = is_registered
         return context
 
 

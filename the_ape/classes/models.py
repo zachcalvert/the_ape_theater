@@ -12,7 +12,6 @@ class ApeClass(models.Model):
 
     name = models.CharField(max_length=50)
     bio = models.TextField()
-    active = models.BooleanField(default=True)
     class_type = models.CharField(choices=TYPE_CHOICES, max_length=50)
     banner = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
 

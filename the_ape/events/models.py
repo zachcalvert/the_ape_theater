@@ -5,6 +5,8 @@ from django.core.management import call_command
 from django.db import models
 from django.urls import reverse
 
+from classes.forms import ApeClassRegistrationForm
+
 WEEKDAYS = (
     (0, 'Monday'),
     (1, 'Tuesday'),
@@ -90,7 +92,7 @@ class Event(models.Model):
             "start_time": self.start_time,
             "event_day": self.event_day(),
             "ticket_price": self.ticket_price,
-            "name_with_date": self.name_with_date
+            "name_with_date": self.name_with_date,
         }
         if self.banner:
             data['banner_url'] = self.banner.image.url

@@ -278,4 +278,18 @@ class EventAdmin(SaveAsNewAdmin):
     list_display = ['name_with_date']
 
 
+class StudentInline(admin.TabularInline):
+    model = ApeClass.students.through
+    fields = ['student', 'has_paid']
+    readonly_fields = ['student']
+    extra = 0
+
+
+class ApeClassAdmin(SaveAsNewAdmin):
+    list_display = ['name', 'students']
+    inlines = [
+        StudentInline,
+    ]
+
+admin.site.register(ApeClass, ApeClassAdmin)
 admin.site.register(Event, EventAdmin)

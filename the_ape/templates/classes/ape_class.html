@@ -15,8 +15,14 @@
 			</div>
 		</div>
 		<div class="ape-class-next-session">Next session of {{ ape_class.name }} starts in x days!</div>
+
 		<div class="ape-class-page-tickets">
-			<a href="{% url 'register_for_class' ape_class.id %}"><button class="ape-button">Reserve your spot</button></a>
+			{% if is_registered %}
+				<a href="#"><button class="ape-button">Your spot is reserved</button></a>
+			{% else %}
+				<a data-toggle="modal" href="#register-for-class"><button class="ape-button">Reserve your spot</button></a>
+			{% endif %}
 		</div>
+		{% include 'classes/ape_class_registration.html' %}
 	</div>
 {% endblock %}

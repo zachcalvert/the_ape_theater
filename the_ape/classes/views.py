@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from accounts.models import UserProfile, ClassMember
 from classes.forms import ApeClassRegistrationForm
@@ -21,4 +22,4 @@ def register_for_class(request, ape_class_id):
             has_paid = form.cleaned_data['pay_now']
             ClassMember.objects.create(ape_class=ape_class, student=profile, has_paid=has_paid)
 
-    return render(request, 'classes/ape_class.html', {'ape_class': ape_class})
+    return redirect(reverse('ape_class_wrapper', kwargs={'ape_class_id': ape_class.id}))

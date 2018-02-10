@@ -16,7 +16,17 @@ input[type="radio"] {
     -moz-appearance: checkbox;    /* Firefox */
     -ms-appearance: checkbox;     /* not currently supported */
 }
+input[type=checkbox] {
+    margin: 4px 0 0 20px;
+}
 
+/* start ape modals */
+.ape-modal {
+    width: 60%;
+    left: 20%;
+    top: 80px;
+}
+/* end ape modals */
 
 /* start buy/register button */
 .ape-button {
