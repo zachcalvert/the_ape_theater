@@ -42,6 +42,7 @@ class Event(models.Model):
     tickets_sold = models.IntegerField(default=0)
     ticket_price = models.DecimalField(decimal_places=2, max_digits=5)
     banner = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
+    videos = models.ManyToManyField('pages.VideoWidget', null=True, blank=True)
 
     class Meta:
         ordering = ['start_time']
@@ -84,6 +85,11 @@ class Event(models.Model):
             hour = str(hour) + ' am'
 
         return '{}, {}'.format(day, hour)
+
+    def date(self):
+        return '{}/{}/{}'.format(self.start_time.month,
+                                 self.start_time.day,
+                                 self.start_time.year)
 
     def to_data(self):
         data = {

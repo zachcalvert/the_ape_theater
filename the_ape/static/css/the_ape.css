@@ -472,6 +472,43 @@ form.navbar-right {
     margin-top: 30px;
 }
 
+.user-profile-info {
+    margin: 30px;
+}
+.user-profile-info span {
+    display: block;
+    padding: 5px;
+}
+
+.user-profile table {
+    border: 1px solid #090909;
+    border-radius: 3px;
+    border-collapse: separate;
+    border-radius: 5px;
+    width: 70%;
+    margin-left: 15%;
+    margin-bottom: 30px;
+}
+.user-profile th {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #090909;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.user-profile th, td {
+    padding: 10px;
+
+}
+.user-profile table tbody tr:nth-child(odd) td {
+    background-color: #f5f5f5;
+}
+
+.user-profile ul {
+    border-radius: 3px;
+    border: 1px solid #090909;
+    padding: 0;
+}
+
 .user-profile li {
     padding: 15px;
     background: #f9f9f9;

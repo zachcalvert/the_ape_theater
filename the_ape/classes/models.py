@@ -35,6 +35,11 @@ class ApeClass(models.Model):
     def get_absolute_url(self):
         return reverse('ape_class_wrapper', kwargs={'ape_class_id': self.pk})
 
+    def start_day(self):
+        return '{}/{}/{}'.format(self.start_date.month,
+                                 self.start_date.day,
+                                 self.start_date.year)
+
     def to_data(self):
         data = {
             "id": self.id,

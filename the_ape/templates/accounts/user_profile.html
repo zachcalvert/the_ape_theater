@@ -1,32 +1,58 @@
 {% extends 'base.html' %}
 
+{% block title %}{{ user.username }}'s profile | The Ape{% endblock %}
+
 {% block content %}
-<!-- <p class="widget-header">{{ user.username }}</p> -->
 <div class="user-profile">
-	Welcome, {{ user.username }}
+
+	<div class="user-profile-info">
+		<span><b>Username:</b> {{ user.username }}</span>
+		<span><b>Date joined:</b> {{ user.date_joined.date }}</span>
+	</div>
 
 	<div class="user-profile-classes">
-		<p class="widget-header">My classes</p>
-		<ul>
+		<p class="widget-header">{{ user.username }}'s classes</p>
+		<table title="My classes">
+			<tr>
+				<th>Start Date</th>
+				<th>Class</th>
+				<th>Registration</th>
+			</tr>
 			{% for class in user.profile.classes.all %}
-				<li>{{ class.name }}</li>
+				<tr>
+					<td>{{ class.start_day }}</td>
+					<td>{{ class.name }}</td>
+					<td>{{ class.registration_link }}</td>
 			{% endfor %}
 			{% if not user.profile.classes.exists %}
-				Classes you register for will show up here.
+				<tr>
+					<td></td>
+					<td>Classes you register for will show up here.</td>
+				</tr>
 			{% endif %}
-		</ul>
+		</table>
 	</div>
 	<div class="user-profile-shows">
-		<p class="widget-header">My shows</p>
-		<ul>
+		<p class="widget-header">{{ user.username }}'s shows</p>
+		<table title="My shows">
+			<tr>
+				<th>Date</th>
+				<th>Show</th>
+				<th>Ticket</th>
+			</tr>
 			{% for show in user.profile.shows.all %}
-				<li>{{ show.name_with_date }}</li>
+				<tr>
+					<td>{{ show.date }}</td>
+					<td>{{ show.name }}</td>
+					<td>{{ show.ticket_link }}</td>
+				</tr>
 			{% endfor %}
-			{% if not user.profile.shows.exists %}
-				Tickets you purchase for will show up here.
+			{% if not user.profile.show.exists %}
+				<tr>
+					<td></td><td>Shows you purchase tickets for will show up here.</td>
+				</tr>
 			{% endif %}
-		</ul>
+		</table>
 	</div>
 </div>
-
 {% endblock %}
