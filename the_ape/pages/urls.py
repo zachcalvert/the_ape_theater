@@ -10,7 +10,7 @@ urlpatterns = [
 
     # url(r'^classes/(?P<ape_class_id>\d+)', views.ApeClassWrapperView.as_view(), name='ape_class_wrapper'),
     url(r'^classes/', include('classes.urls')),
-    url(r'^events/(?P<event_id>\d+)', views.EventWrapperView.as_view(), name='event_wrapper'),
+    url(r'^events/', include('events.urls')),
     url(r'^people/(?P<person_id>\d+)', views.PersonWrapperView.as_view(), name='person_wrapper'),
     url(r'^house_teams/(?P<house_team_id>\d+)', views.HouseTeamWrapperView.as_view(), name='house_team_wrapper'),
 

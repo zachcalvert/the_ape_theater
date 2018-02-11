@@ -464,3 +464,19 @@ form.navbar-right {
     display: inline-block;
 }
 /* ----- end about the ape text widget ------*/
+
+
+
+/* ----- start user profile page ------*/
+.user-profile {
+    margin-top: 30px;
+}
+
+.user-profile li {
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #090909;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+/* ----- end user profile page ------*/

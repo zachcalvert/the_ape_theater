@@ -1,0 +1,16 @@
+<div class="modal fade ape-modal" id="event-ticket-purchase">
+	<form class="well" method="post" action="{% url 'event_ticket_purchase' event.id %}">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal">×</button>
+	    <h3>Buy tickets to {{ event.name }}</h3>
+	  </div>
+	  <div class="modal-body">
+	       {% csrf_token %}
+	       {{ form }}
+	  </div>
+	  <div class="modal-footer">
+	       <input class="btn btn-primary" type="submit" value="Save" />
+	       <input name="cancel" class="btn" type="submit" value="Cancel"/>
+	  </div>
+	</form>
+</div>

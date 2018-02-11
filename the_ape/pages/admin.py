@@ -291,5 +291,6 @@ class ApeClassAdmin(SaveAsNewAdmin):
         StudentInline,
     ]
 
+
 admin.site.register(ApeClass, ApeClassAdmin)
 admin.site.register(Event, EventAdmin)

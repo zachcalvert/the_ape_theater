@@ -1,7 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<!-- <p class="widget-header">{{ user.username }}</p> -->
+<div class="user-profile">
 	Welcome, {{ user.username }}
+
+	<div class="user-profile-classes">
+		<p class="widget-header">My classes</p>
+		<ul>
+			{% for class in user.profile.classes.all %}
+				<li>{{ class.name }}</li>
+			{% endfor %}
+			{% if not user.profile.classes.exists %}
+				Classes you register for will show up here.
+			{% endif %}
+		</ul>
+	</div>
+	<div class="user-profile-shows">
+		<p class="widget-header">My shows</p>
+		<ul>
+			{% for show in user.profile.shows.all %}
+				<li>{{ show.name_with_date }}</li>
+			{% endfor %}
+			{% if not user.profile.shows.exists %}
+				Tickets you purchase for will show up here.
+			{% endif %}
+		</ul>
+	</div>
+</div>
 
 {% endblock %}

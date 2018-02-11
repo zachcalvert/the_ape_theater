@@ -11,9 +11,10 @@ from django.template.loader import get_template
 from django.urls import reverse
 from django.views.generic import View, TemplateView
 
-from accounts.models import ClassMember, UserProfile
+from accounts.models import ClassMember, UserProfile, EventAttendee
 from classes.forms import ApeClassRegistrationForm
 from classes.models import ApeClass
+from events.forms import EventTicketPurchaseForm
 from events.models import Event
 from pages.models import Page, EventsWidget, PeopleWidget, ApeClassesWidget, \
     ImageCarouselWidget, BannerWidget
@@ -171,7 +172,17 @@ class EventWrapperView(WebPageWrapperView):
     def get_context_data(self, event_id, **kwargs):
         context = super(EventWrapperView, self).get_context_data(**kwargs)
         event = get_object_or_404(Event, pk=event_id)
+        form = EventTicketPurchaseForm()
+        if self.request.user:
+            try:
+                is_purchased = EventAttendee.objects.filter(attendee=self.request.user.profile, event=event).exists()
+            except UserProfile.DoesNotExist:
+                is_purchased = False
+        else:
+            is_purchased = False
+        context['form'] = form
         context['event'] = event.to_data()
+        context['is_purchased'] = is_purchased
         return context
 
 

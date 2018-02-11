@@ -5,14 +5,14 @@ from django.core.urlresolvers import reverse
 
 
 class UserProfileView(TemplateView):
-    template_name = 'user_profile.html'
+    template_name = 'accounts/user_profile.html'
 
     def get_context_data(self, **kwargs):
         context = super(UserProfileView, self).get_context_data(**kwargs)
         if self.request.user.is_authenticated():
             user = get_object_or_404(User, pk=self.request.user.pk)
         else:
-            return reverse('login')
+            return reverse('auth_login')
 
         context['user'] = user
         return context

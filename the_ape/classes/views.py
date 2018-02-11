@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -18,8 +19,9 @@ def register_for_class(request, ape_class_id):
     if request.method == 'POST':
         form = ApeClassRegistrationForm(data=request.POST)
         if form.is_valid():
-            profile, created = UserProfile.objects.get_or_create(user=user)
             has_paid = form.cleaned_data['pay_now']
-            ClassMember.objects.create(ape_class=ape_class, student=profile, has_paid=has_paid)
+            ClassMember.objects.create(ape_class=ape_class, student=user.profile, has_paid=has_paid)
+            messages.add_message(request, messages.SUCCESS, 
+                                 'Your spot in {} has been reserved.'.format(ape_class.name))
 
     return redirect(reverse('ape_class_wrapper', kwargs={'ape_class_id': ape_class.id}))

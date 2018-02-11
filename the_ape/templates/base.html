@@ -54,6 +54,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
               {% if request.user.is_authenticated %}
+                <li id="user-profile"><a href="{% url 'user_profile' %}"><i class="fa fa-user"></i></a></li>
                 <li id="logout"><a href="{% url 'auth_logout' %}">Logout</a></li>
               {% else %}
                 <li id="login"><a href="{% url 'auth_login' %}">Login</a></li>
