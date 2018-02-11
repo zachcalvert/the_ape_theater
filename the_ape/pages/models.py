@@ -403,7 +403,7 @@ class EventsWidget(GroupWidget):
         if self.pk and self.events.exists():
             handpicked = Event.objects.filter(events_widgets=self)
             events = handpicked | events
-        return events
+        return events.distinct()
 
     def item_data(self, item):
         data = super(EventsWidget, self).item_data(item)
@@ -458,7 +458,7 @@ class PeopleWidget(GroupWidget):
         if self.pk and self.people.exists():
             people = Person.objects.filter(people_widgets=self)
 
-        return people
+        return people.distinct()
 
     def item_data(self, item):
         data = super(PeopleWidget, self).item_data(item)
@@ -519,7 +519,7 @@ class ApeClassesWidget(GroupWidget):
         if self.pk and self.ape_classes.exists():
             handpicked = ApeClass.objects.filter(ape_classes_widgets=self)
             return handpicked | ape_classes
-        return ape_classes
+        return ape_classes.distinct()
 
     def item_data(self, item):
         data = super(ApeClassesWidget, self).item_data(item)
