@@ -13,6 +13,7 @@ from django.core.management import call_command
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 from model_utils.managers import InheritanceManager
 
@@ -25,9 +26,9 @@ from people.models import Person, HouseTeam
 class WidgetManager(InheritanceManager):
     def active(self):
         return self.exclude(
-            start_date__gt=datetime.now()
+            start_date__gt=timezone.now()
         ).exclude(
-            end_date__lt=datetime.now()
+            end_date__lt=timezone.now()
         )
 
 
@@ -75,9 +76,9 @@ class Widget(AbstractWidget):
 
     @property
     def is_active(self):
-        if self.start_date and self.start_date > datetime.now():
+        if self.start_date and self.start_date > timezone.now():
             return False
-        if self.end_date and self.end_date < datetime.now():
+        if self.end_date and self.end_date < timezone.now():
             return False
         return True
 
@@ -102,9 +103,9 @@ class WidgetItem(models.Model):
 
     @property
     def is_active(self):
-        if self.start_date and self.start_date > datetime.now():
+        if self.start_date and self.start_date > timezone.now():
             return False
-        if self.end_date and self.end_date < datetime.now():
+        if self.end_date and self.end_date < timezone.now():
             return False
         return True
 
@@ -393,10 +394,10 @@ class EventsWidget(GroupWidget):
         events = Event.objects.all()
 
         if self.upcoming_events:
-            events = events.filter(start_time__gt=datetime.now())
+            events = events.filter(start_time__gt=timezone.now())
 
             if self.upcoming_events_window is not None:
-                window_end = datetime.now() + timedelta(days=int(self.upcoming_events_window))
+                window_end = timezone.now() + timedelta(days=int(self.upcoming_events_window))
                 events = events.filter(start_time__lt=window_end)
             events = events.order_by('start_time')
 
