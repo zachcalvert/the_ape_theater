@@ -353,7 +353,7 @@ class GroupWidget(AbstractGroupWidget):
 
 
 class EventFocusWidget(Widget):
-    event = models.ForeignKey(Event, null=True, blank=True)
+    event = models.ForeignKey(Event)
 
     def to_data(self, *args, **kwargs):
         data = super(EventFocusWidget, self).to_data(*args, **kwargs)
@@ -417,7 +417,7 @@ class EventsWidget(GroupWidget):
 
 
 class PersonFocusWidget(Widget):
-    person = models.ForeignKey(Person, null=True, blank=True)
+    person = models.ForeignKey(Person)
 
     def to_data(self, *args, **kwargs):
         data = super(PersonFocusWidget, self).to_data(*args, **kwargs)
@@ -470,7 +470,7 @@ class PeopleWidget(GroupWidget):
 
 
 class ApeClassFocusWidget(Widget):
-    ape_class = models.ForeignKey(ApeClass, null=True, blank=True)
+    ape_class = models.ForeignKey(ApeClass)
 
     def to_data(self, *args, **kwargs):
         data = super(ApeClassFocusWidget, self).to_data(*args, **kwargs)
