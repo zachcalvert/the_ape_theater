@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.admin.widgets import AdminSplitDateTime
+from django.contrib.admin.widgets import AdminSplitDateTime, FilteredSelectMultiple
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse_lazy as reverse
@@ -118,6 +118,11 @@ class WidgetForm(FileRecoveryForm):
     end_date = forms.SplitDateTimeField(widget=AdminSplitDateTime, required=False)
 
     class Meta:
+        widgets = {
+            'people': FilteredSelectMultiple(verbose_name='people', is_stacked=False),
+            'ape_classes': FilteredSelectMultiple(verbose_name='ape classes', is_stacked=False),
+            'events': FilteredSelectMultiple(verbose_name='events', is_stacked=False),
+        }
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
