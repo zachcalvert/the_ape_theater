@@ -13,9 +13,9 @@
               background-color: {{ page.background.color }};
           {% endif %}
 
-        {% if page.text_color %}
-            color: {{ page.text_color }} !important;
-        {% endif %}
+          {% if page.text_color %}
+              color: {{ page.text_color }} !important;
+          {% endif %}
       }
 
       {% if page.text_color %}
@@ -43,6 +43,17 @@
       {%  if page.button_text_color %}
           #content .ape-button {
               color: {{ page.button_text_color }};
+          }
+      {% endif %}
+
+      {% if page.nav_bar_color %}
+          .navbar-inverse, .widget-header {
+              background-color: {{ page.nav_bar_color }};
+          }
+      {% endif %}
+      {%  if page.nav_bar_text_color %}
+          .navbar-inverse, .widget-header, .navbar-brand, .navbar-nav a {
+              color: {{ page.nav_bar_text_color }}!important;
           }
       {% endif %}
   </style>

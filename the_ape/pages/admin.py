@@ -119,6 +119,13 @@ class PageAdmin(SortedManyToManyAdmin, SaveAsNewAdmin):
                 ('button_color', 'button_text_color'),
             )
         }),
+        ("Navigation Bar", {
+            "classes": ("grp-collapse grp-closed", "previewable"),
+            'fields': (
+                ('nav_bar_color',),
+                ('nav_bar_text_color'),
+            )
+        }),
     )
     form = PageForm
     formfield_overrides = {

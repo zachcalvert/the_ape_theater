@@ -173,6 +173,11 @@ class Page(models.Model):
     button_color = ColorField(max_length=10, null=True, blank=True)
     button_text_color = ColorField(max_length=10, null=True, blank=True)
 
+    # navbar button
+    nav_bar_color = ColorField(max_length=10, null=True, blank=True,
+                               help_text="This will also set the color of widget headers")
+    nav_bar_text_color = ColorField(max_length=10, null=True, blank=True)
+
     widgets_base = SortedManyToManyField(
         Widget,
         through=PageToWidget,
@@ -211,6 +216,8 @@ class Page(models.Model):
             'text_color',
             'button_color',
             'button_text_color',
+            'nav_bar_color',
+            'nav_bar_text_color'
         ]
         for field in direct_data_fields:
             data[field] = getattr(self, field, None)
