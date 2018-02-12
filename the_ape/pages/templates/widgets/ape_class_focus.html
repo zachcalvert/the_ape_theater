@@ -8,6 +8,13 @@
     	<div class="ape-class-focus-bio">{{ widget.ape_class.bio }}</div>
 	</div>
 	<div class="ape-class-page-tickets">
-		<button>REGISTER</button>
+		{% with widget.ape_class as ape_class %}
+		{% if is_registered %}
+			<a href="#"><button class="ape-button">Your spot is reserved</button></a>
+		{% else %}
+			<a data-toggle="modal" href="#register-for-class"><button class="ape-button">Reserve your spot</button></a>
+		{% endif %}
 	</div>
+	{% include 'classes/ape_class_registration.html' %}
+	{% endwith %}
 </div>
