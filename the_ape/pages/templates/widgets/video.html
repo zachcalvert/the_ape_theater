@@ -1,9 +1,49 @@
 <div class="page-video">
     <h2>{{ widget.name }}</h2>
     {% if widget.description %}<p>{{ widget.description }}</p>{% endif %}
-	<video controls>
+	<video id="video-{{ widget.id }}">
 	  <source src="{{ widget.video_source }}" type="video/mp4">
 	  <source src="{{ widget.video_source }}" type="video/ogg">
 	Your browser does not support the video tag.
 	</video>
+	<div class="control">
+	    <a href="javascript;" class="btnPlay"><i class="fa fa-play"></i></a>
+	</div>
+	<div class="progressBar">
+	    <div class="timeBar"></div>
+	</div>
+
+	<div class="progressTime">
+	    <span class="current"></span>
+	    Video duration: <span class="duration"></span>
+	</div>
 </div>
+
+<script>
+	$(document).ready(function () {
+		var video = $('#video-{{ widget.id }}');
+		$('.btnPlay').on('click', function() {
+		    if(video[0].paused) {
+		        video[0].play();
+		    }
+		    else {
+		        video[0].pause();
+		    }
+		    return false;
+		});
+		//get HTML5 video time duration
+		video.on('loadedmetadata', function() {
+		    $('.duration').text(video[0].duration);
+		});
+		 
+		//update HTML5 video current play time
+		video.on('timeupdate', function() {
+			$('.current').text(video[0].currentTime);
+
+			var currentPos = video[0].currentTime; //Get currenttime
+    		var maxduration = video[0].duration; //Get video duration
+    		var percentage = 100 * currentPos / maxduration; //in %
+    		$('.timeBar').css('width', percentage+'%');
+		});
+	});
+</script>
