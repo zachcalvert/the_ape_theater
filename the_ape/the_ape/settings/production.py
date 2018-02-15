@@ -14,7 +14,6 @@ from django.core.exceptions import ImproperlyConfigured
 from .base import *
 
 DEBUG = False
-TEMPLATE_DEBUG = False
 
 STATIC_ROOT = '/home/zach/dev/the_ape_theater/staticfiles/'
 
