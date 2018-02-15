@@ -6,7 +6,7 @@ from django.urls import reverse
 class HouseTeam(models.Model):
     name = models.CharField(max_length=50)
     banner = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
-    videos = models.ManyToManyField('pages.VideoWidget', null=True, blank=True)
+    videos = models.ManyToManyField('pages.VideoWidget', blank=True)
 
     def __str__(self):
         return self.name
@@ -41,7 +41,7 @@ class Person(models.Model):
     teaches = models.BooleanField(default=False)
     performs = models.BooleanField(default=True)
     house_team = models.ForeignKey(HouseTeam, null=True, blank=True, related_name='performers')
-    videos = models.ManyToManyField('pages.VideoWidget', null=True, blank=True)
+    videos = models.ManyToManyField('pages.VideoWidget', blank=True)
 
     class Meta(object):
         verbose_name = 'Person'
