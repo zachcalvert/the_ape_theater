@@ -21,6 +21,11 @@
 
 <script>
 	$(document).ready(function () {
+		$('.progressBar').mouseup(function(e) {
+			console.log(e.pageX);
+		    updatebar(e.pageX);
+		});
+
 		var video = $('#video-{{ widget.id }}');
 		$('.btnPlay').on('click', function() {
 		    if(video[0].paused) {
@@ -45,5 +50,28 @@
     		var percentage = 100 * currentPos / maxduration; //in %
     		$('.timeBar').css('width', percentage+'%');
 		});
+		 
+		//update Progress Bar control
+		var updatebar = function(x) {
+			console.log('updateBar', x);
+		    var progress = $('.progressBar');
+		    var maxduration = video[0].duration; //Video duraiton
+		    var position = x - progress.offset().left; //Click pos
+		    var percentage = 100 * position / progress.width();
+		    console.log('percentage: ', percentage);
+		 
+		    //Check within range
+		    if(percentage > 100) {
+		        percentage = 100;
+		    }
+		    if(percentage < 0) {
+		        percentage = 0;
+		    }
+		 	console.log('current time: ', maxduration * percentage / 100);
+		    //Update progress bar and video currenttime
+		    $('.timeBar').css('width', percentage+'%');
+		    video[0].currentTime = maxduration * percentage / 100;
+		};
+
 	});
 </script>
