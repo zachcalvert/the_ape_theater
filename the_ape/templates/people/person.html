@@ -11,10 +11,13 @@
 		    </div>
 		    <div class="person-focus-right-column">
 		    	<div class="person-focus-name">{{ person.name }}</div>
+		    	<div class="person-focus-bio">{{ person.bio }}</div>
 		    	{% if person.house_team %}
 		    		<div class="person-focus-house-team">Plays on <a href="{{ person.house_team.path|wrapped_url }}">{{ person.house_team.name }}</a></div>
 		    	{% endif %}
-		    	<div class="person-focus-bio">{{ person.bio }}</div>
+		    	{% if person.website %}
+		    		<div class="person-focus-website">Plays on <a href="{{ person.website }}">{{ person.website }}</a></div>
+		    	{% endif %}
 			</div>
 		</div>
 	</div>

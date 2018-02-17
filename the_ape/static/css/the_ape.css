@@ -262,7 +262,7 @@ form.navbar-right {
     padding: 5px 0;
 }
 .person-focus-bio {
-    padding: 0;
+    padding: 5px 0;
     text-align: justify;
 }
 /* ----- start end focus widget ------*/
@@ -416,6 +416,9 @@ form.navbar-right {
     height: 100%;
     background-color: #090909;
 }
+.progressTime {}
+.duration {}
+.current {}
 /* ----- end video widget ------*/
 
 
