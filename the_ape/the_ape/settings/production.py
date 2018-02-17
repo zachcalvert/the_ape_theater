@@ -13,7 +13,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 from .base import *
 
-DEBUG = False
+DEBUG = True
 
 STATIC_ROOT = '/home/zach/dev/the_ape_theater/staticfiles/'
 
