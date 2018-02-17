@@ -19,8 +19,6 @@ class ApeRegistrationView(RegistrationView):
     success_url = '/'
     # create a profile for the new user upon registration
     def register(self, form_class):
-        import pdb
-        pdb.set_trace()
         new_user = super(ApeRegistrationView, self).register(form_class)
         user_profile = UserProfile.objects.create(user=new_user)
         return user_profile
