@@ -430,12 +430,3 @@ class PageForm(forms.ModelForm):
 
         return page
 
-
-class PersonForm(forms.ModelForm):
-
-    class Meta:
-        model = Person
-        fields = '__all__'
-        widgets = {
-            'videos': FilteredSelect(),
-        }
