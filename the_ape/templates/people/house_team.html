@@ -11,7 +11,9 @@
 	    	{% for person in house_team.performers %}
 	    		<div class="person-focus">
 					<div class="person-focus-image">
-				    	{% include 'widgets/image.html' with url=person.image_url %}
+						<a href="{% url 'person_wrapper' person.id %}">
+				    		{% include 'widgets/image.html' with url=person.image_url %}
+				    	</a>
 				    </div>
 				    <div class="person-focus-right-column">
 				    	<div class="person-focus-name">{{ person.name }}</div>
