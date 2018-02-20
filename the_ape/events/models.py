@@ -45,7 +45,7 @@ class Event(models.Model):
     videos = models.ManyToManyField('pages.VideoWidget', blank=True)
 
     class Meta:
-        ordering = ['start_time']
+        ordering = ['-start_time']
 
     def __str__(self):
         return self.name

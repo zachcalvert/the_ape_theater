@@ -1,3 +1,5 @@
+{% load crispy_forms_tags %}
+
 <div class="modal fade ape-modal" id="event-ticket-purchase">
 	<form class="well" method="post" action="{% url 'event_ticket_purchase' event.id %}">
 	  <div class="modal-header">
@@ -6,7 +8,7 @@
 	  </div>
 	  <div class="modal-body">
 	       {% csrf_token %}
-	       {{ form }}
+	       {{ form|crispy }}
 	  </div>
 	  <div class="modal-footer">
 	       <input class="btn btn-primary" type="submit" value="Save" />

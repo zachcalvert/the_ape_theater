@@ -8,7 +8,7 @@
 	</div>
 	<p class="widget-header">{{ event.name|safe }}</p>
 	<div class="event-page-bio">
-		<p>{{ event.bio }}</p>
+		<p>{{ event.bio|safe }}</p>
 	</div>
 	<div class="ape-class-page-tickets">
 		{% if is_purchased %}

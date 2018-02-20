@@ -74,7 +74,13 @@ class Person(models.Model):
         if self.headshot:
             data['image_url'] = self.headshot.url
         if self.videos.exists():
-            data['videos'] = [{"video_source": video.video_file.url} for video in self.videos.all()]
+            data['videos'] = [
+                {
+                    "video_source": video.video_file.url,
+                    "name": video.name,
+                    "description": video.description
+                } for video in self.videos.all()
+            ]
 
         return data
 
