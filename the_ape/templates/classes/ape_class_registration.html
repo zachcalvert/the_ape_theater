@@ -2,11 +2,11 @@
 
 <script type="text/javascript" src="https://js.squareup.com/v2/paymentform"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/sqpaymentform.js"></script>
-
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/sqpaymentform.css">
 
 <div class="modal fade ape-modal" id="sq-ccbox">
-  <form class="well" id="nonce-form" novalidate action="{% url 'process_card' %}" method="post">{% csrf_token %}
+  <form class="well" id="nonce-form" novalidate action="{% url 'process_card' %}" method="post">
+  	{% csrf_token %}
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
 		<h3>Register for {{ ape_class.name }}</h3>

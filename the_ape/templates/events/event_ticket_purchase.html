@@ -14,7 +14,19 @@
 	</div>
     <table>
 	    <tbody>
-	      <tr>
+	    	{% if not request.user.authenticated %}
+    		  <tr>
+		        <td>First:</td>
+		        <td><input class="sq-input" type="string" id="first-name" name="first-name"></td>
+		      </tr><tr>
+		        <td>Last:</td>
+		        <td><input class="sq-input" type="string" id="last-name" name="last-name"></td>
+		      </tr><tr>
+		        <td>Email address:</td>
+		        <td><input class="sq-input" type="string" id="email-address" name="email-address"></td>
+		      </tr>
+		    {% endif %}
+		  <tr>
 	        <td>Card Number:</td>
 	        <td><div id="sq-card-number"></div></td>
 	      </tr>
