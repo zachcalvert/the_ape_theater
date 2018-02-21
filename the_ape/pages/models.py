@@ -418,7 +418,8 @@ class EventsWidget(GroupWidget):
         data.update({
             "image": item.banner.image.url,
             "event_day": item.event_day(),
-            "name_with_date": item.name_with_date
+            "name_with_date": item.name_with_date,
+            "ticket_price": item.ticket_price
         })
         return data
 

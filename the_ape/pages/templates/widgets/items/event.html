@@ -6,8 +6,12 @@
     </a>
 </div>
 <p class="event-name">{{ event.name_with_date }}</p>
-<div >
-	<button class="ape-button">TICKETS</button>
+
+<div class="ape-class-page-tickets">
+	<a data-toggle="modal" href="#sq-ccbox">
+		<button class="ape-button">${{ event.ticket_price }}</button>
+	</a>
 </div>
+{% include 'events/event_ticket_purchase.html' %}
 
 

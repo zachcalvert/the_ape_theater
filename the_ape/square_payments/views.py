@@ -43,7 +43,8 @@ def process_card(request):
                                     'not charged, please contact talktotheape@gmail.com for further details.'.format(purchase_for))
             return HttpResponseRedirect(reverse('home'))
 
-        # do some more stuff with incrementing purchases for event, class, etc
+
+        # handle successful purchases
         purchase_model = request.POST['purchase-model']
         purchase_id = request.POST['purchase-id']
 

@@ -157,7 +157,7 @@ class ApeClassWrapperView(WebPageWrapperView):
             except UserProfile.DoesNotExist:
                 is_registered = False
             if is_registered:
-                messages.success(self.request, mark_safe("Woohoo! You're already registered for this class! See your registration <a href='/profile/'>here</a>."))
+                messages.success(self.request, mark_safe("Woohoo! You're registered for this class! See your registration <a href='/profile/'>here</a>."))
         else:
             is_registered = False
         context['class'] = ape_class.to_data()
@@ -182,7 +182,7 @@ class EventWrapperView(WebPageWrapperView):
             except UserProfile.DoesNotExist:
                 is_purchased = False
             if is_purchased:
-                messages.success(self.request, mark_safe("You already have tickets to this show! See your ticket(s) <a href='/profile/'>here</a>."))
+                messages.success(self.request, mark_safe("You're going to this show! See your ticket <a href='/profile/'>here</a>."))
         else:
             is_purchased = False
         context['form'] = form
