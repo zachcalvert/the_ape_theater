@@ -40,6 +40,8 @@
 	    </tbody>
     </table>
 	<input type="hidden" id="amount" name="amount" value="{{ event.ticket_price }}">
+	<input type="hidden" id="purchase-model" name="purchase-model" value="event">
+	<input type="hidden" id="purchase-id" name="purchase-id" value="{{ event.id }}">
 	<input type="hidden" id="purchase-for" name="purchase-for" value="{{ event.name }}">
     <input type="hidden" id="card-nonce" name="nonce">
   </form>

@@ -283,6 +283,7 @@ for model in WIDGET_MODELS:
 
 class EventAdmin(SaveAsNewAdmin):
     list_display = ['name_with_date']
+    readonly_fields = ['tickets_sold',]
 
 
 class StudentInline(admin.TabularInline):

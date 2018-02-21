@@ -36,3 +36,6 @@ class EventAttendee(models.Model):
     attendee = models.ForeignKey(UserProfile, related_name='event_attendance')
     event = models.ForeignKey(Event, related_name='event_attendance', null=True)
     purchase_date = models.DateTimeField(auto_now_add=True)
+
+    def create_ticket(self):
+        pass
