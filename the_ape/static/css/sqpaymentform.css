@@ -4,11 +4,15 @@
   outline-offset: -2px;
   margin-bottom: 5px;
   display: inline-block;
+  height: 25px;
+  background: #FFF;
+  width: 250px;
 }
 
 /* Define how SqPaymentForm iframes should look when they have focus */
 .sq-input--focus {
   outline: 5px auto rgb(59, 153, 252);
+  height: 25px;
 }
 
 /* Define how SqPaymentForm iframes should look when they contain invalid values */
