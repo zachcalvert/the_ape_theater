@@ -22,6 +22,7 @@ function requestCardNonce(event) {
   paymentForm.requestCardNonce();
 }
 
+var alerts = '';
 // Create and initialize a payment form object
 var paymentForm = new SqPaymentForm({
 
@@ -91,9 +92,11 @@ var paymentForm = new SqPaymentForm({
         // Log errors from nonce generation to the Javascript console
         console.log("Encountered errors:");
         errors.forEach(function(error) {
+          alerts += error.message + '\n';
           console.log('  ' + error.message);
         });
-
+        alert(alerts);
+        alerts = '';
         return;
       }
 
