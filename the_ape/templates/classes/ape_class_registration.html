@@ -1,16 +1,46 @@
-<div class="modal fade ape-modal" id="register-for-class">
-	<form class="well" method="post" action="{% url 'register_for_class' ape_class.id %}">
-	  <div class="modal-header">
-	    <button type="button" class="close" data-dismiss="modal">×</button>
-	    <h3>Reserve a place in {{ ape_class.name }}</h3>
-	  </div>
-	  <div class="modal-body">
-	       {% csrf_token %}
-	       {{ form }}
-	  </div>
-	  <div class="modal-footer">
-	       <input class="btn btn-primary" type="submit" value="Save" />
-	       <input name="cancel" class="btn" type="submit" value="Cancel"/>
-	  </div>
-	</form>
+{% load crispy_forms_tags %}
+
+<script type="text/javascript" src="https://js.squareup.com/v2/paymentform"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/sqpaymentform.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/sqpaymentform.css">
+
+<div class="modal fade ape-modal" id="sq-ccbox">
+  <form class="well" id="nonce-form" novalidate action="{% url 'process_card' %}" method="post">{% csrf_token %}
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>Register for {{ ape_class.name }}</h3>
+		<h4>${{ ape_class.price }}</h4>
+	</div>
+    <table>
+	    <tbody>
+	      <tr>
+	        <td>Card Number:</td>
+	        <td><div id="sq-card-number"></div></td>
+	      </tr>
+	      <tr>
+	        <td>CVV:</td>
+	        <td><div id="sq-cvv"></div></td>
+	      </tr>
+	      <tr>
+	        <td>Expiration Date: </td>
+	        <td><div id="sq-expiration-date"></div></td>
+	      </tr>
+	      <tr>
+	        <td>Postal Code:</td>
+	        <td><div id="sq-postal-code"></div></td>
+	      </tr>
+	      <tr>
+	        <td colspan="2">
+	          <button id="sq-creditcard" class="button-credit-card btn btn-primary" onclick="requestCardNonce(event)">
+	            Pay with card
+	          </button>
+	        </td>
+	      </tr>
+	    </tbody>
+    </table>
+	<input type="hidden" id="amount" name="amount" value="{{ ape_class.price }}">
+	<input type="hidden" id="purchase-for" name="purchase-for" value="{{ ape_class.name }}">
+    <input type="hidden" id="card-nonce" name="nonce">
+  </form>
 </div>

@@ -79,6 +79,10 @@
         width: 90%;
         margin-left: 5%;
     }
+    .ape-modal {
+        width: 90%;
+        left: 5%;
+    }
 
 }
 
@@ -96,6 +100,4 @@
     .event-image {
         width: 100%;
     }
-
-
 }

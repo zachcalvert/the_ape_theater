@@ -14,14 +14,12 @@
 		    	<div class="ape-class-focus-bio">{{ ape_class.bio }}</div>
 			</div>
 		</div>
-		<div class="ape-class-next-session">Next session of {{ ape_class.name }} starts in x days!</div>
+		{% if ape_class.start_day %}
+			<div class="ape-class-next-session">Next session of starts on {{ ape_class.start_day }}</div>
+		{% endif %}
 
 		<div class="ape-class-page-tickets">
-			{% if is_registered %}
-				<a href="#"><button class="ape-button">Your spot is reserved</button></a>
-			{% else %}
-				<a data-toggle="modal" href="#register-for-class"><button class="ape-button">Reserve your spot</button></a>
-			{% endif %}
+			<a data-toggle="modal" href="#sq-ccbox"><button class="ape-button">${{ ape_class.price }}</button></a>
 		</div>
 		{% include 'classes/ape_class_registration.html' %}
 	</div>

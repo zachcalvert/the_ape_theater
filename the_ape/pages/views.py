@@ -1,5 +1,6 @@
 import json
 
+from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse, Resolver404, resolve
@@ -9,6 +10,7 @@ from django.template.response import TemplateResponse
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.views.generic import View, TemplateView
 
 from accounts.models import ClassMember, UserProfile, EventAttendee
@@ -154,11 +156,12 @@ class ApeClassWrapperView(WebPageWrapperView):
                 is_registered = ClassMember.objects.filter(student=self.request.user.profile, ape_class=ape_class).exists()
             except UserProfile.DoesNotExist:
                 is_registered = False
+            if is_registered:
+                messages.success(self.request, mark_safe("Woohoo! You're already registered for this class! See your registration <a href='/profile/'>here</a>."))
         else:
             is_registered = False
         context['class'] = ape_class.to_data()
         context['form'] = form
-        context['is_registered'] = is_registered
         return context
 
 
@@ -178,11 +181,12 @@ class EventWrapperView(WebPageWrapperView):
                 is_purchased = EventAttendee.objects.filter(attendee=self.request.user.profile, event=event).exists()
             except UserProfile.DoesNotExist:
                 is_purchased = False
+            if is_purchased:
+                messages.success(self.request, mark_safe("You already have tickets to this show! See your ticket(s) <a href='/profile/'>here</a>."))
         else:
             is_purchased = False
         context['form'] = form
         context['event'] = event.to_data()
-        context['is_purchased'] = is_purchased
         return context
 
 

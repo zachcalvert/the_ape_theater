@@ -11,11 +11,9 @@
 		<p>{{ event.bio|safe }}</p>
 	</div>
 	<div class="ape-class-page-tickets">
-		{% if is_purchased %}
-			<a href="#"><button class="ape-button">You're going!</button></a>
-		{% else %}
-			<a data-toggle="modal" href="#sq-ccbox"><button class="ape-button">Buy tickets</button></a>
-		{% endif %}
+		<a data-toggle="modal" href="#sq-ccbox">
+			<button class="ape-button">${{ event.ticket_price }}</button>
+		</a>
 	</div>
 	{% include 'events/event_ticket_purchase.html' %}
 {% endblock %}
