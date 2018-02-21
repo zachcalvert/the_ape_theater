@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^accounts/register/$', ApeRegistrationView.as_view(form_class=RegistrationFormUniqueEmail), name="registration_register"),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^profile/', include('accounts.urls')),
+    url(r'^square/', include('square_payments.urls')),
 
     url(r'', include('pages.urls')),
 ]

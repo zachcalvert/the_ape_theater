@@ -181,6 +181,7 @@ LOCAL_APPS = (
     'events',
     'pages',
     'people',
+    'square_payments',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -253,6 +254,7 @@ LOGOUT_REDIRECT_URL = '/'
 # SQUARE SANDBOX SETTINGS
 SQUARE_APPLICATION_ID = 'sandbox-sq0idp-2qiP_T3vwVGta8gl_zfE2g'
 SQUARE_ACCESS_TOKEN = 'sandbox-sq0atb-ajZpWXxIptdz8NPWX_sRFQ'
+SQUARE_LOCATION_ID = 'CBASEAkhYkvMTp_dtcrg-zCqusMgAQ'
 # END SQUARE SANDBOX SETTINGS
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyCag3DYHBy7Nw1dYbruTA5qCVV9c9GxRVA'
