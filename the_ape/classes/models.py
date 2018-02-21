@@ -21,6 +21,7 @@ class ApeClass(models.Model):
     max_enrollment = models.IntegerField(help_text='Max number of students', default=12)
     enrollment_opens = models.DateField(null=True, blank=True)
     enrollment_closes = models.DateField(null=True, blank=True)
+    price = models.DecimalField(decimal_places=2, max_digits=5)
 
     class Meta(object):
         verbose_name = 'Ape Class'
@@ -36,17 +37,22 @@ class ApeClass(models.Model):
         return reverse('ape_class_wrapper', kwargs={'ape_class_id': self.pk})
 
     def start_day(self):
-        return '{}/{}/{}'.format(self.start_date.month,
-                                 self.start_date.day,
-                                 self.start_date.year)
+        if self.start_date:
+            return '{}/{}/{}'.format(self.start_date.month,
+                                     self.start_date.day,
+                                     self.start_date.year)
+        return None
 
     def to_data(self):
         data = {
             "id": self.id,
             "name": self.name,
             "bio": self.bio,
-            "type": self.class_type
+            "type": self.class_type,
+            "price": self.price,
         }
+        if self.start_day() is not None:
+            data["start_day"] = self.start_day()
         if self.banner:
             data['banner_url'] = self.banner.image.url
 
