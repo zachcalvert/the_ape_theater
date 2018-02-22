@@ -14,10 +14,13 @@ api_instance = TransactionsApi()
 
 
 class SquareCustomer(models.Model):
-    profile = models.ForeignKey(UserProfile)
+    first_name = models.CharField(max_length=40, null=True, blank=True)
+    last_name = models.CharField(max_length=40, null=True, blank=True)
+    email = models.CharField(max_length=60, null=True, blank=True)
+    profile = models.ForeignKey(UserProfile, null=True, blank=True, related_name='square_purchaser')
 
     def __str__(self):
-        return self.profile.user.username
+        return '{} {} - {}'.format(self.first_name, self.last_name, self.email)
 
 
 class SquarePayment(models.Model):

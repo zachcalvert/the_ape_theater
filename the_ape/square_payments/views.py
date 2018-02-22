@@ -17,17 +17,28 @@ from square_payments.models import SquareCustomer, SquarePayment
 def process_card(request):
 
     if request.method == 'POST':
-        user = request.user
+        if not request.user.is_authenticated:
+            first_name = request.POST['first-name']
+            last_name = request.POST-['last-name']
+            email = request.POST['email']
+        else:
+            user = request.user
+            email = user.email
+
         nonce = request.POST['nonce']
         purchase_for = request.POST['purchase-for']
 
         amount = request.POST['amount']
         amount = int(amount.replace('.', '')) # convert to cents, integer
-        customer, created = SquareCustomer.objects.get_or_create(profile=user.profile)
 
-        payment_uuid = str(uuid4())
+        customer, created = SquareCustomer.objects.get_or_create(email=email)
+        if created:
+            customer.first_name = first_name
+            customer.last_name = last_name
+            customer.save()
+
         payment = SquarePayment.objects.create(
-            uuid=payment_uuid,
+            uuid=str(uuid4()),
             customer=customer,
             amount=amount,
             nonce=nonce

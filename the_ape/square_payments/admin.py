@@ -11,7 +11,7 @@ class PaymentInline(admin.TabularInline):
 
 
 class SquareCustomerAdmin(admin.ModelAdmin):
-	readonly_fields = ['profile']
+	readonly_fields = ['first_name', 'last_name', 'email', 'profile']
 	inlines = [
         PaymentInline,
     ]

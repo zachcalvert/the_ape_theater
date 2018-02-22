@@ -1,7 +1,10 @@
+from django import forms
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.views.generic import TemplateView
 from registration.backends.simple.views import RegistrationView
 from registration.forms import RegistrationFormUniqueEmail
@@ -14,8 +17,31 @@ from django.contrib import admin
 admin.autodiscover()
 
 
+class ApeRegistrationForm(forms.Form):
+    first_name = forms.CharField(max_length=40)
+    last_name = forms.CharField(max_length=40)
+    email = forms.EmailField()
+    password1 = forms.CharField(max_length=40, widget=forms.PasswordInput)
+    password2 = forms.CharField(max_length=40, widget=forms.PasswordInput)
+
+    def clean(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise ValidationError('A user with that email already exists. Do you need to login perhaps?')
+        password1 = self.cleaned_data['password1']
+        password2 = self.cleaned_data['password2']
+        if password1 != password2:
+            raise ValidationError('The provided passwords do not match.')
+
+    def save(self, *args, **kwargs):
+        first_name = self.cleaned_data.get('first_name')
+        last_name = self.cleaned_data.get('last_name')
+        email = self.cleaned_data.get('email')
+        password = self.cleaned_data.get('password1')
+        return User.objects.create_user(username=email, email=email, password=password)
+
+
 class ApeRegistrationView(RegistrationView):
-    form_class = RegistrationFormUniqueEmail
     success_url = '/'
     # create a profile for the new user upon registration
     def register(self, form_class):
@@ -29,7 +55,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('pages.api_urls')),
     url(r'^grappelli/', include('grappelli.urls')),
-    url(r'^accounts/register/$', ApeRegistrationView.as_view(form_class=RegistrationFormUniqueEmail), name="registration_register"),
+    url(r'^accounts/register/$', ApeRegistrationView.as_view(form_class=ApeRegistrationForm), name="registration_register"),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^profile/', include('accounts.urls')),
     url(r'^square/', include('square_payments.urls')),

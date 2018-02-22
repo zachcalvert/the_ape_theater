@@ -14,7 +14,7 @@
 	</div>
     <table>
 	    <tbody>
-	    	{% if not request.user.authenticated %}
+	    	{% if not request.user.is_authenticated %}
     		  <tr>
 		        <td>First:</td>
 		        <td><input class="sq-input" type="string" id="first-name" name="first-name"></td>

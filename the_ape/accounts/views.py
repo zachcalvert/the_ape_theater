@@ -15,4 +15,7 @@ class UserProfileView(TemplateView):
             return reverse('auth_login')
 
         context['user'] = user
+        if user.profile.square_purchaser:
+            context['purchaser'] = user.profile.square_purchaser
+
         return context
