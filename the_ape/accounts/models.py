@@ -11,6 +11,7 @@ class UserProfile(models.Model):
     """
     user = models.OneToOneField(User, related_name='profile')
     classes = models.ManyToManyField(ApeClass, through='ClassMember', related_name='students')
+    shows = models.ManyToManyField(Event, through='EventAttendee', related_name='attendees')
 
     def __str__(self):
         return u'%s <%s>' % (self.user.get_full_name(), self.user.email,)
@@ -32,9 +33,12 @@ class ClassMember(models.Model):
     ape_class = models.ForeignKey(ApeClass, related_name='class_membership', null=True)
     has_paid = models.BooleanField(default=False)
 
+    def send_registration_email(self):
+        pass
+
 
 class EventAttendee(models.Model):
-    attendee = models.ForeignKey('square_payments.SquareCustomer', related_name='event_attendance', null=True)
+    attendee = models.ForeignKey(UserProfile, related_name='event_attendance', null=True)
     event = models.ForeignKey(Event, related_name='event_attendance', null=True)
     purchase_date = models.DateTimeField(auto_now_add=True)
 

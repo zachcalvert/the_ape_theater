@@ -6,8 +6,6 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
-from classes.forms import ApeClassRegistrationForm
-
 WEEKDAYS = (
     (1, 'Monday'),
     (2, 'Tuesday'),

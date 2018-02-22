@@ -14,9 +14,7 @@ from django.utils.safestring import mark_safe
 from django.views.generic import View, TemplateView
 
 from accounts.models import ClassMember, UserProfile, EventAttendee
-from classes.forms import ApeClassRegistrationForm
 from classes.models import ApeClass
-from events.forms import EventTicketPurchaseForm
 from events.models import Event
 from pages.models import Page, EventsWidget, PeopleWidget, ApeClassesWidget, \
     ImageCarouselWidget, BannerWidget
@@ -150,7 +148,6 @@ class ApeClassWrapperView(WebPageWrapperView):
     def get_context_data(self, ape_class_id, **kwargs):
         context = super(ApeClassWrapperView, self).get_context_data(**kwargs)
         ape_class = get_object_or_404(ApeClass, pk=ape_class_id)
-        form = ApeClassRegistrationForm()
         if self.request.user.is_authenticated:
             try:
                 is_registered = ClassMember.objects.filter(student=self.request.user.profile, ape_class=ape_class).exists()
@@ -161,7 +158,6 @@ class ApeClassWrapperView(WebPageWrapperView):
         else:
             is_registered = False
         context['class'] = ape_class.to_data()
-        context['form'] = form
         return context
 
 
@@ -175,8 +171,6 @@ class EventWrapperView(WebPageWrapperView):
     def get_context_data(self, event_id, **kwargs):
         context = super(EventWrapperView, self).get_context_data(**kwargs)
         event = get_object_or_404(Event, pk=event_id)
-        form = EventTicketPurchaseForm()
-        context['form'] = form
         context['event'] = event.to_data()
         return context
 

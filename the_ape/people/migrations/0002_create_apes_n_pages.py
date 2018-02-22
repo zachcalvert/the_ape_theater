@@ -205,6 +205,33 @@ PEOPLE = [
     },
 ]
 
+PAGES = [
+    {
+        'name': 'Home',
+        'slug': 'Home',
+    },
+    {
+        'name': 'Classes',
+        'slug': 'Classes'
+    },
+    {
+        'name': 'Shows',
+        'slug': 'Shows'
+    },
+    {
+        'name': 'Faculty',
+        'slug': 'Faculty'
+    },
+    {
+        'name': 'Performers',
+        'slug': 'Performers'
+    },
+    {
+        'name': 'Media',
+        'slug': 'Media'
+    },
+]
+
 
 def create_apes(apps, schema_editor):
     Person = apps.get_model('people', 'Person')
@@ -225,12 +252,23 @@ def create_apes(apps, schema_editor):
         )
 
 
+def create_pages(apps, schema_editor):
+    Page = apps.get_model('pages', 'Page')
+
+    for page_dict in PAGES:
+        Page.objects.get_or_create(
+            name=page_dict['name'],
+            slug=page_dict['slug']
+        )
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('people', '0002_auto_20180130_1207'),
+        ('people', '0001_initial'),
     ]
 
     operations = [
-        migrations.RunPython(create_apes)
+        migrations.RunPython(create_apes),
+        migrations.RunPython(create_pages)
     ]

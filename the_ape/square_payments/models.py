@@ -13,20 +13,8 @@ squareconnect.configuration.access_token = settings.SQUARE_ACCESS_TOKEN
 api_instance = TransactionsApi()
 
 
-class SquareCustomer(models.Model):
-    first_name = models.CharField(max_length=40, null=True, blank=True)
-    last_name = models.CharField(max_length=40, null=True, blank=True)
-    email = models.CharField(max_length=60, null=True, blank=True)
-    profile = models.ForeignKey(UserProfile, null=True, blank=True, related_name='square_purchaser')
-
-    shows = models.ManyToManyField(Event, through='accounts.EventAttendee', related_name='attendees')
-
-    def __str__(self):
-        return '{} {}'.format(self.first_name, self.last_name)
-
-
 class SquarePayment(models.Model):
-    customer = models.ForeignKey(SquareCustomer, related_name='payments')
+    customer = models.ForeignKey(UserProfile, null=True, related_name='payments')
     created = models.DateTimeField(auto_now_add=True)
     uuid = models.CharField(max_length=50)
     amount = models.IntegerField()
@@ -72,7 +60,7 @@ class SquarePayment(models.Model):
         try:
             api_response = api_instance.charge(location_id, body)
         except ApiException as e:
-            print ('Exception when calling TransactionApi->charge: %s\n' % e)
+            print('Exception when calling TransactionApi->charge: {}\n'.format(e))
             self.error_message = str(e)
             self.save()
             return False
@@ -80,10 +68,3 @@ class SquarePayment(models.Model):
         self.completed = True
         self.save()
         return True
-
-
-    # def clean(self):
-    #     if self.purchase_event and self.purchase_class:
-    #         raise AssertionError("Both 'purchase_event' and 'purchase_class' are set")
-    #     if not self.purchase_event and not self.purchase_class:
-    #         raise AssertionError("Neither 'purchase_event' nor 'purchase_class' is set")

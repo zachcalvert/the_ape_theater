@@ -281,20 +281,20 @@ for model in WIDGET_MODELS:
         pass
 
 
-class AttendeeInline(admin.TabularInline):
-    model = Event.attendees.through
-    fields = ['attendee']
-    readonly_fields = ['attendee']
-    extra = 0
-    max_num = 0
+# class AttendeeInline(admin.TabularInline):
+#     model = Event.attendees.through
+#     fields = ['attendee']
+#     readonly_fields = ['attendee']
+#     extra = 0
+#     max_num = 0
 
 
 class EventAdmin(SaveAsNewAdmin):
     list_display = ['name_with_date']
     readonly_fields = ['tickets_sold',]
-    inlines = [
-        AttendeeInline,
-    ]
+    # inlines = [
+    #     AttendeeInline,
+    # ]
 
 
 class StudentInline(admin.TabularInline):
@@ -312,4 +312,4 @@ class ApeClassAdmin(SaveAsNewAdmin):
 
 
 admin.site.register(ApeClass, ApeClassAdmin)
-admin.site.register(Event, EventAdmin)
+# admin.site.register(Event, EventAdmin)
