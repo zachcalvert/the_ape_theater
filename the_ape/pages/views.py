@@ -176,15 +176,6 @@ class EventWrapperView(WebPageWrapperView):
         context = super(EventWrapperView, self).get_context_data(**kwargs)
         event = get_object_or_404(Event, pk=event_id)
         form = EventTicketPurchaseForm()
-        if self.request.user.is_authenticated:
-            try:
-                is_purchased = EventAttendee.objects.filter(attendee=self.request.user.profile, event=event).exists()
-            except UserProfile.DoesNotExist:
-                is_purchased = False
-            if is_purchased:
-                messages.success(self.request, mark_safe("You're going to this show! See your ticket <a href='/profile/'>here</a>."))
-        else:
-            is_purchased = False
         context['form'] = form
         context['event'] = event.to_data()
         return context

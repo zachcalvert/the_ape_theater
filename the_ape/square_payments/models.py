@@ -19,8 +19,10 @@ class SquareCustomer(models.Model):
     email = models.CharField(max_length=60, null=True, blank=True)
     profile = models.ForeignKey(UserProfile, null=True, blank=True, related_name='square_purchaser')
 
+    shows = models.ManyToManyField(Event, through='accounts.EventAttendee', related_name='attendees')
+
     def __str__(self):
-        return '{} {} - {}'.format(self.first_name, self.last_name, self.email)
+        return '{} {}'.format(self.first_name, self.last_name)
 
 
 class SquarePayment(models.Model):
@@ -40,12 +42,12 @@ class SquarePayment(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return 'Purchase by {} for {} on {}'.format(self.customer, self.amount, self.created)
+        return 'Purchase by {} on {}'.format(self.customer, self.created.date())
 
     @property
     def purchase(self):
         if self.purchase_event_id is not None:
-            return self.purchase_event
+            return self.purchase_event.name_with_date
         if self.purchase_class_id is not None:
             return self.purchase_class
         raise AssertionError("Neither 'purchase_event' nor 'purchase_class' is set")
@@ -78,6 +80,7 @@ class SquarePayment(models.Model):
         self.completed = True
         self.save()
         return True
+
 
     # def clean(self):
     #     if self.purchase_event and self.purchase_class:
