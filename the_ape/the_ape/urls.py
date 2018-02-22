@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.management import call_command
 from django.views.generic import TemplateView
 from registration.backends.simple.views import RegistrationView
 from registration.forms import RegistrationFormUniqueEmail
@@ -47,6 +48,7 @@ class ApeRegistrationView(RegistrationView):
     def register(self, form_class):
         new_user = super(ApeRegistrationView, self).register(form_class)
         user_profile = UserProfile.objects.create(user=new_user)
+        call_command('try_square_customer_sync', user_profile.id)
         return user_profile
 
 
