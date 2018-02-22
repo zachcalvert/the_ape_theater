@@ -1,15 +1,17 @@
 from decimal import Decimal
 import random
+import string
 from uuid import uuid4
 
 from squareconnect.rest import ApiException
 
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from accounts.models import ClassMember, EventAttendee
+from accounts.models import ClassMember, EventAttendee, UserProfile
 from classes.models import ApeClass
 from events.models import Event
 from square_payments.models import SquarePayment
@@ -28,8 +30,9 @@ def process_card(request):
                 last_name=request.POST['last-name'],
                 email=request.POST['email-address'],
                 username=request.POST['email-address'],
-                password=''.join(random.choices(string.ascii_uppercase + string.digits, k=N))
+                password=''.join(random.choices(string.ascii_uppercase + string.digits, k=12))
             )
+            UserProfile.objects.create(user=user)
         else:
             user = request.user
 
@@ -41,7 +44,7 @@ def process_card(request):
 
         payment = SquarePayment.objects.create(
             uuid=str(uuid4()),
-            customer=user,
+            customer=user.profile,
             amount=amount,
             nonce=nonce
         )

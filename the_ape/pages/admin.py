@@ -312,4 +312,4 @@ class ApeClassAdmin(SaveAsNewAdmin):
 
 
 admin.site.register(ApeClass, ApeClassAdmin)
-# admin.site.register(Event, EventAdmin)
+admin.site.register(Event, EventAdmin)
