@@ -19,14 +19,6 @@ class UserProfile(models.Model):
     def get_absolute_url(self):
         return reverse('user_profile', kwargs={'user_id': self.user.pk})
 
-    @property
-    def shows(self):
-        from square_payments.models import SquareCustomer
-        customer = SquareCustomer.objects.filter(profile=self).first()
-        if customer:
-            return customer.shows.all()
-        return None
-
 
 class ClassMember(models.Model):
     student = models.ForeignKey(UserProfile, related_name='class_membership')
