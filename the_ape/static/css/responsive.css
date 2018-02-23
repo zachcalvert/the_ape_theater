@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-width: 903px) {
-    .event-image {
+    .event-image, .ape-class-image {
         width: 330px;
     }
 }
@@ -55,7 +55,7 @@
         padding: 10px;
         margin-left: 5%;
     }
-    .event-image {
+    .event-image, .ape-class-image {
         width: 278px;
     }
 
@@ -72,7 +72,7 @@
     .person-focus-name {
         font-size: 30px;
     }
-    .event-image {
+    .event-image, .ape-class-image {
         width: 198px;
     }
     .user-profile table {
@@ -97,7 +97,7 @@
     .person-focus-image {
         width: 100%;
     }
-    .event-image {
+    .event-image, .ape-class-image {
         width: 100%;
     }
 }
