@@ -8,9 +8,9 @@
                 {% for item in widget.items %}
                     <div class="row-widget-item">
                         <a class="cover " href="{{ item.path|wrapped_url }}" title="{{ item.name }}">
-                            {% include 'widgets/image.html' with url=item.image name=item.title alt_text=item.name %}
+                            {% include 'widgets/image.html' with url=item.image name=item.name alt_text=item.name %}
                         </a>
-                        <p>{{ item.name }}</p>
+                        <p>{{ item.name_with_date }}</p>
                     </div>
                 {% endfor %}
             {% endif %}
@@ -23,7 +23,7 @@
     $(document).ready(function () {
         var widgetRow =  $("#widget-row-{{ widget.id }}");
         widgetRow.bxSlider({
-            minSlides: 2,
+            minSlides: 1,
             maxSlides: 5,
             slideWidth: 300,
             slideMargin: 34,

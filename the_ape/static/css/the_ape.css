@@ -133,6 +133,23 @@ form.navbar-right {
 /* end banner widget */
 
 
+/* start row widget */
+
+.bx-viewport {
+    padding-left: 15px;
+}
+
+.row-widget-item {
+    padding: 5px 17px;
+    margin: 0!important;
+}
+.row-widget-item:hover {
+    background: #F9F9F9;
+}
+
+/* end row widget */
+
+
 /* gallery widget */
 .gallery-widget {
     width: 100%;
