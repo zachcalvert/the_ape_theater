@@ -48,8 +48,13 @@
             <ul class="nav navbar-nav">
               <li><a href="{% url 'slug_page_wrapper' page_slug='classes' %}">Classes</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='shows' %}">Shows</a></li>
-              <li><a href="{% url 'slug_page_wrapper' page_slug='performers' %}">Performers</a></li>
-              <li><a href="{% url 'slug_page_wrapper' page_slug='faculty' %}">Faculty</a></li>
+              <li>
+                  <a id="featured-page-trigger" href="javascript:;">
+                      People&nbsp;&nbsp;<i class="fa fa-chevron-down"></i>&nbsp;&nbsp;
+                  </a>
+                  <div id="featured-page-slider"></div>
+              </li>
+
               <li><a href="{% url 'slug_page_wrapper' page_slug='media' %}">Watch</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -93,7 +98,55 @@
         {% endblock %}
 
         {% block content %}{% endblock %}  
-        {% block extra_body_content %}{% endblock %}
+        {% block extra_body_content %}
+          <script>
+            $(document).ready(function () {
+              var pathname = window.location.pathname;
+              $('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+              
+              if ($(window).width() < 1024) {
+                  $('.extra-link').css('display, block!important;');
+                  $('#featured-page-trigger').parent().hide();
+              } else {
+                  $('.extra-link').hide();
+              }
+
+              $("#featured-page-trigger").click(function () {
+                  if ($("#featured-page-slider").is(":visible")) {
+                      $(this).find("i").removeClass("fa fa-chevron-up");
+                      $(this).find("i").addClass("fa fa-chevron-down");
+                      $("#featured-page-slider").slideUp(200);
+                  } else {
+                      $('#featured-page-slider').html($('.dropdown-pagelist').html());
+                      $(this).find("i").removeClass("fa fa-chevron-down");
+                      $(this).find("i").addClass("fa fa-chevron-up");
+                      $("#featured-page-slider").slideDown(200);
+                      $('.page-list-text').append(' <i class="fa fa-chevron-down">');
+                  }
+              });
+
+              $('#featured-page-slider').on('click', '.pageList', function () {
+                  if ($(this).find("ul").is(":visible")) {
+                      $(this).find("ul").slideUp(200);
+                      $(this).find("span").css('border-bottom', 'none');
+                      $(this).find("i").removeClass("fa fa-chevron-up");
+                      $(this).find("i").addClass("fa fa-chevron-down");
+                  } else {
+                      $(this).find("ul").slideDown(200);
+                      $(this).find("span").css('border-bottom', '2px solid black');
+                      $(this).find("i").removeClass("fa fa-chevron-down");
+                      $(this).find("i").addClass("fa fa-chevron-up");
+                  }
+              });
+            });
+          </script>
+          <script type="text/html" class="dropdown-pagelist">
+            <ul id="nested-page-dropdown-list">
+              <li class="pageList"><a href="{% url 'slug_page_wrapper' page_slug='performers' %}">Performers</a></li>
+              <li class="pageList"><a href="{% url 'slug_page_wrapper' page_slug='faculty' %}">Faculty</a></li>
+            </ul>
+          </script>
+        {% endblock %}
       </div>
     </div>
 

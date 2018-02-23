@@ -71,6 +71,10 @@ a.ape-button:hover {
     width: 100%;
 }
 
+.navbar-inverse {
+    max-height: 51px;
+    background-image: linear-gradient(to bottom, #3d658d, #295179);
+}
 .navbar-nav {
     margin: 0;
 }
@@ -79,6 +83,9 @@ a.ape-button:hover {
 }
 .navbar input[type="password"]{
     height: 25px;
+}
+.nav li.active {
+    background: #FFF;
 }
 a:hover {
     text-decoration: none;
@@ -92,6 +99,23 @@ a:hover {
 }
 form.navbar-right {
     margin-top: 12px;
+}
+
+#featured-page-slider {
+    border: 1px solid black;
+    padding: 5px;
+    background: #4D4D4D;
+    display: none;
+}
+#nested-page-dropdown-list {
+    margin: 0;
+    padding: 0 10px 0 12px;
+}
+#nested-page-dropdown-list a {
+    color: #FFF;
+}
+.pageList {
+    padding: 5px 0;
 }
 /* end navigation bar */
 
