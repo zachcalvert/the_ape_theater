@@ -17,9 +17,12 @@ class PersonForm(forms.ModelForm):
 
 class PersonAdmin(admin.ModelAdmin):
     search_fields = ['first_name', 'last_name']
-    list_display = ['name', 'teaches', 'performs', 'house_team', 'headshot']
+    list_display = ['name', 'teaches', 'performs', 'house_team', 'headshot', 'active']
     list_filter = ['teaches', 'performs']
     form = PersonForm
+
+    def get_queryset(self, request):
+        return Person.all_objects
 
 
 class HouseTeamForm(forms.ModelForm):

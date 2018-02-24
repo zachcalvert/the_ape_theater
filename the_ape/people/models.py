@@ -33,6 +33,19 @@ class HouseTeam(models.Model):
         return data
 
 
+class PeopleManager(models.Manager):
+
+    def __init__(self, inactives=False):
+        super(PeopleManager, self).__init__()
+        self.inactives = inactives
+
+    def get_queryset(self):
+        qs = super(PeopleManager, self).get_queryset()
+        if self.inactives:
+            return qs
+        return qs.filter(active=True)
+
+
 class Person(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -42,6 +55,10 @@ class Person(models.Model):
     performs = models.BooleanField(default=True)
     house_team = models.ForeignKey(HouseTeam, null=True, blank=True, related_name='performers')
     videos = models.ManyToManyField('pages.VideoWidget', blank=True)
+    active = models.BooleanField(default=True)
+
+    objects = PeopleManager()
+    all_objects = PeopleManager(inactives=True)
 
     class Meta(object):
         verbose_name = 'Person'
