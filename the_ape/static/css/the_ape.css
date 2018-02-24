@@ -73,7 +73,7 @@ a.ape-button:hover {
 
 .navbar-inverse {
     max-height: 51px;
-    background-image: linear-gradient(to bottom, #3d658d, #295179);
+    background-image: linear-gradient(to bottom, #333, #222);
 }
 .navbar-nav {
     margin: 0;
