@@ -48,8 +48,8 @@
             <ul class="nav navbar-nav">
               <li><a href="{% url 'slug_page_wrapper' page_slug='classes' %}">Classes</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='shows' %}">Shows</a></li>
-              <li>
-                  <a id="featured-page-trigger" href="javascript:;">
+              <li id="featured-page-trigger">
+                  <a href="javascript:;">
                       People&nbsp;&nbsp;<i class="fa fa-chevron-down"></i>&nbsp;&nbsp;
                   </a>
                   <div id="featured-page-slider"></div>
@@ -103,15 +103,12 @@
             $(document).ready(function () {
               var pathname = window.location.pathname;
               $('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
-              
-              if ($(window).width() < 1024) {
-                  $('.extra-link').css('display, block!important;');
+
+              if ($(window).width() < 767) {
                   $('#featured-page-trigger').parent().hide();
-              } else {
-                  $('.extra-link').hide();
               }
 
-              $("#featured-page-trigger").click(function () {
+              $("#featured-page-trigger").hover(function () {
                   if ($("#featured-page-slider").is(":visible")) {
                       $(this).find("i").removeClass("fa fa-chevron-up");
                       $(this).find("i").addClass("fa fa-chevron-down");
@@ -125,7 +122,7 @@
                   }
               });
 
-              $('#featured-page-slider').on('click', '.pageList', function () {
+              $('#featured-page-slider').on('hover', '.pageList', function () {
                   if ($(this).find("ul").is(":visible")) {
                       $(this).find("ul").slideUp(200);
                       $(this).find("span").css('border-bottom', 'none');
@@ -140,6 +137,7 @@
               });
             });
           </script>
+
           <script type="text/html" class="dropdown-pagelist">
             <ul id="nested-page-dropdown-list">
               <li class="pageList"><a href="{% url 'slug_page_wrapper' page_slug='performers' %}">Performers</a></li>
