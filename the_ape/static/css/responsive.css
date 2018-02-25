@@ -17,6 +17,9 @@
 
 /* -----------  ----------- */
 @media screen and (max-width: 767px) {
+    .gallery {
+        margin: 20px;
+    }
     .gallery-item {
         background-color: inherit;
         border: none;
@@ -92,10 +95,13 @@
         margin-top: 0px;
     }
     .person-focus {
-        padding: 10px 0px;
+        margin: 0;
+        padding: 0;
     }
     .person-focus-image {
         width: 100%;
+        padding: 10px;
+        margin: 0;
     }
     .event-image, .ape-class-image {
         width: 100%;

@@ -4,29 +4,35 @@
 {% block title %}{{ person.name }} | The Ape{% endblock %}
 
 {% block content %}
-	<div class="person-detail">
-		<div class="person-focus">
-			<div class="person-focus-image">
-		    	{% include 'widgets/image.html' with url=person.image_url %}
-		    </div>
-		    <div class="person-focus-right-column">
-		    	<div class="person-focus-name">{{ person.name }}</div>
-		    	<div class="person-focus-bio">{{ person.bio }}</div>
-		    	{% if person.house_team %}
-		    		<div class="person-focus-house-team">Plays on <a href="{{ person.house_team.path|wrapped_url }}">{{ person.house_team.name }}</a></div>
-		    	{% endif %}
-		    	{% if person.website %}
-		    		<div class="person-focus-website">Plays on <a href="{{ person.website }}">{{ person.website }}</a></div>
-		    	{% endif %}
+	<div class="gallery">
+		<div class="widget-header">
+	        <h2 class="widget-title">{{ person.name|safe }}</h2>
+	    </div>
+		<div class="person-detail">
+			<div class="person-focus">
+				<div class="person-focus-image">
+			    	{% include 'widgets/image.html' with url=person.image_url %}
+			    </div>
+			    <div class="person-focus-right-column">
+			    	<div class="person-focus-bio">{{ person.bio }}</div>
+			    	{% if person.house_team %}
+			    		<div class="person-focus-house-team">Plays on <a href="{{ person.house_team.path|wrapped_url }}">{{ person.house_team.name }}</a></div>
+			    	{% endif %}
+			    	{% if person.website %}
+			    		<div class="person-focus-website">Plays on <a href="{{ person.website }}">{{ person.website }}</a></div>
+			    	{% endif %}
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="person-detail-media">
+	<div class="gallery">
 		{% if person.videos %}
 			{% for video in person.videos %}
+				<div class="widget-header">
+			        <h2 class="widget-title">{{ video.name|safe }}</h2>
+			    </div>
 				<div class="page-video">
-				    <h2>{{ video.name }}</h2>
 				    {% if video.description %}<p>{{ video.description }}</p>{% endif %}
 					<video controls>
 					  <source src="{{ video.video_source }}" type="video/mp4">

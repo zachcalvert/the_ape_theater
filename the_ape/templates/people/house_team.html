@@ -4,22 +4,29 @@
 
 {% block content %}
 	<div class="house-team-detail">
-		<div class="house-team-banner">
+		<div class="page-banner">
 	    	{% include 'widgets/image.html' with url=house_team.banner_url %}
 	    </div>
 	    <div class="house-team-members">
 	    	{% for person in house_team.performers %}
-	    		<div class="person-focus">
-					<div class="person-focus-image">
-						<a href="{% url 'person_wrapper' person.id %}">
-				    		{% include 'widgets/image.html' with url=person.image_url %}
-				    	</a>
-				    </div>
-				    <div class="person-focus-right-column">
-				    	<div class="person-focus-name">{{ person.name }}</div>
-				    	<div class="person-focus-bio">{{ person.bio }}</div>
+				<div class="gallery">
+						<div class="widget-header">
+					        <h2 class="widget-title">{{ person.name|safe }}</h2>
+					    </div>
+						<div class="person-detail">
+							<div class="person-focus">
+								<div class="person-focus-image">
+							    	{% include 'widgets/image.html' with url=person.image_url %}
+							    </div>
+							    <div class="person-focus-right-column">
+							    	<div class="person-focus-bio">{{ person.bio }}</div>
+							    	{% if person.website %}
+							    		<div class="person-focus-website">Plays on <a href="{{ person.website }}">{{ person.website }}</a></div>
+							    	{% endif %}
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
 	    	{% endfor %}
 		</div>
 	</div>

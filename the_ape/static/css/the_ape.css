@@ -124,7 +124,7 @@ form.navbar-right {
 /* start main page layout */
 .page-content {
     padding: 11px 10px;
-    margin: 20px 0 0 0; /* 20px for the fixed nav bar */
+    margin: 40px 0 0 0; /* 20px for the fixed nav bar */
 }
 
 
@@ -156,7 +156,7 @@ form.navbar-right {
 
 /* start banner widget */
 .page-banner {
-    margin: 0 -10px 20px -10px;
+    margin: -20px -10px 20px -10px;
 }
 /* end banner widget */
 
@@ -324,13 +324,11 @@ form.navbar-right {
 .person-focus-image {
     width: 250px;
     float: left;
-    padding: 10px;
 }
 .person-focus-image img {
     background-color: #ffffff;
     border: 1px solid #dddddd;
     border-radius: 4px;
-    padding: 4px;
 }
 .person-focus-right-column {
     overflow: hidden;
@@ -469,6 +467,7 @@ form.navbar-right {
 /* ----- start video widget ------*/
 .page-video {
     text-align: center;
+    padding: 20px 0;
 }
 .page-video video {
     width: 90%;
@@ -505,7 +504,6 @@ form.navbar-right {
 
 /* ----- start person detail page ------*/
 .person-detail {
-    margin-top: 40px;
     margin-left: 0px;
 }
 /* ----- end person detail page ------*/
