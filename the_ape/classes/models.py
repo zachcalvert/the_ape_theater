@@ -8,6 +8,7 @@ class ApeClass(models.Model):
         ('IMPROV', 'Improv'),
         ('SKETCH', 'Sketch'),
         ('ACTING', 'Acting'),
+        ('WORKSHOP', 'Workshop'),
     )
 
     name = models.CharField(max_length=50)

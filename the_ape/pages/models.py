@@ -149,8 +149,8 @@ class Page(models.Model):
         ("classes", "Classes"),
         ("shows", "Shows"),
         ("faculty", "Faculty"),
-        ("performers", "Performers"),
-        ("media", "Media"),
+        ("talent", "Talent"),
+        ("watch", "Watch"),
     )
 
     name = models.CharField(max_length=255)
@@ -510,6 +510,7 @@ class ApeClassesWidget(GroupWidget):
             ('IMPROV', 'Improv'),
             ('SKETCH', 'Sketch'),
             ('ACTING', 'Acting'),
+            ('WORKSHOP', 'Workshop'),
         ),
     )
 
