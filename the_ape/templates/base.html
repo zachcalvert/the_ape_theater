@@ -49,8 +49,8 @@
               <li><a href="{% url 'slug_page_wrapper' page_slug='classes' %}">Classes</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='shows' %}">Shows</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='faculty' %}">Faculty</a></li>
-              <li><a href="{% url 'slug_page_wrapper' page_slug='performers' %}">Talent</a></li>
-              <li><a href="{% url 'slug_page_wrapper' page_slug='media' %}">Watch</a></li>
+              <li><a href="{% url 'slug_page_wrapper' page_slug='talent' %}">Talent</a></li>
+              <li><a href="{% url 'slug_page_wrapper' page_slug='watch' %}">Watch</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               {% if request.user.is_authenticated %}
