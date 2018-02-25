@@ -19,6 +19,10 @@ class UserProfile(models.Model):
     def get_absolute_url(self):
         return reverse('user_profile', kwargs={'user_id': self.user.pk})
 
+    @property
+    def full_name(self):
+        return '{} {}'.format(self.user.first_name, self.user.last_name)
+
 
 class ClassMember(models.Model):
     student = models.ForeignKey(UserProfile, related_name='class_membership')
