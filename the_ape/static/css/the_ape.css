@@ -105,8 +105,6 @@ form.navbar-right {
 .navbar-collapse {
     border-color: #101010;
     background-image: linear-gradient(to bottom, #333, #222);
-    width: 150px;
-    float: right;
     text-align: left;
     padding-left: 0;
     padding-right: 0;

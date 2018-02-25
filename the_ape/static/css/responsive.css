@@ -17,6 +17,10 @@
 
 /* -----------  ----------- */
 @media screen and (max-width: 767px) {
+    .navbar-collapse {
+        width: 150px; 
+        float: right; 
+    }
     .gallery {
         margin: 20px;
     }
