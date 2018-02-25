@@ -57,10 +57,13 @@
         height: 400px;
     }
     .ape-class-focus-image {
-        width: 90%;
-        float: none; 
+        width: 97%;
+        float: none;
         padding: 10px;
-        margin-left: 5%;
+        margin-left: 1.5%;
+    }
+    .ape-class-focus-right-column {
+        padding: 0 3.5%;
     }
     .event-image, .ape-class-image {
         width: 278px;

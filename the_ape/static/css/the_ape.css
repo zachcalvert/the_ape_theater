@@ -376,26 +376,23 @@ form.navbar-right {
 /* ----- start ape class focus widget ------*/
 .ape-class-focus {
     height: auto;
-    padding: 10px 0px;
+    padding: 10px;
     display: inline-block;
     border-radius: 10px;
-    margin: 5px 0;
 }
 .ape-class-focus-image {
     width: 400px;
     float: left;
-    padding: 10px;
 }
 .ape-class-focus-image img {
     background-color: #ffffff;
     border: 1px solid #dddddd;
     border-radius: 4px;
-    padding: 4px;
 }
 .ape-class-focus-right-column {
     overflow: hidden;
     display: block;
-    padding: 10px;
+    padding: 0 10px;
 }
 .ape-class-focus-name {
     font-weight: bold;
@@ -403,7 +400,6 @@ form.navbar-right {
     padding: 5px 0;
 }
 .ape-class-focus-bio {
-    padding: 10px 0;
     text-align: justify;
 }
 .ape-class-next-session {
@@ -501,14 +497,11 @@ form.navbar-right {
 
 
 /* ----- event detail page ------*/
+.event-detail {
+    padding: 10px;
+}
 .event-page-name {
     margin-top: 30px;
-}
-.event-page-banner {
-    margin: 0 -10px;
-}
-.event-page-banner img {
-    width: 100%;
 }
 .event-page-bio {
     font-size: 16px;
@@ -521,19 +514,13 @@ form.navbar-right {
 /* ----- end event detail page ------*/
 
 /* ----- start class detail page ------*/
-.ape-class-page-name {
-    margin-top: 30px;
+.ape-class-detail {
+    padding-bottom: 10px;
 }
 .ape-class-page-banner img {
     width: 400px;
 }
 /* ----- end class detail page ------*/
-
-/* ----- start house team detail page ------*/
-.house-team-banner {
-    margin: 0 -10px;
-}
-/* ----- end house team detail page ------*/
 
 
 /* ----- start about the ape text widget ------*/

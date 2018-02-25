@@ -3,17 +3,23 @@
 {% block title %}{{ event.name }}{% endblock %}
 
 {% block content %}
-	<div class="event-page-banner">
-		<img src="{{ event.banner_url }}" />
+	<div class="page-banner">
+		{% include 'widgets/image.html' with url=event.banner_url %}
 	</div>
-	<p class="widget-header">{{ event.name|safe }}</p>
-	<div class="event-page-bio">
-		<p>{{ event.bio|safe }}</p>
+	<div class="gallery">
+		<div class="widget-header">
+	    	<h2 class="widget-title">{{ event.name|safe }}</h2>
+		</div>
+		<div class="event-detail">
+			<div class="event-page-bio">
+				<p>{{ event.bio|safe }}</p>
+			</div>
+			<div class="ape-class-page-tickets">
+				<a data-toggle="modal" href=".event-{{ event.id }}">
+					<button class="ape-button">${{ event.ticket_price }}</button>
+				</a>
+			</div>
+		</div>
+		{% include 'events/event_ticket_purchase.html' %}
 	</div>
-	<div class="ape-class-page-tickets">
-		<a data-toggle="modal" href=".event-{{ event.id }}">
-			<button class="ape-button">${{ event.ticket_price }}</button>
-		</a>
-	</div>
-	{% include 'events/event_ticket_purchase.html' %}
 {% endblock %}

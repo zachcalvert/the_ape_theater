@@ -3,14 +3,16 @@
 {% block title %}{{ ape_class.name }} | The Ape{% endblock %}
 
 {% block content %}
-
+<div class="gallery">
+	<div class="widget-header">
+    	<h2 class="widget-title">{{ ape_class.name|safe }}</h2>
+	</div>
 	<div class="ape-class-detail">
 		<div class="ape-class-focus">
 			<div class="ape-class-focus-image">
 		    	{% include 'widgets/image.html' with url=ape_class.banner_url %}
 		    </div>
 		    <div class="ape-class-focus-right-column">
-		    	<div class="ape-class-focus-name">{{ ape_class.name }}</div>
 		    	<div class="ape-class-focus-bio">{{ ape_class.bio }}</div>
 			</div>
 		</div>
@@ -27,4 +29,5 @@
 		</div>
 		{% include 'classes/ape_class_registration.html' %}
 	</div>
+</div>
 {% endblock %}
