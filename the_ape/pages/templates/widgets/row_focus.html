@@ -1,19 +1,23 @@
 {% load page_tags %}
 <div class="page-row">
-    <p class="widget-header">{{ widget.name }}</p>
+    <div class="widget-header">
+        <h2 class="widget-title">{{ widget.name|safe }}</h2>
+    </div>
     <div class="carousel">
         <div id="prev-items-{{ widget.id }}" class="slider-control prev"></div>
         <div id="widget-row-{{ widget.id }}" class="widget-row">
-            {% if widget.item_type == "event" %}
                 {% for item in widget.items %}
                     <div class="row-widget-item">
                         <a class="cover " href="{{ item.path|wrapped_url }}" title="{{ item.name }}">
                             {% include 'widgets/image.html' with url=item.image name=item.name alt_text=item.name %}
                         </a>
-                        <p>{{ item.name_with_date }}</p>
+                        {% if widget.item_type == "event" %}
+                            <p>{{ item.name_with_date }}</p>
+                        {% elif widget.item_type == "ape_class" %}
+                            <p>{{ item.name }}</p>
+                        {% endif %}
                     </div>
                 {% endfor %}
-            {% endif %}
         </div>
         <div id="next-items-{{ widget.id }}" class="slider-control next"></div>
         <div class="cheat"></div>

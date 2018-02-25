@@ -1,6 +1,7 @@
 body {
-    background: #e6ecf0;
+    background: #e9ebee;
     margin:  0px;
+    font-family: 'open_sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 ul {
@@ -126,12 +127,6 @@ form.navbar-right {
     margin: 20px 0 0 0; /* 20px for the fixed nav bar */
 }
 
-.page-content h2 {
-    padding: 0px;
-    margin-top: 10px;
-    margin-left: 28px;
-}
-
 
 #widgets-list {
     margin: 20px 0 10px 0;
@@ -139,20 +134,29 @@ form.navbar-right {
 }
 
 .widget-header {
-    background: #222;
-    border: 1px solid #080808;
-    color: #f9f9f9;
-    padding: 11px 20px;
-    margin: -1px -10px 25px;
-    color: #999;
-    font-size: 18px;
+    color: #333333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    box-sizing: border-box;
+}
+
+.widget-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: inherit;
+    font-weight: 350;
 }
 /* end main page layout */
 
 
 /* start banner widget */
 .page-banner {
-    margin: 0 -10px 1px -10px;
+    margin: 0 -10px 20px -10px;
 }
 /* end banner widget */
 
@@ -175,12 +179,21 @@ form.navbar-right {
 
 
 /* gallery widget */
+.gallery, .page-row {
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    background-color: #fff;
+    border: 1px solid #e6ecf0;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    margin: 20px 45px;
+}
+
 .gallery-widget {
     width: 100%;
     text-align: center;
     position:  relative;
     overflow: hidden;
-    padding-bottom: 20px;
 }
 
 .gallery-item {
@@ -193,7 +206,7 @@ form.navbar-right {
     display: inline-block;
     vertical-align: bottom;
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 .gallery-item:hover {
     background: #F9F9F9;
@@ -216,6 +229,13 @@ form.navbar-right {
 .gallery-item-image {
     height:auto;
     width: 100%;
+}
+
+.gallery-item-image img {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    padding: 4px;
 }
 
 .gallery-item-title {
@@ -252,7 +272,7 @@ form.navbar-right {
     padding: 0 0 5px 0;
 }
 .event-name {
-    font-weight: bold;
+    font-weight: 350;
     font-size: 14px
 }
 /* end gallery widget event item */
@@ -431,8 +451,8 @@ form.navbar-right {
     right: 1%;
 }
 .slider-chevrons {
-    text-shadow: 2px 2px #e6ecf0;
-    -webkit-text-stroke: 2px #e6ecf0;
+    text-shadow: 2px 2px #fff;
+    -webkit-text-stroke: 2px #fff;
 }
 /* end image carousel widget */
 
@@ -529,23 +549,22 @@ form.navbar-right {
 
 /* ----- start about the ape text widget ------*/
 .about-the-ape {
-    width: 85%;
-    margin-left: 7.5%;
-    margin-top: 40px;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 .about-the-ape-text {
     width: 50%;
     display: inline-block;
-    float: left;
     font-size: 14px;
-    margin-top: 50px;
     padding: 10px;
+    vertical-align: top;
 }
 .ape-map {
     display: inline-block;
     width: 50%;
-    height: 300px;
-    float: left;
+    height: 400px;
 }
 .about-the-ape-map {
     border:0; 
