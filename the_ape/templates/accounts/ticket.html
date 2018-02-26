@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<title>{{ event.name }}</title>
+	<div class="ape-event-ticket">
+		<h1>{{ event.name }}</h1>
+		<h4>{{ event.event_day }}</h4>
+		<h4>{{ attendee.user.get_full_name }}</h4>
+		<p>{{ ticket.uuid }}</p>
+	</div>
+</body>
+</html>

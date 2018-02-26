@@ -11,6 +11,7 @@ from registration.forms import RegistrationFormUniqueEmail
 
 from accounts.models import UserProfile
 from pages.views import SlugPageWrapperView
+from accounts.views import TicketView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -59,6 +60,7 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^profile/', include('accounts.urls')),
     url(r'^square/', include('square_payments.urls')),
+    url(r'^ticket/(?P<ticket_uuid>\w+)', TicketView.as_view(), name='ticket'),
 
     url(r'', include('pages.urls')),
 ]

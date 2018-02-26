@@ -1,5 +1,9 @@
+import pdfkit
+from uuid import uuid4
+
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 from classes.models import ApeClass
 from events.models import Event
@@ -39,7 +43,27 @@ class EventAttendee(models.Model):
     purchase_date = models.DateTimeField(auto_now_add=True)
 
     def create_ticket(self):
-        pass
+        ticket, created = Ticket.objects.get_or_create(event_attendee=self)
+        if created:
+            ticket.uuid = str(uuid4()).replace('-', '')
+            ticket.save()
+        if not ticket.pdf:
+            url = 'http://localhost:8000{}'.format(reverse('ticket', kwargs={'ticket_uuid': ticket.uuid}))
+            try:
+                pdf = pdfkit.from_url(url, '{}.pdf'.format(ticket.uuid))
+                ticket.pdf = pdf
+            except Exception as e:
+                print(e)
+            ticket.save()
 
     def send_event_email(self):
         pass
+
+
+class Ticket(models.Model):
+    event_attendee = models.OneToOneField(EventAttendee, related_name='ticket')
+    uuid = models.CharField(max_length=100)
+    pdf = models.FileField(upload_to='tickets', null=True)
+
+    def get_absolute_url(self):
+        return reverse('ticket', kwargs={'ticket_uuid': self.uuid})
