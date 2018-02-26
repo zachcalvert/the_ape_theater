@@ -34,22 +34,27 @@
 			</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="house-team-detail-media">
+		<div class="gallery">
 		{% if house_team.videos %}
-			<h2>Reel</h2>
 			{% for video in house_team.videos %}
+				<div class="widget-header">
+			        <h2 class="widget-title">{{ video.name|safe }}</h2>
+			    </div>
 				<div class="page-video">
-				    <h2>{{ video.name }}</h2>
-				    {% if video.description %}<p>{{ video.description }}</p>{% endif %}
 					<video controls>
 					  <source src="{{ video.video_source }}" type="video/mp4">
 					  <source src="{{ video.video_source }}" type="video/ogg">
 					Your browser does not support the video tag.
 					</video>
+					{% if widget.description %}
+						<div class="video-description">
+							<p>{{ widget.description }}</p>
+						</div>
+					{% endif %}
 				</div>
 			{% endfor %}
 		{% endif %}
+		</div>
 	</div>
 {% endblock %}

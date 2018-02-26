@@ -30,6 +30,14 @@ class HouseTeam(models.Model):
             ]
         if self.banner:
             data['banner_url'] = self.banner.image.url
+        if self.videos.exists():
+            data['videos'] = [
+                {
+                    "video_source": video.video_file.url,
+                    "name": video.name,
+                    "description": video.description
+                } for video in self.videos.all()
+            ]
         return data
 
 
