@@ -42,7 +42,6 @@
     .person-focus-name {
         font-size: 30px;
     }
-
     .about-the-ape-text {
         width: 100%;
         margin: 10px;
@@ -61,6 +60,9 @@
     }
     .ape-class-focus-right-column {
         padding: 0 3.5%;
+    }
+    .gallery-item {
+        padding: 20px 20px 5px;
     }
     .wide-item {
         width: 100%;
