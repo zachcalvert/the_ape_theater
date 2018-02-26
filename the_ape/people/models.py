@@ -1,5 +1,6 @@
 from django.core.management import call_command
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.urls import reverse
 
 
@@ -10,6 +11,10 @@ class HouseTeam(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def slug(self):
+        return slugify(self.name)
 
     def get_api_url(self):
         return reverse('house_team', kwargs={'house_team_id': self.pk})
@@ -75,6 +80,10 @@ class Person(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.first_name, self.last_name)
+
+    @property
+    def slug(self):
+        return slugify(self.name)
 
     @property
     def name(self):

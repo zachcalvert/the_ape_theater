@@ -12,6 +12,7 @@ from django.core.exceptions import ValidationError
 from django.core.management import call_command
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
 

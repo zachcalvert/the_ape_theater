@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 
 from django.core.management import call_command
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
 
@@ -51,6 +52,10 @@ class Event(models.Model):
     @property
     def name_with_date(self):
         return '{}: {}'.format(self.name, self.event_day())
+
+    @property
+    def slug(self):
+        return slugify(self.name)
 
     def get_api_url(self):
         return reverse('event', kwargs={'event_id': self.pk})

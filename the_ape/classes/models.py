@@ -1,5 +1,6 @@
 from django.core.management import call_command
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.urls import reverse
 
 
@@ -30,6 +31,10 @@ class ApeClass(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def slug(self):
+        return slugify(self.name)
 
     def get_api_url(self):
         return reverse('ape_class', kwargs={'ape_class_id': self.pk})

@@ -5,5 +5,5 @@ import events.views as views
 import pages
 
 urlpatterns = [
-    url(r'^(?P<event_id>\d+)', pages.views.EventWrapperView.as_view(), name='event_wrapper'),
+    url(r'^(?P<event_id>\d+)(?:/(?P<slug>[\w-]+))?/?$', pages.views.EventWrapperView.as_view(), name='event_wrapper'),
 ]

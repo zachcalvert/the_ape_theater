@@ -1,10 +1,12 @@
 import json
+import re
 
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse, Resolver404, resolve
 from django.http import Http404, HttpResponse
+from django.http.response import HttpResponsePermanentRedirect
 from django.shortcuts import render, get_object_or_404
 from django.template.response import TemplateResponse
 from django.template import TemplateDoesNotExist
@@ -18,7 +20,18 @@ from classes.models import ApeClass
 from events.models import Event
 from pages.models import Page, EventsWidget, PeopleWidget, ApeClassesWidget, \
     ImageCarouselWidget, BannerWidget
+from pages.templatetags.page_tags import get_slug_redirect
 from people.models import Person, HouseTeam
+
+
+REDIRECT_NEEDED_URL_PATTERNS = [
+    'ape_class',
+    'event',
+    'person',
+    'house_team',
+]
+# need this because the url match detected for these categories is just 'web_page_wrapper'
+REDIRECT_NEEDED_WRAPPER_PATTERN = re.compile('^/(series|contributors)/(?P<item_id>\d+)')
 
 
 class JSONHttpResponse(HttpResponse):
@@ -97,7 +110,13 @@ class WebPageWrapperView(TemplateView):
         except Resolver404:
             raise Http404
 
-        request.META['HTTP_X_DHDEVICEOS'] = 'web'
+        resolved_url_name = resolver_match.url_name
+
+        if resolved_url_name in REDIRECT_NEEDED_URL_PATTERNS and not kwargs.get('page_slug'):
+            redirect_url = get_slug_redirect(request.path)
+            if redirect_url:
+                return HttpResponsePermanentRedirect(redirect_url)  # uses a 301 instead of 302 code
+
         response = resolver_match.func(request, *resolver_match.args, **resolver_match.kwargs)
         if response.status_code >= 400:
             return response

@@ -11,8 +11,8 @@ urlpatterns = [
     # url(r'^classes/(?P<ape_class_id>\d+)', views.ApeClassWrapperView.as_view(), name='ape_class_wrapper'),
     url(r'^classes/', include('classes.urls')),
     url(r'^events/', include('events.urls')),
-    url(r'^people/(?P<person_id>\d+)', views.PersonWrapperView.as_view(), name='person_wrapper'),
-    url(r'^house_teams/(?P<house_team_id>\d+)', views.HouseTeamWrapperView.as_view(), name='house_team_wrapper'),
+    url(r'^people/(?P<person_id>\d+)(?:/(?P<slug>[\w-]+))?/?$', views.PersonWrapperView.as_view(), name='person_wrapper'),
+    url(r'^house_teams/(?P<house_team_id>\d+)(?:/(?P<slug>[\w-]+))?/?$', views.HouseTeamWrapperView.as_view(), name='house_team_wrapper'),
 
     url(r'^(?P<page_id>\d+)/?$', views.PageIDWrapperView.as_view(), name='page_id_wrapper'),
     url(r'^(?P<page_slug>.+)/?$', views.SlugPageWrapperView.as_view(), name='slug_page_wrapper'),
