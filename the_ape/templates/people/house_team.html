@@ -8,26 +8,31 @@
 	    	{% include 'widgets/image.html' with url=house_team.banner_url %}
 	    </div>
 	    <div class="house-team-members">
-	    	{% for person in house_team.performers %}
-				<div class="gallery">
-						<div class="widget-header">
-					        <h2 class="widget-title">{{ person.name|safe }}</h2>
-					    </div>
-						<div class="person-detail">
-							<div class="person-focus">
-								<div class="person-focus-image">
-							    	{% include 'widgets/image.html' with url=person.image_url %}
-							    </div>
-							    <div class="person-focus-right-column">
-							    	<div class="person-focus-bio">{{ person.bio }}</div>
-							    	{% if person.website %}
-							    		<div class="person-focus-website">Plays on <a href="{{ person.website }}">{{ person.website }}</a></div>
-							    	{% endif %}
-								</div>
-							</div>
+	    	<div class="gallery">
+				<div class="widget-header">
+			        <h2 class="widget-title">{{ house_team.name|safe }}</h2>
+			    </div>
+			    <div class="gallery-widget">
+	    		{% for person in house_team.performers %}
+					<div class="gallery-item" id="person-{{ person.id }}">
+		                <div class="widget-person">
+						    <a href="{{ person.url }}">
+						        {% if person.image_url %}
+						            <div class="widget-person-image-wrap">
+						            	<img class="widget-person-image" src="{{ person.image_url }}" 
+						                	alt="{{ person.name }} image">
+						                	<span class="widget-person-name">{{ person.name }}</span>
+						               </div>
+						        {% else %}
+						            <img class="widget-person-image" src="{{ person.image_url }}" 
+						                alt="{{ person.name }} image">{{ person.name }}
+						        {% endif %}
+						    </a>
 						</div>
-					</div>
-	    	{% endfor %}
+		            </div>
+				{% endfor %}
+			</div>
+			</div>
 		</div>
 	</div>
 

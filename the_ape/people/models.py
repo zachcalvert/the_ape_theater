@@ -85,6 +85,8 @@ class Person(models.Model):
             "bio": self.bio,
             "teaches": self.teaches,
             "performs": self.performs,
+            "path": self.get_api_url(),
+            "url": self.get_absolute_url()
         }
         if self.house_team:
             data["house_team"] = self.house_team.to_data(members=False)
