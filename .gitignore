@@ -105,5 +105,8 @@ staticfiles/
 the_ape/static/images
 the_ape/static/media
 
+# tickets generated via testing
+*.pdf
+
 # mac os bs
 .DS_Store
