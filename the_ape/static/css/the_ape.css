@@ -198,6 +198,7 @@ form.navbar-right {
     vertical-align: bottom;
     border-radius: 5px;
     margin: 10px 0;
+
 }
 .gallery-item:hover {
     background: #F9F9F9;
@@ -259,7 +260,7 @@ form.navbar-right {
 
 /* start gallery widget event item */
 .event-image {
-    width: 400px;
+    width: 100%;
     padding: 0 0 5px 0;
 }
 .event-name {
@@ -271,7 +272,7 @@ form.navbar-right {
 
 /* start gallery widget ape class item */
 .ape-class-image {
-    width: 400px;
+    width: 100%;
     padding: 0 0 5px 0;
 }
 .ape-class-name {
@@ -364,6 +365,9 @@ form.navbar-right {
 .event-focus-bio {
     padding: 10px;
     text-align: justify;
+}
+.wide-item {
+    width: 49%;
 }
 /* ----- end person focus widget ------*/
 

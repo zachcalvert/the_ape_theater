@@ -7,7 +7,7 @@
     <div class="gallery-widget" id="gallery-widget-{{ widget.id }}">
 	        {% for item in widget.items %}
 	        	{% if widget.item_type == 'event' %}
-		            <div class="gallery-item" id="event-{{ item.id }}">
+		            <div class="gallery-item wide-item" id="event-{{ item.id }}">
 		            	{% with item as event %}
 		                	{% include 'widgets/items/event.html' %}
 		                {% endwith %}
@@ -19,7 +19,7 @@
 		                {% endwith %}
 		            </div>
 		        {% elif widget.item_type == 'ape_class' %}
-		        	<div class="gallery-item" id="ape-class-{{ item.id }}">
+		        	<div class="gallery-item wide-item" id="ape-class-{{ item.id }}">
 		        		{% with item as ape_class %}
 		                	{% include 'widgets/items/ape_class.html' %}
 		                {% endwith %}
