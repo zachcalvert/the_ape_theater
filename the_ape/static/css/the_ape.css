@@ -453,31 +453,9 @@ form.navbar-right {
     display: block;
     margin-left: 5%;
 }
-.control {
-    display: inline-block;
-    font-size: 20px;
-    margin-top: 3px;
-    vertical-align: top;
+.video-description {
+    padding: 10px 0 0;
 }
-.progressBar {
-    display: inline-block;
-    position: relative;
-    width: 80%;
-    height: 30px;
-    margin-left: 10px!important;
-    background-color: #f9f9f9;
-}
-.timeBar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background-color: #090909;
-}
-.progressTime {}
-.duration {}
-.current {}
 /* ----- end video widget ------*/
 
 
@@ -551,7 +529,7 @@ form.navbar-right {
     padding: 5px;
 }
 
-table {
+.gallery table {
     border: 1px solid #090909;
     border-radius: 3px;
     border-collapse: separate;
@@ -559,17 +537,17 @@ table {
     width: 90%;
     margin: 10px 5%;
 }
-th {
+.gallery th {
     background-color: #f5f5f5;
     border-bottom: 1px solid #090909;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
-th, td {
+.gallery th, td {
     padding: 10px;
 
 }
-table tbody tr:nth-child(odd) td {
+.gallery table tbody tr:nth-child(odd) td {
     background-color: #f5f5f5;
 }
 /* ----- end user profile page ------*/
