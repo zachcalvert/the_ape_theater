@@ -7,7 +7,9 @@
     <div class="person-detail">
         <div class="person-focus">
             <div class="person-focus-image">
+                <a href="{% url 'person_wrapper' widget.person.id %}">
                 {% include 'widgets/image.html' with url=widget.person.image_url %}
+                </a>
             </div>
             <div class="person-focus-right-column">
                 <div class="person-focus-bio">{{ widget.person.bio }}</div>
