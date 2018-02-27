@@ -1,12 +1,18 @@
+{% load humanize %}
+
 <!DOCTYPE html>
 <html>
-<body>
+<head>
+	<link href="{{ STATIC_URL }}css/the_ape.css" rel="stylesheet">
+</head>
+<body style="background-color: #090909">
 	<title>{{ event.name }}</title>
 	<div class="ape-event-ticket">
 		<h1>{{ event.name }}</h1>
 		<h4>{{ event.event_day }}</h4>
-		<h4>{{ attendee.user.get_full_name }}</h4>
-		<p>{{ ticket.uuid }}</p>
+		<h4>Name: {{ attendee.user.get_full_name }}</h4>
+		<p>Order date: {{ ticket.event_attendee.purchase_date|naturalday }}</p>
+		<p>Order #: {{ ticket.uuid }}</p>
 	</div>
 </body>
 </html>
