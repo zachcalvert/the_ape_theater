@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
-from accounts.models import UserProfile, EventAttendee
+from accounts.models import UserProfile, EventAttendee, Ticket
 from classes.models import ApeClass
 from events.models import Event
 from people.models import Person, HouseTeam
