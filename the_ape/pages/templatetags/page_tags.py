@@ -112,7 +112,7 @@ def ticket_link(event_id, profile_id):
     try:
         ticket = EventAttendee.objects.filter(event=event, attendee=profile).first().ticket
     except AttributeError:
-        ticket = EventAttendee.objects.filter(event=event, attendee=profile).first().create_ticket()
+        return ''
     return ticket.get_absolute_url()
 
 
@@ -123,5 +123,5 @@ def class_registration_link(ape_class_id, profile_id):
     try:
         registration = ClassMember.objects.filter(ape_class=ape_class, student=profile).first().registration
     except AttributeError:
-        registration = ClassMember.objects.filter(ape_class=ape_class, student=profile).first().create_registration()
+        return ''
     return registration.get_absolute_url()

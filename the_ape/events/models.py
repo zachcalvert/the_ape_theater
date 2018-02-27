@@ -68,12 +68,11 @@ class Event(models.Model):
         Provide a user-friendly representation of the event start day
         """
         day = ''
-        time = ''
         start_time = timezone.localtime(self.start_time)
-        if start_time.date() == datetime.today():
-            day = 'Tonight'
-        elif start_time.date() == datetime.today() + timedelta(days=1):
-            day = 'Tomorrow'
+        if start_time.date() == datetime.today().date():
+            return 'Tonight'
+        elif start_time.date() == datetime.today().date() + timedelta(days=1):
+            return 'Tomorrow'
         else:
             day_index = start_time.date().weekday()
             day = WEEKDAYS[day_index][1]
@@ -81,25 +80,24 @@ class Event(models.Model):
             month = MONTHS[month_index][1]
             day += ', {month} {date}'.format(month=month,
                                              date=start_time.day)
-        hour = start_time.hour
-        if hour > 12:
-            hour = str(hour - 12) + ' pm'
+            return day
+
+    def event_time(self):
+        pm = False
+        hour = timezone.localtime(self.start_time).time().hour
+        if hour >= 12:
+            pm = True
+            hour -= 12
+            return '{} pm'.format(hour)
         else:
-            hour = str(hour) + ' am'
-
-        return '{}, {}'.format(day, hour)
-
-    def date(self):
-        return '{}/{}/{}'.format(self.start_time.month,
-                                 self.start_time.day,
-                                 self.start_time.year)
+            return '{} am'.format(hour)
 
     def to_data(self):
         data = {
             "id": self.id,
             "name": self.name,
             "bio": self.bio,
-            "start_time": self.start_time,
+            "event_time": self.event_time(),
             "event_day": self.event_day(),
             "ticket_price": self.ticket_price,
             "name_with_date": self.name_with_date,
