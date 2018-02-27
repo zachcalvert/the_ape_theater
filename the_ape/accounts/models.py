@@ -33,8 +33,32 @@ class ClassMember(models.Model):
     ape_class = models.ForeignKey(ApeClass, related_name='class_membership', null=True)
     has_paid = models.BooleanField(default=False)
 
+    def create_registration(self):
+        registration, created = ClassRegistration.objects.get_or_create(class_member=self)
+        if created:
+            registration.uuid = registration.id * 52689
+            registration.save()
+        if registration.pdf:
+            pass
+            # url = 'http://localhost:8000{}'.format(reverse('ticket', kwargs={'ticket_uuid': ticket.uuid}))
+            # try:
+            #     pdf = pdfkit.from_url(url, '{}.pdf'.format(ticket.uuid))
+            #     ticket.pdf = pdf
+            # except Exception as e:
+            #     print(e)
+            # ticket.save()
+
     def send_registration_email(self):
         pass
+
+
+class ClassRegistration(models.Model):
+    class_member = models.OneToOneField(ClassMember, related_name='registration')
+    uuid = models.CharField(max_length=100)
+    pdf = models.FileField(upload_to='class_registrations', null=True)
+
+    def get_absolute_url(self):
+        return reverse('class_registration', kwargs={'registration_uuid': self.uuid})
 
 
 class EventAttendee(models.Model):
@@ -45,7 +69,7 @@ class EventAttendee(models.Model):
     def create_ticket(self):
         ticket, created = Ticket.objects.get_or_create(event_attendee=self)
         if created:
-            ticket.uuid = str(uuid4()).replace('-', '')
+            ticket.uuid = ticket.id * 52689
             ticket.save()
         if ticket.pdf:
             pass

@@ -67,9 +67,10 @@ def process_card(request):
         if purchase_model == 'ape_class':
             ape_class = ApeClass.objects.get(id=purchase_id)
             class_member = ClassMember.objects.create(student=user.profile, ape_class=ape_class)
+            class_member.create_registration()
             class_member.send_registration_email()
             payment.purchase_class = ape_class
-            redirect_url = reverse('ape_class_wrapper', kwargs={'ape_class_id': ape_class.id})
+            redirect_url = reverse('ape_class_wrapper', kwargs={'ape_class_id': ape_class.id})        
 
         elif purchase_model == 'event':
             event = Event.objects.get(id=purchase_id)

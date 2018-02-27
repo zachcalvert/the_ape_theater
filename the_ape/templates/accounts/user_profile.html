@@ -55,7 +55,7 @@
 					<tr>
 						<td>{{ class.start_day }}</td>
 						<td>{{ class.name }}</td>
-						<td>{{ class.registration_link }}</td>
+						<td><a target="_blank" href="{{ class.id|class_registration_link:user.profile.id }}">View</a></td>
 					</tr>
 				{% endfor %}
 				{% if not user.profile.classes.exists %}

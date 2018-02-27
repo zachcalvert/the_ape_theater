@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
-from accounts.models import UserProfile, EventAttendee, Ticket
+from accounts.models import UserProfile, EventAttendee, Ticket, ClassMember
 from classes.models import ApeClass
 from events.models import Event
 from people.models import Person, HouseTeam
@@ -111,6 +111,17 @@ def ticket_link(event_id, profile_id):
     profile = UserProfile.objects.get(id=profile_id)
     try:
         ticket = EventAttendee.objects.filter(event=event, attendee=profile).first().ticket
-    except Ticket.DoesNotExist:
+    except AttributeError:
         ticket = EventAttendee.objects.filter(event=event, attendee=profile).first().create_ticket()
     return ticket.get_absolute_url()
+
+
+@register.filter
+def class_registration_link(ape_class_id, profile_id):
+    ape_class = ApeClass.objects.get(id=ape_class_id)
+    profile = UserProfile.objects.get(id=profile_id)
+    try:
+        registration = ClassMember.objects.filter(ape_class=ape_class, student=profile).first().registration
+    except AttributeError:
+        registration = ClassMember.objects.filter(ape_class=ape_class, student=profile).first().create_registration()
+    return registration.get_absolute_url()
