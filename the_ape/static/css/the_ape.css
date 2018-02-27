@@ -560,10 +560,21 @@ form.navbar-right {
 /*------ start ticket --------*/
 .ape-event-ticket {
     border: 2px solid black;
-    width: 500px;
+    border-radius: 4px;
+    width: 450px;
     padding: 10px;
-    height: 500px;
+    height: auto;
     margin: 10px;
     background-color: #FFF;
+}
+.ape-event-ticket h1, h4 {
+    margin: 0;
+    text-align: center;
+}
+.ape-event-ticket p {
+    margin: 5px;
+}
+.ape-event-ticket img {
+    width: 100%;
 }
 /*------ end ticket --------*/

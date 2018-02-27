@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
+from accounts.models import UserProfile, EventAttendee
 from classes.models import ApeClass
 from events.models import Event
 from people.models import Person, HouseTeam
@@ -102,3 +103,14 @@ def get_slug_redirect(path):
         return False
 
     return '/{}/{}/{}'.format(item_type, item_id, slug)
+
+
+@register.filter
+def ticket_link(event_id, profile_id):
+    event = Event.objects.get(id=event_id)
+    profile = UserProfile.objects.get(id=profile_id)
+    try:
+        ticket = EventAttendee.objects.filter(event=event, attendee=profile).first().ticket
+    except Ticket.DoesNotExist:
+        ticket = EventAttendee.objects.filter(event=event, attendee=profile).first().create_ticket()
+    return ticket.get_absolute_url()

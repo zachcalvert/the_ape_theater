@@ -8,11 +8,8 @@
 <p class="event-name">{{ event.name_with_date }}</p>
 
 <div class="ape-class-page-tickets">
-	<a data-toggle="modal" href=".event-{{ event.id }}">
-		<button class="ape-button">${{ event.ticket_price }}</button>
+	<a data-toggle="modal" href="{% url 'event_wrapper' event.id %}">
+		<button class="ape-button">Get Tickets</button>
 	</a>
 </div>
-{% with event as event %}
-	{% include 'events/event_ticket_purchase.html' %}
-{% endwith %}
 

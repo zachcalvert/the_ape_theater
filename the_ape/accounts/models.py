@@ -47,14 +47,15 @@ class EventAttendee(models.Model):
         if created:
             ticket.uuid = str(uuid4()).replace('-', '')
             ticket.save()
-        if not ticket.pdf:
-            url = 'http://localhost:8000{}'.format(reverse('ticket', kwargs={'ticket_uuid': ticket.uuid}))
-            try:
-                pdf = pdfkit.from_url(url, '{}.pdf'.format(ticket.uuid))
-                ticket.pdf = pdf
-            except Exception as e:
-                print(e)
-            ticket.save()
+        if ticket.pdf:
+            pass
+            # url = 'http://localhost:8000{}'.format(reverse('ticket', kwargs={'ticket_uuid': ticket.uuid}))
+            # try:
+            #     pdf = pdfkit.from_url(url, '{}.pdf'.format(ticket.uuid))
+            #     ticket.pdf = pdf
+            # except Exception as e:
+            #     print(e)
+            # ticket.save()
 
     def send_event_email(self):
         pass

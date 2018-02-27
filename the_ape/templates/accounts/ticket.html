@@ -4,14 +4,19 @@
 <html>
 <head>
 	<link href="{{ STATIC_URL }}css/the_ape.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}css/responsive.css" rel="stylesheet">
 </head>
 <body style="background-color: #090909">
 	<title>{{ event.name }}</title>
 	<div class="ape-event-ticket">
+		<img src="{{ event.banner.image.url }}">
 		<h1>{{ event.name }}</h1>
-		<h4>{{ event.event_day }}</h4>
-		<h4>Name: {{ attendee.user.get_full_name }}</h4>
-		<p>Order date: {{ ticket.event_attendee.purchase_date|naturalday }}</p>
+		<h4>{{ event.event_day }}</h4><br />
+		<p>Name: {{ attendee.user.get_full_name }}</p>
+		<p>Email: {{ attendee.user.email }}</p><br />
+		<p>Paid: ${{ event.ticket_price }}</p>
+		<p>Tickets: 1</p><br />
+		<p>Order date: {{ ticket.event_attendee.purchase_date }}</p>
 		<p>Order #: {{ ticket.uuid }}</p>
 	</div>
 </body>

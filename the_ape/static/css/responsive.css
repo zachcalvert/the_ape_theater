@@ -107,4 +107,8 @@
         padding: 10px;
         margin: 0;
     }
+    .ape-event-ticket {
+        width: 92%;
+        margin: 1%;
+    }
 }
