@@ -94,6 +94,9 @@
     .ape-map {
         height: 300px;
     }
+    .ape-calendar iframe {
+        height: 400px;
+    }
 }
 
 /* -----------  ----------- */
