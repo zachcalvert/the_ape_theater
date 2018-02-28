@@ -67,6 +67,9 @@
     .wide-item {
         width: 100%;
     }
+    .ape-calendar iframe {
+        height: 500px;
+    }
 }
 
 /* -----------  ----------- */
@@ -95,6 +98,10 @@
 
 /* -----------  ----------- */
 @media screen and (max-width: 500px) {
+    .gallery {
+        margin: 10px;
+    }
+
     .person-detail {
         margin-top: 0px;
     }
@@ -110,5 +117,8 @@
     .ape-event-ticket {
         width: 92%;
         margin: 1%;
+    }
+    .ape-calendar iframe {
+        height: 300px;
     }
 }

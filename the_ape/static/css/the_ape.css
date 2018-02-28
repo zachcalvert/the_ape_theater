@@ -588,3 +588,11 @@ form.navbar-right {
     width: 100%;
 }
 /*------ end ticket --------*/
+
+/*------ start show calendar -----*/
+.ape-calendar {
+    padding: 10px;
+    max-width: 1000px;
+}
+
+/*------ end show calendar -----*/
