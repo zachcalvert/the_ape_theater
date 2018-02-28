@@ -76,11 +76,7 @@
         <ul id="widgets-list">
             {% for widget in page.widgets %}
                 <li class="widget">
-                    {% if widget.person_focus %}
-                        {% with widget.person as person %}
-                          {% include widget.template_name %}
-                        {% endwith %}
-                    {% elif widget.template_name %}
+                    {% if widget.template_name %}
                         {% include widget.template_name %}
                     {% else %}
                         <pre>

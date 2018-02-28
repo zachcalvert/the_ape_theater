@@ -393,6 +393,7 @@ form.navbar-right {
     border-radius: 4px;
 }
 .ape-class-focus-right-column {
+    height: 200px;
     overflow: hidden;
     display: block;
     padding: 0 10px;
@@ -404,6 +405,10 @@ form.navbar-right {
 }
 .ape-class-next-session {
     text-align: center;
+}
+.ape-class-focus-bio {
+    height: 154px;
+    overflow: scroll;
 }
 .ape-class-page-tickets {
     text-align: center;

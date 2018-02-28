@@ -1,6 +1,7 @@
 import re
 from urllib.parse import urlsplit, SplitResult
 
+from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.template import Node, Variable, Library
 from django.core.urlresolvers import reverse
@@ -103,6 +104,15 @@ def get_slug_redirect(path):
         return False
 
     return '/{}/{}/{}'.format(item_type, item_id, slug)
+
+
+@register.filter
+def is_registered(user_id, ape_class_id):
+    profile = User.objects.get(id=user_id).profile
+    ape_class = ApeClass.objects.get(id=ape_class_id)
+    if ClassMember.objects.filter(student=profile, ape_class=ape_class).exists():
+        return True
+    return False
 
 
 @register.filter
