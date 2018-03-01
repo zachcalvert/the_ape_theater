@@ -6,7 +6,7 @@
     </a>
 </div>
 <p class="event-name">{{ event.name }}</p>
-<p class="event-time">{{ event.event_day}} at {{ event.event_time }}</p>
+<p class="event-time">{{ event.event_day|safe }} at {{ event.event_time }}</p>
 
 <div class="ape-class-page-tickets">
 	<a data-toggle="modal" href="{% url 'event_wrapper' event.id %}">
