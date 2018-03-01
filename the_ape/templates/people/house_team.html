@@ -4,9 +4,11 @@
 
 {% block content %}
 	<div class="house-team-detail">
-		<div class="page-banner">
-	    	{% include 'widgets/image.html' with url=house_team.banner_url %}
-	    </div>
+		{% if house_team.image_carousel %}
+			{% with house_team.image_carousel as widget %}
+				{% include 'widgets/image_carousel.html' %}
+			{% endwith %}
+		{% endif %}
 	    <div class="house-team-members">
 	    	<div class="gallery">
 				<div class="widget-header">

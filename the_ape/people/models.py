@@ -6,7 +6,7 @@ from django.urls import reverse
 
 class HouseTeam(models.Model):
     name = models.CharField(max_length=50)
-    banner = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
+    image_carousel = models.ForeignKey('pages.ImageCarouselWidget', null=True, blank=True)
     videos = models.ManyToManyField('pages.VideoWidget', blank=True)
 
     def __str__(self):
@@ -33,8 +33,8 @@ class HouseTeam(models.Model):
             data["performers"] = [
                 performer.to_data() for performer in self.performers.all()
             ]
-        if self.banner:
-            data['banner_url'] = self.banner.image.url
+        if self.image_carousel:
+            data['image_carousel'] = self.image_carousel.to_data()
         if self.videos.exists():
             data['videos'] = [
                 {
