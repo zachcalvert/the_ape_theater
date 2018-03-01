@@ -74,6 +74,9 @@
 
 /* -----------  ----------- */
 @media screen and (max-width: 660px) {
+    .widget-two_thirds, .widget-half, .widget-one_third {
+        width: 100%;
+    }
     .person-focus-right-column {
         display: inline-block;
     }

@@ -120,8 +120,25 @@ form.navbar-right {
 
 
 #widgets-list {
-    margin: 20px 0 10px 0;
+    margin: 0;
     padding:0;
+}
+
+.widget {
+    float: left;
+    width: 100%
+}
+
+.widget-two_thirds {
+    width: 67%;
+}
+
+.widget-half {
+    width: 50%;
+}
+
+.widget-one_third {
+    width: 33%;
 }
 
 .widget-header {
@@ -177,7 +194,7 @@ form.navbar-right {
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
-    margin: 20px 45px;
+    margin: 20px;
 }
 
 .gallery-widget {
@@ -371,6 +388,9 @@ form.navbar-right {
     text-align: justify;
 }
 .wide-item {
+    width: 100%;
+}
+.widget-full .wide-item {
     width: 49%;
 }
 /* ----- end person focus widget ------*/

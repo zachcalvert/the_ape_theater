@@ -48,8 +48,15 @@ class AbstractWidget(models.Model):
 
 
 class Widget(AbstractWidget):
+    WIDTH_CHOICES = (
+        ("full", "Full"),
+        ("two_thirds", "Two Thirds"),
+        ("half", "Half"),
+        ("one_third", "One Third"),
+    )
     start_date = models.DateTimeField(null=True, blank=True, help_text="Time at which this widget will turn on")
     end_date = models.DateTimeField(null=True, blank=True, help_text="Time at which this widget will turn off")
+    width = models.CharField(max_length=100, choices=WIDTH_CHOICES, default="full")
 
     @staticmethod
     def autocomplete_search_fields():
@@ -87,6 +94,7 @@ class Widget(AbstractWidget):
         data = {
             "id": self.id,
             "name": self.name,
+            "width": self.width
         }
         return data
 
