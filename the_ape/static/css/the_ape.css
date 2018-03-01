@@ -114,7 +114,7 @@ form.navbar-right {
 
 /* start main page layout */
 .page-content {
-    padding: 11px 10px;
+    padding: 11px 0px;
     margin: 40px 0 0 0; /* 20px for the fixed nav bar */
 }
 
@@ -214,8 +214,6 @@ form.navbar-right {
     display: inline-block;
     vertical-align: bottom;
     border-radius: 5px;
-    margin: 10px 0;
-
 }
 .gallery-item:hover {
     background: #F9F9F9;
@@ -614,5 +612,4 @@ form.navbar-right {
     padding: 10px;
     max-width: 1200px;
 }
-
 /*------ end show calendar -----*/
