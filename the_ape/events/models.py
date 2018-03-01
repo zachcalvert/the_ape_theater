@@ -70,7 +70,7 @@ class Event(models.Model):
         day = ''
         start_time = timezone.localtime(self.start_time)
         if start_time.date() == datetime.today().date():
-            return 'Tonight'
+            return '<b style="color:red">TONIGHT</b>'
         elif start_time.date() == datetime.today().date() + timedelta(days=1):
             return 'Tomorrow'
         else:
