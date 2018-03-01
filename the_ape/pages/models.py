@@ -279,10 +279,12 @@ class PageLinkMixin(models.Model):
 
     @property
     def link_url(self):
-        if self.link_type.model_class() == Event:
-            return reverse("event", kwargs={"event_id": self.link.id})
-        else:
-            return self.link.get_api_url()
+        if self.link_type:
+            if self.link_type.model_class() == Event:
+                return reverse("event", kwargs={"event_id": self.link.id})
+            else:
+                return self.link.get_api_url()
+        return ''
 
     class Meta:
         abstract = True
@@ -614,10 +616,6 @@ class ImageCarouselItem(PageLinkWidgetItem):
         verbose_name = "image"
         verbose_name_plural = "images"
         ordering = ["sort_order"]
-
-    def clean(self):
-        if not self.link:
-            raise ValidationError({'link': ["This field is required."]})
 
     def image_as_data(self, image):
         return {"url": image.url}
