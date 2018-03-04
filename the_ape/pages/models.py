@@ -370,18 +370,6 @@ class GroupWidget(AbstractGroupWidget):
         return data
 
 
-class EventFocusWidget(Widget):
-    event = models.ForeignKey(Event)
-
-    def to_data(self, *args, **kwargs):
-        data = super(EventFocusWidget, self).to_data(*args, **kwargs)
-        data.update({
-            "type": "event_focus",
-            "event": self.event.to_data(*args, **kwargs)
-        })
-        return data
-
-
 class EventsWidget(GroupWidget):
     events = models.ManyToManyField(Event, blank=True, related_name='events_widgets')
     display_type = models.CharField(
@@ -488,18 +476,6 @@ class PeopleWidget(GroupWidget):
         return data
 
 
-class ApeClassFocusWidget(Widget):
-    ape_class = models.ForeignKey(ApeClass)
-
-    def to_data(self, *args, **kwargs):
-        data = super(ApeClassFocusWidget, self).to_data(*args, **kwargs)
-        data.update({
-            "type": "ape_class_focus",
-            "ape_class": self.ape_class.to_data(*args, **kwargs)
-        })
-        return data
-
-
 class ApeClassesWidget(GroupWidget):
     ape_classes = models.ManyToManyField(ApeClass, blank=True, related_name='ape_classes_widgets')
     display_type = models.CharField(
@@ -514,7 +490,7 @@ class ApeClassesWidget(GroupWidget):
     )
     class_type = models.CharField(
         max_length=100,
-        default='gallery',
+        default='IMPROV',
         null=True,
         blank=True,
         choices=(

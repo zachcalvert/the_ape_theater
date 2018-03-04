@@ -251,16 +251,6 @@ class PersonFocusWidgetForm(WidgetForm):
         }
 
 
-class EventFocusWidgetForm(WidgetForm):
-    item_model = pages.models.EventFocusWidget
-
-    class Meta:
-        fields = '__all__'
-        widgets = {
-            'event': FilteredSelect(),
-        }
-
-
 class ApeClassWidgetForm(WidgetForm):
     item_model = pages.models.ApeClass
 
@@ -297,7 +287,6 @@ def get_widget_form(widget_type=None, prefix='__prefix__', inline=True, data=Non
 
     registry = {
         pages.models.ImageCarouselWidget: ImageCarouselWidgetForm,
-        pages.models.EventFocusWidget: EventFocusWidgetForm,
         pages.models.EventsWidget: EventWidgetForm,
         pages.models.BannerWidget: BannerWidgetForm,
         pages.models.PersonFocusWidget: PersonFocusWidgetForm,

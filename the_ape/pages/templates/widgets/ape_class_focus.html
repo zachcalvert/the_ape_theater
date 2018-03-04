@@ -14,7 +14,7 @@
 					{% if request.user.id|is_registered:widget.ape_class.id %}
 						<a href="#"><button class="ape-button">Your spot is reserved</button></a>
 					{% else %}
-						<a data-toggle="modal" href="#register-for-class"><button class="ape-button">Reserve your spot</button></a>
+						<a data-toggle="modal" href="{% url 'ape_class_wrapper' widget.ape_class.id %}"><button class="ape-button">Reserve your spot</button></a>
 					{% endif %}
 				{% else %}
 					<a data-toggle="modal" href="{% url 'login' %}"><button class="ape-button">Reserve your spot</button></a>
