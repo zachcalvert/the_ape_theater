@@ -1,10 +1,16 @@
 {% load page_tags %}
 
-<div class="ape-class-image-wrap">
-    <a href="{{ ape_class.path|wrapped_url }}">
-        <img class="ape-class-image" src="{{ ape_class.image }}" 
-                alt="{{ ape_class.name }} image">
-    </a>
-</div>
+<a class="ape-class-name" href="{% url 'ape_class_wrapper' ape_class.id %}">{{ ape_class.name|safe }}</a>
+{% if ape_class.teacher %}
+<span class="ape-class-teacher"> with <a href="{% url 'person_wrapper' ape_class.teacher.id %}">{{ ape_class.teacher.name }}</a></span>
+{% endif %}
 
-<p class="ape-class-name">{{ ape_class.name|safe }}</p>
+<span class="ape-class-bio">Starts: {{ ape_class.start_date }}</span>
+
+<div class="ape-class-item-tickets">
+	{% if request.user.is_authenticated %}
+		<a data-toggle="modal" href="#sq-ccbox"><button class="ape-button">Register!</button></a>
+	{% else %}
+		<a data-toggle="modal" href="{% url 'registration_register' %}"><button class="ape-button">Register!</button></a>
+	{% endif %}
+</div>

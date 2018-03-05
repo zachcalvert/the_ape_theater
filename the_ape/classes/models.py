@@ -1,7 +1,35 @@
+from datetime import datetime, timedelta
+
 from django.core.management import call_command
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
+
+
+WEEKDAYS = (
+    (1, 'Monday'),
+    (2, 'Tuesday'),
+    (3, 'Wednesday'),
+    (4, 'Thursday'),
+    (5, 'Friday'),
+    (6, 'Saturday'),
+    (7, 'Sunday'),
+)
+
+MONTHS = (
+    (1, 'January'),
+    (2, 'February'),
+    (3, 'March'),
+    (4, 'April'),
+    (5, 'May'),
+    (6, 'June'),
+    (7, 'July'),
+    (8, 'August'),
+    (9, 'September'),
+    (10, 'October'),
+    (11, 'November'),
+    (12, 'December'),
+)
 
 
 class ApeClass(models.Model):
@@ -43,11 +71,24 @@ class ApeClass(models.Model):
         return reverse('ape_class_wrapper', kwargs={'ape_class_id': self.pk})
 
     def start_day(self):
-        if self.start_date:
-            return '{}/{}/{}'.format(self.start_date.month,
-                                     self.start_date.day,
-                                     self.start_date.year)
-        return None
+        """
+        Provide a user-friendly representation of the event start day
+        """
+        day = ''
+        if not self.start_date:
+            return None
+        if self.start_date == datetime.today().date():
+            return '<b style="color:red">TONIGHT</b>'
+        elif self.start_date == datetime.today().date() + timedelta(days=1):
+            return 'Tomorrow'
+        else:
+            day_index = self.start_date.weekday()
+            day = WEEKDAYS[day_index][1]
+            month_index = self.start_date.month - 1
+            month = MONTHS[month_index][1]
+            day += ', {month} {date}'.format(month=month,
+                                             date=self.start_date.day)
+            return day
 
     def to_data(self):
         data = {
@@ -61,6 +102,8 @@ class ApeClass(models.Model):
             data["start_day"] = self.start_day()
         if self.banner:
             data['banner_url'] = self.banner.image.url
+        if self.teacher:
+            data['teacher'] = self.teacher.to_data()
 
         return data
 

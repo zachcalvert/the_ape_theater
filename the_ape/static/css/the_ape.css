@@ -130,7 +130,7 @@ form.navbar-right {
 }
 
 .widget-two_thirds {
-    width: 68%;
+    width: 67%;
 }
 
 .widget-half {
@@ -283,13 +283,36 @@ form.navbar-right {
 
 
 /* start gallery widget ape class item */
+.ape-class-image-wrap {
+    width: 30%;
+    float: left;
+    display: inline-block;
+}
 .ape-class-image {
     width: 100%;
-    padding: 0 0 5px 0;
 }
 .ape-class-name {
-    font-weight: bold;
-    font-size: 14px
+    font-weight: 400;
+    font-size: 14px;
+    float: left;
+    margin-left: 10px;
+    display: inline-block;
+}
+.ape-class-teacher {
+    float: left;
+    margin: 0 0 0 5px;
+    font-weight: 400;
+    font-size: 14px;
+}
+.ape-class-bio {
+    font-size: 12px;
+    float: left;
+    width: 65%;
+    text-align: left!important;
+    font-weight: normal;
+    margin-left: 20px;
+    margin-top: 5px;
+    line-height: 12px;
 }
 /* end gallery widget class item item */
 
@@ -378,51 +401,16 @@ form.navbar-right {
     padding: 10px;
     text-align: justify;
 }
+
+.full-width-item {
+    width: 100%;
+    border-bottom: 1px solid #e9ebee;
+}
 .wide-item {
     width: 100%;
 }
 .widget-full .wide-item {
     width: 49%;
-}
-/* ----- end person focus widget ------*/
-
-
-/* ----- start ape class focus widget ------*/
-.ape-class-focus {
-    height: auto;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 10px;
-}
-.ape-class-focus-image {
-    width: 400px;
-    float: left;
-}
-.ape-class-focus-image img {
-    background-color: #ffffff;
-    border: 1px solid #dddddd;
-    border-radius: 4px;
-}
-.ape-class-focus-right-column {
-    height: 200px;
-    overflow: hidden;
-    display: block;
-    padding: 0 10px;
-}
-.ape-class-focus-name {
-    font-weight: bold;
-    font-size: 18px;
-    padding: 5px 0;
-}
-.ape-class-next-session {
-    text-align: center;
-}
-.ape-class-focus-bio {
-    height: 154px;
-    overflow: scroll;
-}
-.ape-class-page-tickets {
-    text-align: center;
 }
 /* ----- end person focus widget ------*/
 

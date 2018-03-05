@@ -522,8 +522,16 @@ class ApeClassesWidget(GroupWidget):
         data = super(ApeClassesWidget, self).item_data(item)
         data.update({
             "image": item.banner.image.url,
-            "type": item.class_type
+            "type": item.class_type,
+            "bio": item.bio,
+            "start_date": item.start_day(),
+            "num_sessions": item.num_sessions,
+
         })
+        if item.teacher:
+            data.update({
+                "teacher": item.teacher.to_data()
+            })
         return data
 
 

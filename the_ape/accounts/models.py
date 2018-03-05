@@ -1,6 +1,7 @@
 import pdfkit
 from uuid import uuid4
 
+from django.core.mail import send_mail
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -50,6 +51,7 @@ class ClassMember(models.Model):
 
     def send_registration_email(self):
         pass
+        send_mail('subject', 'body of the message', 'contact@theapetheater.org', ['zecalvinho@gmail.com'])
 
 
 class ClassRegistration(models.Model):
@@ -83,6 +85,7 @@ class EventAttendee(models.Model):
 
     def send_event_email(self):
         pass
+        send_mail('subject', 'body of the message', 'contact@theapetheater.org', ['zecalvinho@gmail.com'])
 
 
 class Ticket(models.Model):
