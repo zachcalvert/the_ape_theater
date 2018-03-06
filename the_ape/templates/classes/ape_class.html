@@ -42,7 +42,7 @@
 			<span class="ape-class-detail-meeting-time">Meets on: {{ ape_class.day_of_week }}s, {{ ape_class.start_time }} to {{ ape_class.end_time }}</span>
 
 			<span class="ape-class-detail-price">Cost: ${{ ape_class.price }}</span>
-			<span class="ape-class-page-tickets">
+			<span class="ape-class-detail-tickets">
 				{% if request.user.is_authenticated %}
 					<a data-toggle="modal" href="#sq-ccbox"><button class="ape-button">Register</button></a>
 				{% else %}

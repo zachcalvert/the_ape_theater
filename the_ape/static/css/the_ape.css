@@ -310,6 +310,9 @@ form.navbar-right {
 .ape-class-sessions {width: 10%;}
 .ape-class-price {width: 8%;}
 .ape-class-buy {float: right; margin-right: 2%;}
+.ape-class-page-tickets {
+    text-align: center;
+}
 
 /* end gallery widget class item item */
 
@@ -529,7 +532,7 @@ form.navbar-right {
 .ape-class-bottom-details span {
     display: block;
 }
-.ape-class-page-tickets {
+.ape-class-detail-tickets {
     margin-top: 20px;
 }
 /* ----- end class detail page ------*/
