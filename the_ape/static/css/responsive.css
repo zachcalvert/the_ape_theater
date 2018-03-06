@@ -6,9 +6,15 @@
     form.navbar-right {
         display: none;
     }
+    .hide-on-tablet {
+        display: none;
+    }
+    .ape-class-teacher {
+        width: 25%;
+    }
 }
 
-@media screen and (max-width: 903px) {
+@media screen and (max-width: 905px) {
     .gallery {
         margin: 20px;
     }
@@ -17,6 +23,15 @@
 
 /* -----------  ----------- */
 @media screen and (max-width: 767px) {
+    .hide-on-mobile {
+        display: none;
+    }
+    .ape-class-start-date {
+        width: 18%;
+    }
+    .ape-class-buy {
+        width: 13%;
+    }
     .navbar-collapse {
         width: 150px; 
         float: right; 
@@ -100,10 +115,50 @@
     .ape-calendar iframe {
         height: 400px;
     }
+    .ape-class-name {
+        width: 20%;
+    }
+    .ape-class-teacher {
+        width: 30%;
+    }
+    .ape-class-buy {
+        margin-right: 6%;
+    }
+    .ape-class-detail {
+        display: block;
+    }
+    .ape-class-detail-image {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .ape-class-detail-right-column {
+        width: 100%;
+        float: none;
+        padding: 5px;
+        margin-left: 10px;
+    }
+    .ape-class-bottom-details {
+        margin: 30px 0;
+    }
 }
 
 /* -----------  ----------- */
 @media screen and (max-width: 500px) {
+    .ape-class-start-date {
+        display: none;
+    }
+    .ape-class-buy {
+        margin-right: 11%;
+    }
+    .ape-class-item-element .ape-button {
+        padding: 10px 15px;
+    }
+    .ape-class-name {
+        width: 25%;
+    }
+    .ape-class-teacher {
+        width: 35%;
+    }
     .gallery {
         margin: 10px;
     }

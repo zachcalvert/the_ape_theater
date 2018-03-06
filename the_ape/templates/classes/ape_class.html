@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load page_tags %}
 
 {% block title %}{{ ape_class.name }} | The Ape{% endblock %}
 
@@ -8,26 +9,48 @@
     	<h2 class="widget-title">{{ ape_class.name|safe }}</h2>
 	</div>
 	<div class="ape-class-detail">
-		<div class="ape-class-focus">
-			<div class="ape-class-focus-image">
-		    	{% include 'widgets/image.html' with url=ape_class.banner_url %}
-		    </div>
-		    <div class="ape-class-focus-right-column">
-		    	<div class="ape-class-focus-bio">{{ ape_class.bio|safe }}</div>
-			</div>
+		<div class="ape-class-detail-image">
+	    	{% include 'widgets/image.html' with url=ape_class.banner_url %}
+	    </div>
+	    <div class="ape-class-detail-right-column">
+	    	<div class="ape-class-detail-bio">{{ ape_class.bio|safe }}</div>
 		</div>
-		{% if ape_class.start_day %}
-			<div class="ape-class-next-session">Next session of starts on {{ ape_class.start_day }}</div>
-		{% endif %}
-
-		<div class="ape-class-page-tickets">
-			{% if request.user.is_authenticated %}
-				<a data-toggle="modal" href="#sq-ccbox"><button class="ape-button">${{ ape_class.price }}</button></a>
-			{% else %}
-				<a data-toggle="modal" href="{% url 'registration_register' %}"><button class="ape-button">${{ ape_class.price }}</button></a>
-			{% endif %}
-		</div>
-		{% include 'classes/ape_class_registration.html' %}
 	</div>
 </div>
+<div class="gallery">
+	<div class="widget-header">
+    	<h2 class="widget-title">Class Details</h2>
+	</div>
+	<div class="ape-class-detail-bottom">
+		{% if ape_class.teacher %}
+			<div class="ape-class-detail-teacher widget-person">
+				Instructor:
+			    <a href="{{ ape_class.teacher.path|wrapped_url }}">
+			    	<div class="widget-person-image-wrap">
+						<img class="widget-person-image" src="{{ ape_class.teacher.image_url }}" alt="{{ ape_class.teacher.name }} image">
+					<span class="widget-person-name">{{ ape_class.teacher.name }}</span>
+					</div>
+			    </a>
+			</div>
+		{% endif %}
+
+		<div class="ape-class-bottom-details">
+			<span class="ape-class-detail-start-date">First class: {{ ape_class.start_day_as_date }}</span>
+
+			<span class="ape-class-detail-sessions">Duration: {{ ape_class.num_sessions }} weeks</span>
+
+			<span class="ape-class-detail-meeting-time">Meets on: {{ ape_class.day_of_week }}s, {{ ape_class.start_time }} to {{ ape_class.end_time }}</span>
+
+			<span class="ape-class-detail-price">Cost: ${{ ape_class.price }}</span>
+			<span class="ape-class-page-tickets">
+				{% if request.user.is_authenticated %}
+					<a data-toggle="modal" href="#sq-ccbox"><button class="ape-button">Register</button></a>
+				{% else %}
+					<a data-toggle="modal" href="{% url 'registration_register' %}"><button class="ape-button">Register</button></a>
+				{% endif %}
+			</span>
+		</div>
+	</div>
+</div>
+		{% include 'classes/ape_class_registration.html' %}
 {% endblock %}

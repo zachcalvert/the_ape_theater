@@ -1,16 +1,26 @@
 {% load page_tags %}
 
-<a class="ape-class-name" href="{% url 'ape_class_wrapper' ape_class.id %}">{{ ape_class.name|safe }}</a>
+<div class="ape-class-item">
+<a class="ape-class-name ape-class-item-element" href="{% url 'ape_class_wrapper' ape_class.id %}">{{ ape_class.name|safe }}</a>
+
+<span class="ape-class-start-date ape-class-item-element"><i class="fa fa-flag-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ ape_class.start_day_as_date }}</span>
+
 {% if ape_class.teacher %}
-<span class="ape-class-teacher"> with <a href="{% url 'person_wrapper' ape_class.teacher.id %}">{{ ape_class.teacher.name }}</a></span>
+	<span class="ape-class-teacher ape-class-item-element"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<a href="{% url 'person_wrapper' ape_class.teacher.id %}">{{ ape_class.teacher.name }}</a></span>
 {% endif %}
 
-<span class="ape-class-bio">Starts: {{ ape_class.start_date }}</span>
 
-<div class="ape-class-item-tickets">
+<span class="ape-class-time ape-class-item-element hide-on-tablet"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ ape_class.day_of_week }}s, {{ ape_class.start_time }} to {{ ape_class.end_time }}</span>
+
+<span class="ape-class-sessions ape-class-item-element hide-on-mobile"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;{{ ape_class.num_sessions }} weeks</span>
+
+<span class="ape-class-price ape-class-item-element hide-on-mobile">${{ ape_class.price }}</span>
+
+<span class="ape-class-buy ape-class-item-element">
 	{% if request.user.is_authenticated %}
-		<a data-toggle="modal" href="#sq-ccbox"><button class="ape-button">Register!</button></a>
+		<a data-toggle="modal" href="{% url 'ape_class_wrapper' ape_class.id %}"><button class="ape-button">Register!</button></a>
 	{% else %}
 		<a data-toggle="modal" href="{% url 'registration_register' %}"><button class="ape-button">Register!</button></a>
 	{% endif %}
+</span>
 </div>

@@ -4,6 +4,7 @@ from django.core.management import call_command
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
+from django.utils import timezone
 
 
 WEEKDAYS = (
@@ -49,8 +50,7 @@ class ApeClass(models.Model):
     start_date = models.DateTimeField(null=True, blank=True)
     num_sessions = models.IntegerField(help_text='Number of Sessions', default=4)
     max_enrollment = models.IntegerField(help_text='Max number of students', default=12)
-    enrollment_opens = models.DateField(null=True, blank=True)
-    enrollment_closes = models.DateField(null=True, blank=True)
+    class_length = models.IntegerField(default=2, help_text='Length of one class session, in hours.')
     price = models.DecimalField(decimal_places=2, max_digits=5)
 
     class Meta(object):
@@ -70,6 +70,20 @@ class ApeClass(models.Model):
     def get_absolute_url(self):
         return reverse('ape_class_wrapper', kwargs={'ape_class_id': self.pk})
 
+    def day_of_week(self):
+        if not self.start_date:
+            return None
+        day_index = self.start_date.weekday()
+        return WEEKDAYS[day_index][1]
+
+    def start_day_as_date(self):
+        """
+        Return the first day in the format: MM/DD/YY
+        """
+        if not self.start_date:
+            return ''
+        return '{}/{}/{}'.format(self.start_date.month, self.start_date.day, str(self.start_date.year)[2:])
+
     def start_day(self):
         """
         Provide a user-friendly representation of the event start day
@@ -82,13 +96,34 @@ class ApeClass(models.Model):
         elif self.start_date == datetime.today().date() + timedelta(days=1):
             return 'Tomorrow'
         else:
-            day_index = self.start_date.weekday()
-            day = WEEKDAYS[day_index][1]
+            day = self.day_of_week()
             month_index = self.start_date.month - 1
             month = MONTHS[month_index][1]
             day += ', {month} {date}'.format(month=month,
                                              date=self.start_date.day)
             return day
+
+    def start_time(self):
+        pm = False
+        hour = timezone.localtime(self.start_date).time().hour
+        if hour >= 12:
+            pm = True
+            if hour > 12:
+                hour -= 12
+            return '{}pm'.format(hour)
+        else:
+            return '{}am'.format(hour)
+
+    def end_time(self):
+        pm = False
+        hour = timezone.localtime(self.start_date).time().hour + self.class_length
+        if hour >= 12:
+            pm = True
+            if hour > 12:
+                hour -= 12
+            return '{}pm'.format(hour)
+        else:
+            return '{}am'.format(hour)
 
     def to_data(self):
         data = {
@@ -97,14 +132,18 @@ class ApeClass(models.Model):
             "bio": self.bio,
             "type": self.class_type,
             "price": self.price,
+            "num_sessions": self.num_sessions
         }
-        if self.start_day() is not None:
+        if self.start_date is not None:
             data["start_day"] = self.start_day()
+            data["start_time"] = self.start_time()
+            data["end_time"] = self.end_time()
+            data["day_of_week"] = self.day_of_week()
+            data["start_day_as_date"] = self.start_day_as_date()
         if self.banner:
             data['banner_url'] = self.banner.image.url
         if self.teacher:
             data['teacher'] = self.teacher.to_data()
-
         return data
 
     def save(self, *args, **kwargs):

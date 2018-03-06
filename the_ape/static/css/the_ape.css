@@ -291,29 +291,26 @@ form.navbar-right {
 .ape-class-image {
     width: 100%;
 }
-.ape-class-name {
-    font-weight: 400;
-    font-size: 14px;
+.ape-class-item-element {
+    font-size: 13px;
     float: left;
-    margin-left: 10px;
-    display: inline-block;
-}
-.ape-class-teacher {
-    float: left;
-    margin: 0 0 0 5px;
-    font-weight: 400;
-    font-size: 14px;
-}
-.ape-class-bio {
-    font-size: 12px;
-    float: left;
-    width: 65%;
     text-align: left!important;
     font-weight: normal;
-    margin-left: 20px;
+    margin-left: 10px;
     margin-top: 5px;
-    line-height: 12px;
+    line-height: 13px;
 }
+.ape-class-item-element .ape-button {
+    margin-top: -11px;
+}
+.ape-class-name { width: 14%; font-size: 14px; }
+.ape-class-start-date {width: 12%;}
+.ape-class-teacher {width: 18%;}
+.ape-class-time {width: 18%;}
+.ape-class-sessions {width: 10%;}
+.ape-class-price {width: 8%;}
+.ape-class-buy {float: right; margin-right: 2%;}
+
 /* end gallery widget class item item */
 
 /* ----- people widget ------*/
@@ -497,10 +494,43 @@ form.navbar-right {
 
 /* ----- start class detail page ------*/
 .ape-class-detail {
-    padding-bottom: 10px;
+    padding: 10px;
+    display: flex;
 }
-.ape-class-page-banner img {
-    width: 400px;
+.ape-class-detail-image {
+    width: 30%;
+    float: left;
+}
+.ape-class-detail-right-column {
+    width: 65%;
+    float: left;
+    margin-left: 10px;
+}
+.ape-class-detail-teacher .widget-person-image-wrap {
+    text-align: center;
+    font-size: 14px;
+}
+.ape-class-detail-bottom {
+    display: flex;
+}
+.ape-class-detail-bottom .widget-person {
+    float: left;
+    margin: 10px 20px;
+    width: 30%;
+}
+.ape-class-detail-bottom .widget-person img {
+    width: 100%;
+}
+.ape-class-bottom-details {
+    float:left;
+    width: 60%;
+    margin: 30px 20px;
+}
+.ape-class-bottom-details span {
+    display: block;
+}
+.ape-class-page-tickets {
+    margin-top: 20px;
 }
 /* ----- end class detail page ------*/
 
