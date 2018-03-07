@@ -452,7 +452,12 @@ form.navbar-right {
     text-align: center;
 }
 .page-audio audio {
-    width: 90%;
+    width: 100%;
+    margin-bottom: -5px;
+}
+.page-audio p {
+    padding: 5px;
+    margin: 0;
 }
 /* ----- end audio widget ------*/
 
