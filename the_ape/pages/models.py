@@ -1,7 +1,6 @@
 import os
 import re
 from datetime import datetime, timedelta
-from audiofield.fields import AudioField
 
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey

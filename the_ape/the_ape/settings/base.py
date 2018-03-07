@@ -163,7 +163,6 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'grappelli',
-    'audiofield',
     'registration',
     'crispy_forms',
     # Useful template tags:
