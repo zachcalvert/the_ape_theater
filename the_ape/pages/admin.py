@@ -274,13 +274,6 @@ class GroupWidgetAdmin(admin.ModelAdmin):
     page_links.short_description = "pages"
 
 
-for model in WIDGET_MODELS:
-    try:
-        admin.site.register(model, GroupWidgetAdmin)
-    except AlreadyRegistered:
-        pass
-
-
 class AttendeeInline(admin.TabularInline):
     model = Event.attendees.through
     fields = ['attendee']
