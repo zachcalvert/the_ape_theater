@@ -39,7 +39,11 @@ class ApeRegistrationForm(forms.Form):
         last_name = self.cleaned_data.get('last_name')
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password1')
-        return User.objects.create_user(username=email, email=email, password=password)
+        return User.objects.create_user(username=email,
+                                        email=email,
+                                        password=password,
+                                        first_name=first_name,
+                                        last_name=last_name)
 
 
 class ApeRegistrationView(RegistrationView):
