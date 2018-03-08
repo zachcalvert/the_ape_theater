@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
 from accounts.models import Ticket, ClassRegistration
 
@@ -22,6 +23,16 @@ class UserProfileView(TemplateView):
 
 class TicketView(TemplateView):
     template_name = 'accounts/ticket.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('home'))
+
+        ticket = Ticket.objects.get(uuid=kwargs.get('ticket_uuid'))
+        if ticket.event_attendee.attendee != request.user.profile:
+            return HttpResponseRedirect(reverse('home'))
+        return super(TicketView, self).dispatch(request, *args, **kwargs)
+
 
     def get_context_data(self, **kwargs):
         context = super(TicketView, self).get_context_data(**kwargs)
