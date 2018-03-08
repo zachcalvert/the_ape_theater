@@ -25,6 +25,9 @@ class TicketView(TemplateView):
     template_name = 'accounts/ticket.html'
 
     def dispatch(self, request, *args, **kwargs):
+        """
+        Protect tickets from being viewed by anyone but the purchaser
+        """
         if not request.user.is_authenticated:
             return HttpResponseRedirect(reverse('home'))
 
@@ -32,7 +35,6 @@ class TicketView(TemplateView):
         if ticket.event_attendee.attendee != request.user.profile:
             return HttpResponseRedirect(reverse('home'))
         return super(TicketView, self).dispatch(request, *args, **kwargs)
-
 
     def get_context_data(self, **kwargs):
         context = super(TicketView, self).get_context_data(**kwargs)

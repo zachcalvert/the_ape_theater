@@ -283,7 +283,7 @@ class AttendeeInline(admin.TabularInline):
 
 
 class EventAdmin(SaveAsNewAdmin):
-    list_display = ['name_with_date']
+    list_display = ['name', 'start_time']
     readonly_fields = ['tickets_sold',]
     inlines = [
         AttendeeInline,

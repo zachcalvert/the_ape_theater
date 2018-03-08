@@ -48,7 +48,9 @@ input[type=checkbox] {
     border-radius: 5px;
     box-shadow: 0 2px #777;
 }
-.ape-button:hover {background-color: #3e8e41}
+.ape-button:hover {
+    background-color: #3e8e41
+}
 
 .ape-button:active {
   background-color: #3e8e41;
@@ -57,6 +59,18 @@ input[type=checkbox] {
 }
 a.ape-button:hover {
     text-decoration: none;
+}
+.sold-out-button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px #777;
+    background-color: red;
+    color: #fff;
 }
 
 .num-tickets input {

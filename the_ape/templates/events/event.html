@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load page_tags %}
 
 {% block title %}{{ event.name }}{% endblock %}
 
@@ -16,14 +17,24 @@
 			</div>
 			<div class="ape-class-page-tickets">
 				<div class="num-tickets">
-                  <input type="button" value="-" id="ticket-minus" class="ticket-amount-button">
+                  <input disabled='disabled' type="button" value="-" id="ticket-minus" class="ticket-amount-button">
                   <input type="text" step="1" min="1" name="ticket-quantity" id="ticket-quantity" value="0" size="4" readonly>
-                  <input type="button" value="+" id="ticket-plus" class="ticket-amount-button">
+                  {% if event.id|is_sold_out %}
+                  	<input disabled='disabled' type="button" value="+" id="ticket-plus" class="ticket-amount-button">
+                  {% else %}
+                 	 <input type="button" value="+" id="ticket-plus" class="ticket-amount-button">
+                  {% endif %}
                 </div>
 
-				<a data-toggle="modal" href=".event-{{ event.id }}">
-					<button disabled='disabled' class="ape-button">Purchase Tickets</button>
-				</a>
+                {% if event.id|is_sold_out %}
+                	<a data-toggle="modal" href="javascript;">
+						<button disabled='disabled' class="sold-out-button">Sold out!</button>
+					</a>
+                {% else %}
+					<a data-toggle="modal" href=".event-{{ event.id }}">
+						<button disabled='disabled' class="ape-button">Purchase Tickets</button>
+					</a>
+				{% endif %}
 			</div>
 		</div>
 		{% include 'events/event_ticket_purchase.html' %}
@@ -50,13 +61,21 @@
 			$('#sq-total-price').text('Total: $' + total);
 			$('#amount').val(total);
 
+			if (quantity >= {{ event.tickets_left }}) {
+				$('#ticket-plus').prop('disabled', true);
+			} else {
+				$('#ticket-plus').prop('disabled', false);
+			}
+
 			if (quantity == 0) {
 				$('.ape-button').html('Purchase tickets');
 				$('.ape-button').prop('disabled', true);
+				$('#ticket-minus').prop('disabled', true);
 			}
 			else if (quantity == 1) {
 				$('.ape-button').html('Purchase ' + quantity + ' ticket for ' + '$' + total);
 				$('.ape-button').prop('disabled', false);
+				$('#ticket-minus').prop('disabled', false);
 			}
 			else {
 				$('.ape-button').html('Purchase ' + quantity + ' tickets for ' + '$' + total);

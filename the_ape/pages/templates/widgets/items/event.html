@@ -9,8 +9,14 @@
 <p class="event-time">{{ event.event_day|safe }} at {{ event.event_time }}</p>
 
 <div class="ape-class-page-tickets">
-	<a data-toggle="modal" href="{% url 'event_wrapper' event.id %}">
-		<button class="ape-button">Get Tickets</button>
-	</a>
+    {% if event.id|is_sold_out %}
+    	<a data-toggle="modal" href="javascript;">
+			<button disabled='disabled' class="sold-out-button">Sold Out</button>
+		</a>
+    {% else %}
+		<a data-toggle="modal" href="{% url 'event_wrapper' event.id %}">
+			<button class="ape-button">Purchase Tickets</button>
+		</a>
+	{% endif %}
 </div>
 

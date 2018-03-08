@@ -135,3 +135,11 @@ def class_registration_link(ape_class_id, profile_id):
     except AttributeError:
         return ''
     return registration.get_absolute_url()
+
+
+@register.filter
+def is_sold_out(event_id):
+    event = Event.objects.get(id=event_id)
+    if event.tickets_sold >= event.max_tickets:
+        return True
+    return False

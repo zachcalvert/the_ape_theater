@@ -101,6 +101,7 @@ class Event(models.Model):
             "event_day": self.event_day(),
             "ticket_price": self.ticket_price,
             "name_with_date": self.name_with_date,
+            "tickets_left": self.max_tickets - self.tickets_sold
         }
         if self.banner:
             data['banner_url'] = self.banner.image.url
