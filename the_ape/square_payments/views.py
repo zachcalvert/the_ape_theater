@@ -37,10 +37,15 @@ def process_card(request):
             user = request.user
 
         nonce = request.POST['nonce']
+
+        purchase_model = request.POST['purchase-model']
+        purchase_id = request.POST['purchase-id']
         purchase_for = request.POST['purchase-for']
 
+        num_tickets = request.POST['num-tickets']
         amount = request.POST['amount']
-        amount = int(amount.replace('.', '')) # convert to cents, integer
+        amount += '00' # convert to cents
+        amount = int(amount)
 
         payment = SquarePayment.objects.create(
             uuid=str(uuid4()),
@@ -49,8 +54,13 @@ def process_card(request):
             nonce=nonce
         )
 
-        success = payment.charge()
+        if purchase_model == 'ape_class':
+            payment.purchase_class = ApeClass.objects.get(id=purchase_id)
+        elif purchase_model == 'event':
+            payment.purchase_event = Event.objects.get(id=purchase_id)
+        payment.save()
 
+        success = payment.charge()
         if success:
             messages.success(request, 'Your purchase for {} has been processed and was ' \
                                       'successful.'.format(purchase_for))
@@ -59,30 +69,21 @@ def process_card(request):
                                     'not charged, please contact talktotheape@gmail.com for further details.'.format(purchase_for))
             return HttpResponseRedirect(reverse('home'))
 
-
         #  handle successful purchases
-        purchase_model = request.POST['purchase-model']
-        purchase_id = request.POST['purchase-id']
-
         if purchase_model == 'ape_class':
-            ape_class = ApeClass.objects.get(id=purchase_id)
             class_member = ClassMember.objects.create(student=user.profile, ape_class=ape_class)
             class_member.create_registration()
             class_member.send_registration_email()
-            payment.purchase_class = ape_class
-            redirect_url = reverse('ape_class_wrapper', kwargs={'ape_class_id': ape_class.id})        
+            redirect_url = reverse('ape_class_wrapper', kwargs={'ape_class_id': payment.purchase_class.id})        
 
         elif purchase_model == 'event':
-            event = Event.objects.get(id=purchase_id)
-            payment.purchase_event = event
-            event.tickets_sold += 1
-            event.save()
-            redirect_url = reverse('event_wrapper', kwargs={'event_id': event.id})
+            payment.purchase_event.tickets_sold += int(num_tickets)
+            payment.purchase_event.save()
+            redirect_url = reverse('event_wrapper', kwargs={'event_id': payment.purchase_event.id})
 
-            attendee, created = EventAttendee.objects.get_or_create(event=event, attendee=user.profile)
-            if created:
-                attendee.create_ticket()
-                attendee.send_event_email()
+            attendee, created = EventAttendee.objects.get_or_create(event=payment.purchase_event, attendee=user.profile)
+            attendee.create_ticket(num_tickets)
+            attendee.send_event_email()
 
         payment.save()
 

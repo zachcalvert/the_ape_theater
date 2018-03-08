@@ -21,14 +21,14 @@
 		<div class="user-profile-shows">
 			<table title="My shows">
 				<tr>
-					<th>Start Time</th>
 					<th>Show</th>
+					<th>Start Time</th>
 					<th>Ticket</th>
 				</tr>
 				{% for show in user.profile.shows.all %}
 					<tr>
-						<td>{{ show.date }}</td>
 						<td>{{ show.name }}</td>
+						<td>{{ show.event_day|safe }}, {{ show.event_time }}</td>
 						<td><a target="_blank" href="{{ show.id|ticket_link:user.profile.id }}">View</a></td>
 					</tr>
 				{% endfor %}
@@ -47,14 +47,14 @@
 		<div class="user-profile-classes">
 			<table title="My classes">
 				<tr>
-					<th>Start Date</th>
 					<th>Class</th>
+					<th>Start Date</th>
 					<th>Registration</th>
 				</tr>
 				{% for class in user.profile.classes.all %}
 					<tr>
-						<td>{{ class.start_day }}</td>
 						<td>{{ class.name }}</td>
+						<td>{{ class.start_day }}</td>
 						<td><a target="_blank" href="{{ class.id|class_registration_link:user.profile.id }}">View</a></td>
 					</tr>
 				{% endfor %}

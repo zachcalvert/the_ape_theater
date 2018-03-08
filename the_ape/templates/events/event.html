@@ -8,18 +8,71 @@
 	</div>
 	<div class="gallery">
 		<div class="widget-header">
-	    	<h2 class="widget-title">{{ event.name|safe }}</h2>
+	    	<h2 class="widget-title">{{ event.name_with_date|safe }}, {{ event.event_time }}</h2>
 		</div>
 		<div class="event-detail">
 			<div class="event-page-bio">
 				<p>{{ event.bio|safe }}</p>
 			</div>
 			<div class="ape-class-page-tickets">
+				<div class="num-tickets">
+                  <input type="button" value="-" id="ticket-minus" class="ticket-amount-button">
+                  <input type="text" step="1" min="1" name="ticket-quantity" id="ticket-quantity" value="0" size="4" readonly>
+                  <input type="button" value="+" id="ticket-plus" class="ticket-amount-button">
+                </div>
+
 				<a data-toggle="modal" href=".event-{{ event.id }}">
-					<button class="ape-button">${{ event.ticket_price }}</button>
+					<button disabled='disabled' class="ape-button">Purchase Tickets</button>
 				</a>
 			</div>
 		</div>
 		{% include 'events/event_ticket_purchase.html' %}
 	</div>
+{% endblock %}
+
+{% block extra_body_content %}
+	<script>
+		function decrement_ticket_count() {
+		    $('#ticket-quantity').val( function(i, oldval) {
+		        return --oldval;
+		    });
+		}
+		function increment_ticket_count() {
+		    $('#ticket-quantity').val( function(i, oldval) {
+		        return ++oldval;
+		    });
+		}
+		function update_price() {
+			var quantity = $('#ticket-quantity').val();
+			var total = quantity * {{ event.ticket_price }};
+			$('#sq-num-tickets-display').text('Tickets: ' + quantity);
+			$('#sq-num-tickets').val(quantity);
+			$('#sq-total-price').text('Total: $' + total);
+			$('#amount').val(total);
+
+			if (quantity == 0) {
+				$('.ape-button').html('Purchase tickets');
+				$('.ape-button').prop('disabled', true);
+			}
+			else if (quantity == 1) {
+				$('.ape-button').html('Purchase ' + quantity + ' ticket for ' + '$' + total);
+				$('.ape-button').prop('disabled', false);
+			}
+			else {
+				$('.ape-button').html('Purchase ' + quantity + ' tickets for ' + '$' + total);
+				$('.ape-button').prop('disabled', false);
+			}
+		}
+
+		$(document).ready(function () {
+			$('#ticket-minus').on('click', function() {
+				decrement_ticket_count();
+				update_price();
+			});
+			$('#ticket-plus').on('click', function() {
+				increment_ticket_count();
+				update_price();
+			});
+		});
+	</script>
 {% endblock %}

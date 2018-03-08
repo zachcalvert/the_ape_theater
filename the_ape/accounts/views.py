@@ -28,8 +28,10 @@ class TicketView(TemplateView):
         ticket = Ticket.objects.get(uuid=kwargs.get('ticket_uuid'))
         event = ticket.event_attendee.event
         attendee = ticket.event_attendee.attendee
+        context['attendee'] = attendee
         context['ticket'] = ticket
         context['event'] = event
+        context['total'] = event.ticket_price * ticket.num_attendees
         return context
 
 

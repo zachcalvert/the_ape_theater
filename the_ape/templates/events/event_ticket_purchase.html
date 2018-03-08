@@ -9,8 +9,10 @@
   <form class="well" id="nonce-form" novalidate action="{% url 'process_card' %}" method="post">{% csrf_token %}
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
-		<h3>Buy tickets to {{ event.name }}</h3>
-		<h4>${{ event.ticket_price }}</h4>
+		<h3>{{ event.name|safe }}</h3> 
+		<h4>{{ event.event_day|safe }}, {{ event.event_time }}</h4>
+		<h4 id="sq-num-tickets-display">Tickets: {{ num_tickets }}</h4>
+		<h4 id="sq-total-price">Total: ${{ event.ticket_price }}</h4>
 	</div>
     <table>
 	    <tbody>
@@ -52,6 +54,7 @@
 	    </tbody>
     </table>
 	<input type="hidden" id="amount" name="amount" value="{{ event.ticket_price }}">
+	<input type="hidden" id="sq-num-tickets" name="num-tickets" value="0">
 	<input type="hidden" id="purchase-model" name="purchase-model" value="event">
 	<input type="hidden" id="purchase-id" name="purchase-id" value="{{ event.id }}">
 	<input type="hidden" id="purchase-for" name="purchase-for" value="{{ event.name }}">

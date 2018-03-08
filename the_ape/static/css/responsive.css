@@ -182,4 +182,8 @@
     .ape-calendar iframe {
         height: 300px;
     }
+    .gallery th, td {
+        padding: 0; 
+        font-size: 10px;
+    }
 }

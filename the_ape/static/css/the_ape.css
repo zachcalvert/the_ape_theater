@@ -28,23 +28,47 @@ input[type=checkbox] {
     top: 80px;
     overflow-y: auto;
 }
+.ape-modal table {
+    margin: 10px 0!important;
+    border: none!important;
+}
 /* end ape modals */
 
 /* start buy/register button */
 .ape-button {
-    padding: 13px 23px;
-    margin-top: 5px;
-    opacity: 0.7;
-    background-color: #090909;
-    border-radius: 4px;
-    color: #f9f9f9;
-    font-size: 13px;
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px #777;
 }
-.ape-button:hover {
-    opacity: 1;
+.ape-button:hover {background-color: #3e8e41}
+
+.ape-button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(2px);
 }
 a.ape-button:hover {
     text-decoration: none;
+}
+
+.num-tickets input {
+    width: 36px;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    border: 0px transparent;
+    padding: 0;
+    text-align: center;
+    background-color: #EEE;
+    font-size: 16px;
 }
 
 .messages {
@@ -500,6 +524,12 @@ form.navbar-right {
 .event-page-tickets {
     text-align: center;
 }
+#ticket-minus:active, #ticket-plus:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(2px);
+}
+#ticket-minus:focus, #ticket-plus:focus {outline:0;}
 /* ----- end event detail page ------*/
 
 /* ----- start class detail page ------*/
@@ -615,7 +645,7 @@ form.navbar-right {
     margin: 10px;
     background-color: #FFF;
 }
-.ape-event-ticket h1, h4 {
+.ape-event-ticket h2, h4 {
     margin: 0;
     text-align: center;
 }

@@ -68,10 +68,11 @@ class EventAttendee(models.Model):
     event = models.ForeignKey(Event, related_name='event_attendance', null=True)
     purchase_date = models.DateTimeField(auto_now_add=True)
 
-    def create_ticket(self):
+    def create_ticket(self, num_tickets=1):
         ticket, created = Ticket.objects.get_or_create(event_attendee=self)
         if created:
             ticket.uuid = ticket.id * 52689
+            ticket.num_attendees = num_tickets
             ticket.save()
         if ticket.pdf:
             pass
@@ -92,6 +93,7 @@ class Ticket(models.Model):
     event_attendee = models.OneToOneField(EventAttendee, related_name='ticket')
     uuid = models.CharField(max_length=100)
     pdf = models.FileField(upload_to='tickets', null=True)
+    num_attendees = models.IntegerField(default=1)
 
     def get_absolute_url(self):
         return reverse('ticket', kwargs={'ticket_uuid': self.uuid})
