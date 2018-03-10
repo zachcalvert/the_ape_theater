@@ -77,29 +77,33 @@
       </div>
     {% endblock %}
 
-    <div id="content">
-      <div class="page-content">
-        {% block messages %}
-          {% if messages %}
-            {% for msg in messages %}
-              <div class="messages alert alert-info alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                  {{ msg.message }}
-              </div>
-            {% endfor %}
-          {% endif %}
-        {% endblock %}
+    <div class="page-content">
+      {% block messages %}
+        {% if messages %}
+          {% for msg in messages %}
+            <div class="messages alert alert-info alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ msg.message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endblock %}
 
-        {% block content %}{% endblock %}  
-        {% block extra_body_content %}
-          <script>
-            $(document).ready(function () {
-              var pathname = window.location.pathname;
-              $('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
-            });
-          </script>
-        {% endblock %}
-      </div>
+      {% block content %}{% endblock %}  
+      {% block extra_body_content %}
+        <script>
+          $(document).ready(function () {
+            var pathname = window.location.pathname;
+            $('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+          });
+        </script>
+      {% endblock %}
+    </div>
+
+    <div id="footer">
+      <ul>
+        <li>The Ape is a 501c3 non profit.</li>
+      </ul>
     </div>
 
     {% block extra_js %}{% endblock %}
