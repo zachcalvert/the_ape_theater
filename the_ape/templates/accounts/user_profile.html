@@ -19,25 +19,16 @@
 	        <h2 class="widget-title">Shows</h2>
 	    </div>
 		<div class="user-profile-shows">
-			<table title="My shows">
-				<tr>
-					<th>Show</th>
-					<th>Start Time</th>
-					<th>Ticket</th>
-				</tr>
-				{% for show in user.profile.shows.all %}
-					<tr>
-						<td>{{ show.name }}</td>
-						<td>{{ show.event_day|safe }}, {{ show.event_time }}</td>
-						<td><a target="_blank" href="{{ show.id|ticket_link:user.profile.id }}">View</a></td>
-					</tr>
-				{% endfor %}
-				{% if not user.profile.shows.exists %}
-					<tr>
-						<td></td><td>Shows you purchase tickets for will show up here.</td>
-					</tr>
-				{% endif %}
-			</table>
+			{% for show in user.profile.shows.all %}
+				<div class="user-profile-show">
+					<div>{{ show.name }}</div>
+					<div>{{ show.event_day|safe }}, {{ show.event_time }}</div>
+					<div><a target="_blank" href="{{ show.id|ticket_link:user.profile.id }}">View Ticket</a></div>
+				</div>
+			{% endfor %}
+			{% if not user.profile.shows.exists %}
+				<div>Shows you purchase tickets for will show up here.</div><div></div><div></div>
+			{% endif %}
 		</div>
 	</div>
 	<div class="gallery">
@@ -45,26 +36,17 @@
 	        <h2 class="widget-title">Classes</h2>
 	    </div>
 		<div class="user-profile-classes">
-			<table title="My classes">
-				<tr>
-					<th>Class</th>
-					<th>Start Date</th>
-					<th>Registration</th>
-				</tr>
-				{% for class in user.profile.classes.all %}
-					<tr>
-						<td>{{ class.name }}</td>
-						<td>{{ class.start_day }}</td>
-						<td><a target="_blank" href="{{ class.id|class_registration_link:user.profile.id }}">View</a></td>
-					</tr>
-				{% endfor %}
-				{% if not user.profile.classes.exists %}
-					<tr>
-						<td></td>
-						<td>Classes you register for will show up here.</td>
-					</tr>
-				{% endif %}
-			</table>
+			{% for class in user.profile.classes.all %}
+				<div class="user-profile-class">
+					<div>{{ class.name }}</div>
+					<div>{{ class.start_day }}</div>
+					<div><a target="_blank" href="{{ class.id|class_registration_link:user.profile.id }}">View Registration</a></div>
+				</div>
+			{% endfor %}
+			{% if not user.profile.classes.exists %}
+				<div>Classes you register for will show up here.</div>
+				<div></div><div></div>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}
