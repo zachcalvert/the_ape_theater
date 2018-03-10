@@ -18,7 +18,7 @@ from pages.admin_forms import FilteredSelect, PageForm, get_widget_form
 from pages.admin_views import WidgetFormView, WidgetNameLookupView, WidgetPageLookupView
 from pages.fields import SortedManyToManyField
 import pages.views
-from pages.models import Page
+from pages.models import Page, BannerWidget
 from pages.templatetags.page_tags import admin_url
 from people.models import HouseTeam, Person
 
@@ -304,5 +304,6 @@ class ApeClassAdmin(SaveAsNewAdmin):
     ]
 
 
+admin.site.register(BannerWidget)
 admin.site.register(ApeClass, ApeClassAdmin)
 admin.site.register(Event, EventAdmin)
