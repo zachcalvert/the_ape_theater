@@ -298,7 +298,7 @@ class StudentInline(admin.TabularInline):
 
 
 class ApeClassAdmin(SaveAsNewAdmin):
-    list_display = ['name']
+    list_display = ['name', 'teacher', 'start_date']
     inlines = [
         StudentInline,
     ]
