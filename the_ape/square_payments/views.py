@@ -61,10 +61,7 @@ def process_card(request):
         payment.save()
 
         success = payment.charge()
-        if success:
-            messages.success(request, 'Your purchase for {} has been processed and was ' \
-                                      'successful.'.format(purchase_for))
-        else:
+        if not success:
             messages.error(request, 'Your purchase for {} was not successful. Your card was ' \
                                     'not charged, please contact talktotheape@gmail.com for further details.'.format(purchase_for))
             return HttpResponseRedirect(reverse('home'))
@@ -74,7 +71,9 @@ def process_card(request):
             class_member = ClassMember.objects.create(student=user.profile, ape_class=ape_class)
             class_member.create_registration()
             class_member.send_registration_email()
-            redirect_url = reverse('ape_class_wrapper', kwargs={'ape_class_id': payment.purchase_class.id})        
+            redirect_url = reverse('ape_class_wrapper', kwargs={'ape_class_id': payment.purchase_class.id})
+            messages.success(request, 'Your purchase for {} has been processed and was ' \
+                                      'successful. You can view your ticket here {}'.format(purchase_for, reverse('user_profile')))      
 
         elif purchase_model == 'event':
             payment.purchase_event.tickets_sold += int(num_tickets)
@@ -84,6 +83,8 @@ def process_card(request):
             attendee, created = EventAttendee.objects.get_or_create(event=payment.purchase_event, attendee=user.profile)
             attendee.create_ticket(num_tickets)
             attendee.send_event_email()
+            messages.success(request, 'Your purchase for {} has been processed and was ' \
+                                      'successful. You can view your ticket here {}'.format(purchase_for, reverse('user_profile')))
 
         payment.save()
 
