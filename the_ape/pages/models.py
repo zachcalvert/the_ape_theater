@@ -1,6 +1,7 @@
 import os
 import re
 from datetime import datetime, timedelta
+from hashlib import md5
 
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -21,6 +22,17 @@ from classes.models import ApeClass
 from events.models import Event
 from pages.fields import SortedManyToManyField, ColorField
 from people.models import Person, HouseTeam
+
+
+def to_cache_key(vals):
+    string_vals = []
+    for v in vals:
+        if isinstance(v, datetime):
+            v = v.isoformat()
+        string_vals.append(str(v))
+
+    cache_key = "_".join(":".join(string_vals).split())
+    return cache_key
 
 
 class WidgetManager(InheritanceManager):
@@ -88,6 +100,19 @@ class Widget(AbstractWidget):
         if self.end_date and self.end_date < timezone.now():
             return False
         return True
+
+    @property
+    def cache_key(self):
+        if not hasattr(self, '_cache_key'):
+            if self.id:
+                self._cache_key = to_cache_key(["widget", self.id, self.last_modified])
+            else:
+                self._cache_key = None
+        return self._cache_key
+
+    @cache_key.setter
+    def cache_key(self, new_key):
+        self._cache_key = new_key
 
     def to_data(self):
         data = {
@@ -214,6 +239,9 @@ class Page(models.Model):
                 "type": "solid_color",
                 "color": self.background_start_color
             }
+
+    def cache_key(self):
+        return to_cache_key(["page", self.id, self.last_modified])
 
     def to_data(self):
         data = {

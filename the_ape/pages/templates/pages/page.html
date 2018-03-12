@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load cache %}
 
 {% block title %}
     {{ page.name|safe }} | The Ape
@@ -72,17 +73,20 @@
 {% endblock %}
 
 {% block content %}
+  {% cache cache_timeout|default:0 page.cache_key %}
     <ul id="widgets-list">
         {% for widget in page.widgets %}
             <li class="widget widget-{{ widget.width }}">
-                {% if widget.template_name %}
-                    {% include widget.template_name %}
-                {% else %}
-                    <pre>
-                        {{ widget }}
-                    </pre>
-                {% endif %}
+              {% if widget.cache_key %}
+                {% cache cache_timeout|default:0 widget.cache_key %}
+                  {% include widget.template_name %}
+                {% endcache %}
+              {% else %}
+                <!-- widget not cached -->
+                {% include widget.template_name %}
+              {% endif %}
             </li>
         {% endfor %}
     </ul>
+  {% endcache %}
 {% endblock %}
