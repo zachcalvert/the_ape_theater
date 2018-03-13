@@ -73,7 +73,7 @@ def process_card(request):
             class_member.send_registration_email()
             redirect_url = reverse('ape_class_wrapper', kwargs={'ape_class_id': payment.purchase_class.id})
             messages.success(request, 'Your purchase for {} has been processed and was ' \
-                                      'successful. You can view your ticket here {}'.format(purchase_for, reverse('user_profile')))      
+                                      'successful. You can view your registration here {}'.format(purchase_for, reverse('user_profile')))
 
         elif purchase_model == 'event':
             payment.purchase_event.tickets_sold += int(num_tickets)
