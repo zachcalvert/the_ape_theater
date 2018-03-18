@@ -570,10 +570,10 @@ form.navbar-right {
     width: 30%;
     float: left;
 }
-.ape-class-detail-right-column {
-    width: 65%;
+.ape-class-detail-left-column {
+    width: 60%;
     float: left;
-    margin-left: 10px;
+    margin: 0px 10% 0 5px;
 }
 .ape-class-detail-teacher .widget-person-image-wrap {
     text-align: center;
@@ -590,12 +590,12 @@ form.navbar-right {
 .ape-class-detail-bottom .widget-person img {
     width: 100%;
 }
-.ape-class-bottom-details {
-    float:left;
-    width: 60%;
-    margin: 30px 20px;
+.ape-class-info {
+    float: left;
+    width: 30%;
+    margin: 10px 20px 20px 10px;
 }
-.ape-class-bottom-details span {
+.ape-class-info span {
     display: block;
 }
 .ape-class-detail-tickets {

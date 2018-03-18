@@ -9,32 +9,12 @@
     	<h2 class="widget-title">{{ ape_class.name|safe }}</h2>
 	</div>
 	<div class="ape-class-detail">
-		<div class="ape-class-detail-image">
-	    	{% include 'widgets/image.html' with url=ape_class.banner_url %}
-	    </div>
-	    <div class="ape-class-detail-right-column">
+
+	    <div class="ape-class-detail-left-column">
 	    	<div class="ape-class-detail-bio">{{ ape_class.bio|safe }}</div>
 		</div>
-	</div>
-</div>
-<div class="gallery">
-	<div class="widget-header">
-    	<h2 class="widget-title">Class Details</h2>
-	</div>
-	<div class="ape-class-detail-bottom">
-		{% if ape_class.teacher %}
-			<div class="ape-class-detail-teacher widget-person">
-				Instructor:
-			    <a href="{{ ape_class.teacher.path|wrapped_url }}">
-			    	<div class="widget-person-image-wrap">
-						<img class="widget-person-image" src="{{ ape_class.teacher.image_url }}" alt="{{ ape_class.teacher.name }} image">
-					<span class="widget-person-name">{{ ape_class.teacher.name }}</span>
-					</div>
-			    </a>
-			</div>
-		{% endif %}
-
-		<div class="ape-class-bottom-details">
+		<div class="ape-class-info">
+			<span class="ape-class-detail-instructor">Instructor: {{ ape_class.teacher.name }}</span>
 			<span class="ape-class-detail-start-date">First class: {{ ape_class.start_day_as_date }}</span>
 
 			<span class="ape-class-detail-sessions">Duration: {{ ape_class.num_sessions }} weeks</span>
@@ -52,5 +32,26 @@
 		</div>
 	</div>
 </div>
+	<div class="gallery">
+		<div class="widget-header">
+	        <h2 class="widget-title">{{ ape_class.teacher.name|safe }}</h2>
+	    </div>
+		<div class="person-detail">
+			<div class="person-focus">
+				<div class="person-focus-image">
+			    	{% include 'widgets/image.html' with url=ape_class.teacher.image_url %}
+			    </div>
+			    <div class="person-focus-right-column">
+			    	<div class="person-focus-bio">{{ ape_class.teacher.bio|safe }}</div>
+			    	{% if person.house_team %}
+			    		<div class="person-focus-house-team">Plays on <a href="{{ ape_class.teacher.house_team.path|wrapped_url }}">{{ ape_class.teacher.house_team.name }}</a></div>
+			    	{% endif %}
+			    	{% if person.website %}
+			    		<div class="person-focus-website">Plays on <a href="{{ person.website }}">{{ person.website }}</a></div>
+			    	{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
 		{% include 'classes/ape_class_registration.html' %}
 {% endblock %}
