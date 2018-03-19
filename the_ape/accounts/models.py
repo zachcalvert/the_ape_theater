@@ -1,7 +1,7 @@
 import pdfkit
 from uuid import uuid4
 
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
