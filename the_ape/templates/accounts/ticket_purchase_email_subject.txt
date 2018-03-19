@@ -1,1 +1,0 @@
-Your ticket purchase from {{ site.name }}
