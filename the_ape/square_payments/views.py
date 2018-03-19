@@ -81,8 +81,8 @@ def process_card(request):
             redirect_url = reverse('event_wrapper', kwargs={'event_id': payment.purchase_event.id})
 
             attendee, created = EventAttendee.objects.get_or_create(event=payment.purchase_event, attendee=user.profile)
-            attendee.create_ticket(num_tickets)
-            attendee.send_event_email()
+            ticket = attendee.create_ticket(num_tickets)
+            attendee.send_event_email(ticket=ticket)
             messages.success(request, 'Your purchase for {} has been processed and was ' \
                                       'successful. You can view your ticket here {}'.format(purchase_for, reverse('user_profile')))
 

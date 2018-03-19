@@ -86,8 +86,9 @@ class EventAttendee(models.Model):
             # except Exception as e:
             #     print(e)
             # ticket.save()
+        return ticket
 
-    def send_event_email(self):
+    def send_event_email(self, ticket):
         subject = 'Ticket confirmation: {}'.format(self.event.name)
         from_address = 'noreply@theapetheater.org'
         to_address = self.attendee.user.email
