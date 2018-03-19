@@ -4,7 +4,10 @@ from uuid import uuid4
 from django.core.mail import send_mail
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.html import strip_tags
+
 
 from classes.models import ApeClass
 from events.models import Event
@@ -85,8 +88,14 @@ class EventAttendee(models.Model):
             # ticket.save()
 
     def send_event_email(self):
-        pass
-        send_mail('subject', 'body of the message', 'contact@theapetheater.org', ['zecalvinho@gmail.com'])
+        subject = 'Ticket confirmation: {}'.format(self.event.name)
+        from_address = 'noreply@theapetheater.org'
+        to_address = self.attendee.user.email
+        html_content = render_to_string('ticket.html', {'ticket': ticket, 'event': self.event, 'attendee': self.attendee}) # render with dynamic value
+        text_content = strip_tags(html_content)
+        msg = EmailMultiAlternatives(subject, text_content, from_address, [to_address])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
 
 
 class Ticket(models.Model):

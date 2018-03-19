@@ -656,12 +656,11 @@ form.navbar-right {
 
 /*------ start ticket --------*/
 .ape-event-ticket {
-    border: 2px solid black;
+    border: 14px solid black;
     border-radius: 4px;
     width: 450px;
     padding: 10px;
     height: auto;
-    margin: 10px;
     background-color: #FFF;
 }
 .ape-event-ticket h2, h4 {
