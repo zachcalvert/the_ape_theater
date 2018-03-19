@@ -128,14 +128,15 @@
         width: 100%;
         margin-bottom: 20px;
     }
-    .ape-class-detail-right-column {
-        width: 100%;
-        float: none;
-        padding: 5px;
-        margin-left: 10px;
+    .ape-class-detail-left-column {
+        width: 90%;
+        float: left;
+        margin: 0px 0 0 5px;
     }
-    .ape-class-bottom-details {
-        margin: 30px 0;
+    .ape-class-info {
+        float: left;
+        width: 80%;
+        margin: 40px 20px 20px 5px;
     }
 }
 

@@ -565,6 +565,7 @@ form.navbar-right {
 .ape-class-detail {
     padding: 10px;
     display: flex;
+    overflow: overlay;
 }
 .ape-class-detail-image {
     width: 30%;
