@@ -92,7 +92,7 @@ class EventAttendee(models.Model):
         subject = 'Ticket confirmation: {}'.format(self.event.name)
         from_address = 'noreply@theapetheater.org'
         to_address = self.attendee.user.email
-        html_content = render_to_string('ticket.html', {'ticket': ticket, 'event': self.event, 'attendee': self.attendee}) # render with dynamic value
+        html_content = render_to_string('accounts/ticket.html', {'ticket': ticket, 'event': self.event, 'attendee': self.attendee}) # render with dynamic value
         text_content = strip_tags(html_content)
         msg = EmailMultiAlternatives(subject, text_content, from_address, [to_address])
         msg.attach_alternative(html_content, "text/html")
