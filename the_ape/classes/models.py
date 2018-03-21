@@ -52,6 +52,7 @@ class ApeClass(models.Model):
     max_enrollment = models.IntegerField(help_text='Max number of students', default=12)
     class_length = models.IntegerField(default=2, help_text='Length of one class session, in hours.')
     price = models.DecimalField(decimal_places=2, max_digits=5)
+    registration_open = models.BooleanField(default=True)
 
     class Meta(object):
         verbose_name = 'Ape Class'
