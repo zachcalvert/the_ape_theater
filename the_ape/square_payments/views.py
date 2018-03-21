@@ -46,11 +46,11 @@ def process_card(request):
         if purchase_model == 'event':
             num_tickets = request.POST['num-tickets']
         if purchase_model == 'ape_class':
-            amount = amount[:3]
+            sep = '.'
+            amount = amount.split(sep, 1)[0]
 
         amount += '00'  # convert to cents
         amount = int(amount)
-
 
         payment = SquarePayment.objects.create(
             uuid=str(uuid4()),
@@ -77,8 +77,6 @@ def process_card(request):
             registration = class_member.create_registration()
             class_member.send_registration_email(registration=registration)
             redirect_url = reverse('ape_class_wrapper', kwargs={'ape_class_id': payment.purchase_class.id})
-            messages.success(request, 'Your purchase for {} has been processed and was ' \
-                                      'successful. You can view your class registration from your profile'.format(purchase_for))
 
         elif purchase_model == 'event':
             payment.purchase_event.tickets_sold += int(num_tickets)
