@@ -86,13 +86,15 @@ class PageView(JSONView):
             try:
                 page = Page.objects.get(slug=page_slug)
             except Page.DoesNotExist:
-                return Http404()
+                return None
         else:
             raise Http404()
         return page
 
     def get(self, request, *args, **kwargs):
         page = self.get_page(**kwargs)
+        if not page:
+            page = Page.objects.get(slug='home')
         page_data = page.to_data()
         return page_data
 
