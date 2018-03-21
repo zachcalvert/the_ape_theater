@@ -52,9 +52,15 @@ class ClassMember(models.Model):
             #     print(e)
             # ticket.save()
 
-    def send_registration_email(self):
-        pass
-        send_mail('subject', 'body of the message', 'contact@theapetheater.org', ['zecalvinho@gmail.com'])
+    def send_registration_email(self, registration):
+        subject = 'Class registration confirmation: {}'.format(self.event.name)
+        from_address = 'noreply@theapetheater.org'
+        to_address = self.attendee.user.email
+        html_content = render_to_string('accounts/class_email_confirmation.html', {'class_registration': registration, 'ape_class': self.ape_class, 'student': self.student}) # render with dynamic value
+        text_content = strip_tags(html_content)
+        msg = EmailMultiAlternatives(subject, text_content, from_address, [to_address])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
 
 
 class ClassRegistration(models.Model):
@@ -92,7 +98,7 @@ class EventAttendee(models.Model):
         subject = 'Ticket confirmation: {}'.format(self.event.name)
         from_address = 'noreply@theapetheater.org'
         to_address = self.attendee.user.email
-        html_content = render_to_string('accounts/ticket.html', {'ticket': ticket, 'event': self.event, 'attendee': self.attendee}) # render with dynamic value
+        html_content = render_to_string('accounts/ticket_email_confirmation.html', {'ticket': ticket, 'event': self.event, 'attendee': self.attendee}) # render with dynamic value
         text_content = strip_tags(html_content)
         msg = EmailMultiAlternatives(subject, text_content, from_address, [to_address])
         msg.attach_alternative(html_content, "text/html")

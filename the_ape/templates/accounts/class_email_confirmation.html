@@ -1,0 +1,41 @@
+{% load humanize %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		.ape-event-ticket {
+		    border: 14px solid black;
+		    border-radius: 4px;
+		    width: 450px;
+		    padding: 10px;
+		    height: auto;
+		    background-color: #FFF;
+		}
+		.ape-event-ticket img {
+			width: 100%;
+		}	
+		.ape-event-ticket h2, h4 {
+		    margin: 0;
+		    text-align: center;
+		}
+		.ape-event-ticket p {
+			margin: 5px;
+		}
+	</style>
+</head>
+<body style="background-color: #090909">
+	<title>{{ event.name }}</title>
+	<div class="ape-event-ticket">
+		<img src="https://i.imgur.com/haWfEEz.png">
+		<h2>{{ ape_class.name }}</h1>
+		<h4>{{ ape_class.event_day }}</h4><br />
+		<p>Name: {{ request.user.get_full_name }}</p>
+		<p>Email: {{ request.user.email }}</p><br />
+		<p>Paid: ${{ ape_class.price }}</p>
+		<p>Order date: {{ class_registration.class_member.purchase_date }}</p>
+		<p>Order #: {{ class_registration.uuid }}</p>
+	</div>
+</body>
+</html>
