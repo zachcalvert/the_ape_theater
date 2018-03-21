@@ -41,13 +41,16 @@ def process_card(request):
         purchase_model = request.POST['purchase-model']
         purchase_id = request.POST['purchase-id']
         purchase_for = request.POST['purchase-for']
+        amount = request.POST['amount']
 
         if purchase_model == 'event':
             num_tickets = request.POST['num-tickets']
+        if purchase_model == 'ape_class':
+            amount = amount[:3]
 
-        amount = request.POST['amount']
-        amount += '00' # convert to cents
+        amount += '00'  # convert to cents
         amount = int(amount)
+
 
         payment = SquarePayment.objects.create(
             uuid=str(uuid4()),
@@ -70,12 +73,12 @@ def process_card(request):
 
         #  handle successful purchases
         if purchase_model == 'ape_class':
-            class_member = ClassMember.objects.create(student=user.profile, ape_class=ape_class)
+            class_member = ClassMember.objects.create(student=user.profile, ape_class=payment.purchase_class)
             registration = class_member.create_registration()
             class_member.send_registration_email(registration=registration)
             redirect_url = reverse('ape_class_wrapper', kwargs={'ape_class_id': payment.purchase_class.id})
             messages.success(request, 'Your purchase for {} has been processed and was ' \
-                                      'successful. You can view your registration here {}'.format(purchase_for, reverse('user_profile')))
+                                      'successful. You can view your class registration from your profile'.format(purchase_for))
 
         elif purchase_model == 'event':
             payment.purchase_event.tickets_sold += int(num_tickets)
@@ -86,7 +89,7 @@ def process_card(request):
             ticket = attendee.create_ticket(num_tickets)
             attendee.send_event_email(ticket=ticket)
             messages.success(request, 'Your purchase for {} has been processed and was ' \
-                                      'successful. You can view your ticket here {}'.format(purchase_for, reverse('user_profile')))
+                                      'successful.'.format(purchase_for))
 
         payment.save()
 

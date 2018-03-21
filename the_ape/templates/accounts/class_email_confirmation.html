@@ -26,7 +26,8 @@
 	</style>
 </head>
 <body style="background-color: #090909">
-	<title>{{ event.name }}</title>
+	<h4>Congratulations! You're registered for {{ ape_class.name }}</h4>
+	<p>You can also view your registration <a href="https://theapetheater.org{{ class_registration.get_absolute_url }}">here.</a>
 	<div class="ape-event-ticket">
 		<img src="https://i.imgur.com/haWfEEz.png">
 		<h2>{{ ape_class.name }}</h1>

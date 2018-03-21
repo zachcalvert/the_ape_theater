@@ -53,9 +53,9 @@ class ClassMember(models.Model):
             # ticket.save()
 
     def send_registration_email(self, registration):
-        subject = 'Class registration confirmation: {}'.format(self.event.name)
+        subject = 'Class registration confirmation: {}'.format(self.ape_class.name)
         from_address = 'noreply@theapetheater.org'
-        to_address = self.attendee.user.email
+        to_address = self.student.user.email
         html_content = render_to_string('accounts/class_email_confirmation.html', {'class_registration': registration, 'ape_class': self.ape_class, 'student': self.student}) # render with dynamic value
         text_content = strip_tags(html_content)
         msg = EmailMultiAlternatives(subject, text_content, from_address, [to_address])
@@ -98,7 +98,10 @@ class EventAttendee(models.Model):
         subject = 'Ticket confirmation: {}'.format(self.event.name)
         from_address = 'noreply@theapetheater.org'
         to_address = self.attendee.user.email
-        html_content = render_to_string('accounts/ticket_email_confirmation.html', {'ticket': ticket, 'event': self.event, 'attendee': self.attendee}) # render with dynamic value
+        html_content = render_to_string('accounts/ticket_email_confirmation.html', {'ticket': ticket,
+                                                                                    'event': self.event,
+                                                                                    'attendee': self.attendee,
+                                                                                    'total': int(self.event.ticket_price) * ticket.num_attendees})
         text_content = strip_tags(html_content)
         msg = EmailMultiAlternatives(subject, text_content, from_address, [to_address])
         msg.attach_alternative(html_content, "text/html")

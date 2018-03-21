@@ -7,11 +7,12 @@
 	<link href="{{ STATIC_URL }}css/the_ape.css" rel="stylesheet">
 	<link href="{{ STATIC_URL }}css/responsive.css" rel="stylesheet">
 </head>
-<body style="background-color: #090909">
+<body>
 	<title>{{ event.name }}</title>
 	<div class="ape-event-ticket">
 		<img src="{{ event.banner.image.url }}">
 		<h2>{{ event.name }}</h2>
+		<p>You can view your ticket <a href="https://theapetheater.org{{ ticket.get_absolute_url }}">here.</a>
 		<h4>{{ event.event_day|safe }}, {{ event.event_time }}</h4>
 		<h4>ADMIT {{ ticket.num_attendees|apnumber|upper }}</h4><br />
 		<p>Name: {{ attendee.user.get_full_name }}</p>
