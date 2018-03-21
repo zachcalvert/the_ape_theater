@@ -32,6 +32,12 @@
     .ape-class-buy {
         width: 13%;
     }
+    .ape-workshop-name {
+        width: 42%;
+    }
+    .ape-workshop-teacher {
+        width: 30%;
+    }
     .navbar-collapse {
         width: 150px; 
         float: right; 

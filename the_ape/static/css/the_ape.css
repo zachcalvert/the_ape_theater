@@ -368,8 +368,39 @@ form.navbar-right {
 .ape-class-page-tickets {
     text-align: center;
 }
+/* end gallery widget class item */
 
-/* end gallery widget class item item */
+/* start gallery widget workshop item */
+.ape-workshop-item {
+    font-size: 14px;
+    font-weight: normal;
+}
+.ape-workshop-name {
+    width: 30%;
+    float: left;
+    text-align: left;
+}
+.ape-workshop-start-time {
+    width: 22%;
+    float: left;
+    text-align: left;
+}
+.ape-workshop-teacher {
+    width: 22%;
+    float: left;
+    text-align: left;
+}
+.ape-workshop-price {
+    float: left;
+    width: 10%;
+}
+.ape-workshop-buy {
+    float: right;
+    width: 10%;
+    margin-top: -11px;
+}
+/* end gallery widget workshop item */
+
 
 /* ----- people widget ------*/
 .widget-person {
