@@ -184,6 +184,7 @@ class Page(models.Model):
         ("faculty", "Faculty"),
         ("talent", "Talent"),
         ("watch", "Watch"),
+        ("hype", "Hype"),
     )
 
     name = models.CharField(max_length=255)
