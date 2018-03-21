@@ -42,7 +42,9 @@ def process_card(request):
         purchase_id = request.POST['purchase-id']
         purchase_for = request.POST['purchase-for']
 
-        num_tickets = request.POST['num-tickets']
+        if purchase_model == 'event':
+            num_tickets = request.POST['num-tickets']
+
         amount = request.POST['amount']
         amount += '00' # convert to cents
         amount = int(amount)
@@ -69,8 +71,8 @@ def process_card(request):
         #  handle successful purchases
         if purchase_model == 'ape_class':
             class_member = ClassMember.objects.create(student=user.profile, ape_class=ape_class)
-            class_member.create_registration()
-            class_member.send_registration_email()
+            registration = class_member.create_registration()
+            class_member.send_registration_email(registration=registration)
             redirect_url = reverse('ape_class_wrapper', kwargs={'ape_class_id': payment.purchase_class.id})
             messages.success(request, 'Your purchase for {} has been processed and was ' \
                                       'successful. You can view your registration here {}'.format(purchase_for, reverse('user_profile')))
