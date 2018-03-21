@@ -682,3 +682,16 @@ form.navbar-right {
     max-width: 1200px;
 }
 /*------ end show calendar -----*/
+
+
+.press-clipping-quote {
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+    background: #f5f5f5;
+}
+
+.press-clipping-author {
+    text-align: right;
+    padding: 10px;
+}
