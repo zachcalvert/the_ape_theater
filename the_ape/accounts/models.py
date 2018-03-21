@@ -36,6 +36,8 @@ class ClassMember(models.Model):
     student = models.ForeignKey(UserProfile, related_name='class_membership')
     ape_class = models.ForeignKey(ApeClass, related_name='class_membership', null=True)
     has_paid = models.BooleanField(default=False)
+    purchase_date = models.DateTimeField(auto_now_add=True)
+
 
     def create_registration(self):
         registration, created = ClassRegistration.objects.get_or_create(class_member=self)
@@ -51,12 +53,15 @@ class ClassMember(models.Model):
             # except Exception as e:
             #     print(e)
             # ticket.save()
+        return registration
 
     def send_registration_email(self, registration):
         subject = 'Class registration confirmation: {}'.format(self.ape_class.name)
         from_address = 'noreply@theapetheater.org'
         to_address = self.student.user.email
-        html_content = render_to_string('accounts/class_email_confirmation.html', {'class_registration': registration, 'ape_class': self.ape_class, 'student': self.student}) # render with dynamic value
+        html_content = render_to_string('accounts/class_email_confirmation.html', {'class_registration': registration,
+                                                                                   'ape_class': self.ape_class,
+                                                                                   'student': self.student})
         text_content = strip_tags(html_content)
         msg = EmailMultiAlternatives(subject, text_content, from_address, [to_address])
         msg.attach_alternative(html_content, "text/html")

@@ -25,15 +25,15 @@
 		}
 	</style>
 </head>
-<body style="background-color: #090909">
-	<h4>Congratulations! You're registered for {{ ape_class.name }}</h4>
+<body>
+	<h4 style="text-align: left;">Congratulations! You're registered for {{ ape_class.name }}</h4>
 	<p>You can also view your registration <a href="https://theapetheater.org{{ class_registration.get_absolute_url }}">here.</a>
 	<div class="ape-event-ticket">
 		<img src="https://i.imgur.com/haWfEEz.png">
 		<h2>{{ ape_class.name }}</h1>
-		<h4>{{ ape_class.event_day }}</h4><br />
-		<p>Name: {{ request.user.get_full_name }}</p>
-		<p>Email: {{ request.user.email }}</p><br />
+		<h4>{{ ape_class.start_day }}, {{ ape_class.start_time }}</h4><br />
+		<p>Name: {{ student.user.get_full_name }}</p>
+		<p>Email: {{ student.user.email }}</p><br />
 		<p>Paid: ${{ ape_class.price }}</p>
 		<p>Order date: {{ class_registration.class_member.purchase_date }}</p>
 		<p>Order #: {{ class_registration.uuid }}</p>
