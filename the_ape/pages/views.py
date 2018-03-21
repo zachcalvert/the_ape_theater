@@ -83,7 +83,10 @@ class PageView(JSONView):
         if page_id:
             page = get_object_or_404(Page, id=page_id)
         elif page_slug:
-            page = Page.objects.get(slug=page_slug)
+            try:
+                page = Page.objects.get(slug=page_slug)
+            except Page.DoesNotExist:
+                return Http404()
         else:
             raise Http404()
         return page
