@@ -437,7 +437,7 @@ class EventsWidget(GroupWidget):
 
         if self.pk and self.events.exists():
             handpicked = Event.objects.filter(events_widgets=self)
-            events = handpicked | events
+            events = handpicked
         return events.distinct()
 
     def item_data(self, item):
@@ -538,12 +538,12 @@ class ApeClassesWidget(GroupWidget):
 
     @property
     def items(self):
-        ape_classes = ApeClass.objects.all()
+        ape_classes = ApeClass.objects.filter(registration_open=True)
         if self.class_type:
             ape_classes = ape_classes.filter(class_type=self.class_type)
         if self.pk and self.ape_classes.exists():
             handpicked = ApeClass.objects.filter(ape_classes_widgets=self)
-            return handpicked | ape_classes
+            return handpicked
         return ape_classes.distinct()
 
     def item_data(self, item):
