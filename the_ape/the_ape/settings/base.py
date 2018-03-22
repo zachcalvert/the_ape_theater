@@ -84,6 +84,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 ########## END STATIC FILE CONFIGURATION
 
@@ -167,6 +168,7 @@ DJANGO_APPS = (
     'registration',
     'crispy_forms',
     'robots',
+    'compressor',
     # Useful template tags:
     # 'django.contrib.humanize',
 
@@ -262,3 +264,5 @@ GOOGLE_MAPS_API_KEY = 'AIzaSyCag3DYHBy7Nw1dYbruTA5qCVV9c9GxRVA'
 
 # ROBOTS SETTINGS
 ROBOTS_USE_SCHEME_IN_HOST = True
+
+COMPRESS_ENABLED = True

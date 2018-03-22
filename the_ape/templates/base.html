@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load staticfiles compress %}
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -17,18 +17,22 @@
     
     {% block head_css %}
       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-      <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
-      <link href="{{ STATIC_URL }}css/the_ape.css" rel="stylesheet">
-      <link href="{{ STATIC_URL }}css/responsive.css" rel="stylesheet">
+      {% compress css %}
+        <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}css/the_ape.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}css/responsive.css" rel="stylesheet">
+      {% endcompress %}
     {% endblock %}
 
     {% block extra_head_css %}{% endblock %}
 
     {% block head_js %}
-      <script src="{{ STATIC_URL }}js/jquery-2.1.4.min.js"></script>
-      <script src="{{ STATIC_URL }}js/bootstrap.min.js" type="application/javascript"></script>
-      <script src="{{ STATIC_URL }}js/the_ape.js" type="application/javascript"></script>
-      <script src="{{ STATIC_URL }}js/jquery.bxslider.js" type="application/javascript"></script>
+      {% compress js file base %}
+        <script src="{{ STATIC_URL }}js/jquery-2.1.4.min.js"></script>
+        <script src="{{ STATIC_URL }}js/bootstrap.min.js" type="application/javascript"></script>
+        <script src="{{ STATIC_URL }}js/the_ape.js" type="application/javascript"></script>
+        <script src="{{ STATIC_URL }}js/jquery.bxslider.js" type="application/javascript"></script>
+      {% endcompress %}
     {% endblock %}
   </head>
 
