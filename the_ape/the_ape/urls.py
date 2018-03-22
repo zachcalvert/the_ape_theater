@@ -1,11 +1,16 @@
+from importlib import import_module
+
 from django import forms
+from django.apps import apps
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.sitemaps.views import sitemap
 from django.core.exceptions import ValidationError
 from django.views.generic import TemplateView
+
 from registration.backends.simple.views import RegistrationView
 from registration.forms import RegistrationFormUniqueEmail
 
@@ -13,9 +18,18 @@ from accounts.models import UserProfile
 from pages.views import SlugPageWrapperView
 from accounts.views import TicketView, ClassRegistrationView
 
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
+
+
+# autodiscover sitemaps
+sitemaps = {}
+for app_config in apps.get_app_configs():
+    try:
+        module = import_module("{}.sitemap".format(app_config.name))
+        sitemaps.update(module.sitemaps)
+    except (ImportError, AttributeError):
+        pass
 
 
 class ApeRegistrationForm(forms.Form):
@@ -66,7 +80,8 @@ urlpatterns = [
     url(r'^square/', include('square_payments.urls')),
     url(r'^ticket/(?P<ticket_uuid>\w+)', TicketView.as_view(), name='ticket'),
     url(r'^class_registration/(?P<registration_uuid>\w+)', ClassRegistrationView.as_view(), name='class_registration'),
-    url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+    url(r'^robots\.txt', include('robots.urls')),
+    url(r'^sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
 
     url(r'', include('pages.urls')),
 ]

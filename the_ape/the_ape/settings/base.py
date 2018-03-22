@@ -159,12 +159,14 @@ DJANGO_APPS = (
     'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
     'grappelli',
     'registration',
     'crispy_forms',
+    'robots',
     # Useful template tags:
     # 'django.contrib.humanize',
 
@@ -257,3 +259,8 @@ SQUARE_LOCATION_ID = 'CBASEAkhYkvMTp_dtcrg-zCqusMgAQ'
 # END SQUARE SANDBOX SETTINGS
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyCag3DYHBy7Nw1dYbruTA5qCVV9c9GxRVA'
+
+
+
+# ROBOTS SETTINGS
+ROBOTS_USE_SCHEME_IN_HOST = True
