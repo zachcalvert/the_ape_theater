@@ -1,3 +1,4 @@
+import pytz
 from datetime import datetime, timedelta
 
 from django.core.management import call_command
@@ -5,7 +6,6 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
-
 
 WEEKDAYS = (
     (1, 'Monday'),
@@ -74,7 +74,8 @@ class ApeClass(models.Model):
     def day_of_week(self):
         if not self.start_date:
             return None
-        day_index = self.start_date.weekday()
+        start_date = timezone.localtime(self.start_date)
+        day_index = start_date.weekday()
         return WEEKDAYS[day_index][1]
 
     def start_day_as_date(self):
@@ -83,25 +84,27 @@ class ApeClass(models.Model):
         """
         if not self.start_date:
             return ''
-        return '{}/{}/{}'.format(self.start_date.month, self.start_date.day, str(self.start_date.year)[2:])
+        start_date = timezone.localtime(self.start_date)
+        return '{}/{}/{}'.format(start_date.month, start_date.day, str(start_date.year)[2:])
 
     def start_day(self):
         """
-        Provide a user-friendly representation of the event start day
+        Provide a user-friendly representation of the class start day
         """
         day = ''
         if not self.start_date:
             return None
-        if self.start_date == datetime.today().date():
+        start_date = timezone.localtime(self.start_date)
+        if start_date == datetime.today().date():
             return '<b style="color:red">TONIGHT</b>'
-        elif self.start_date == datetime.today().date() + timedelta(days=1):
+        elif start_date == datetime.today().date() + timedelta(days=1):
             return 'Tomorrow'
         else:
             day = self.day_of_week()
-            month_index = self.start_date.month - 1
+            month_index = start_date.month - 1
             month = MONTHS[month_index][1]
             day += ', {month} {date}'.format(month=month,
-                                             date=self.start_date.day)
+                                             date=start_date.day)
             return day
 
     def start_time(self):
