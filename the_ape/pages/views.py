@@ -7,9 +7,9 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse, Resolver404, resolve
 from django.http import Http404, HttpResponse
 from django.http.response import HttpResponsePermanentRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.template.response import TemplateResponse
-from django.template import TemplateDoesNotExist
+from django.template import TemplateDoesNotExist, RequestContext
 from django.template.loader import get_template
 from django.urls import reverse
 from django.utils.safestring import mark_safe
@@ -32,6 +32,20 @@ REDIRECT_NEEDED_URL_PATTERNS = [
 ]
 # need this because the url match detected for these categories is just 'web_page_wrapper'
 REDIRECT_NEEDED_WRAPPER_PATTERN = re.compile('^/(series|contributors)/(?P<item_id>\d+)')
+
+
+def handler404(request):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def handler500(request):
+    response = render_to_response('500.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
 
 
 class JSONHttpResponse(HttpResponse):
