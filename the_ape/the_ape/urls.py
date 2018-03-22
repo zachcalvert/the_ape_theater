@@ -66,6 +66,7 @@ urlpatterns = [
     url(r'^square/', include('square_payments.urls')),
     url(r'^ticket/(?P<ticket_uuid>\w+)', TicketView.as_view(), name='ticket'),
     url(r'^class_registration/(?P<registration_uuid>\w+)', ClassRegistrationView.as_view(), name='class_registration'),
+    url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 
     url(r'', include('pages.urls')),
 ]
