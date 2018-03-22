@@ -291,7 +291,7 @@ class Page(models.Model):
         if self.slug:
             return reverse('slug_page_wrapper', kwargs={"page_slug": self.slug})
         else:
-            return reverse('page_id_wrapper', kwargs={'page_id': self.id, 'slug': self.link_slug})
+            return reverse('page_id_wrapper', kwargs={'page_id': self.id})
 
     def get_api_url(self):
         return reverse("page", kwargs={"page_id": self.id})
