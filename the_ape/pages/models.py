@@ -224,6 +224,10 @@ class Page(models.Model):
     class Meta:
         ordering = ['name']
 
+    @property
+    def link_slug(self):
+        return slugify(self.name)
+
     @staticmethod
     def autocomplete_search_fields():
         return ("id__iexact", "name__icontains", "slug__icontains")
