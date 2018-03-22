@@ -27,7 +27,7 @@
 				</div>
 			{% endfor %}
 			{% if not user.profile.shows.exists %}
-				<div>Shows you purchase tickets for will show up here.</div><div></div><div></div>
+				<div class="empty-shows-space">Shows you purchase tickets for will show up here.</div><div></div><div></div>
 			{% endif %}
 		</div>
 	</div>
@@ -44,7 +44,7 @@
 				</div>
 			{% endfor %}
 			{% if not user.profile.classes.exists %}
-				<div>Classes you register for will show up here.</div>
+				<div class="empty-shows-space">Classes you register for will show up here.</div>
 				<div></div><div></div>
 			{% endif %}
 		</div>
