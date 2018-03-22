@@ -92,5 +92,7 @@ HAYSTACK_SEARCH_RESULTS_LIMIT_PER_CATEGORY = 10
 
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = 'UEWU48urn5793&sdjjj-du2p}84hgU'
+SECRET_KEY = os.environ.get('SECRET_KEY', ''),
 ########## END SECRET CONFIGURATION
+
+ROBOTS_SITEMAP_URLS = ['https://theapetheater.org/sitemap.xml']
