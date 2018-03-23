@@ -143,6 +143,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'audiofield.middleware.threadlocals.ThreadLocals',
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
 )
 ########## END MIDDLEWARE CONFIGURATION
 
@@ -266,3 +268,4 @@ GOOGLE_MAPS_API_KEY = 'AIzaSyCag3DYHBy7Nw1dYbruTA5qCVV9c9GxRVA'
 ROBOTS_USE_SCHEME_IN_HOST = True
 
 COMPRESS_ENABLED = True
+HTML_MINIFY = True
