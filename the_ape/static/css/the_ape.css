@@ -687,6 +687,10 @@ form.navbar-right {
     padding: 10px;
     text-align: center;
 }
+.user-profile-show, .user-profile-class {
+    display: inline-block;
+    width: 100%;
+}
 /* ----- end user profile page ------*/
 
 
