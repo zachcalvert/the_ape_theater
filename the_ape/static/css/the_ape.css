@@ -154,6 +154,9 @@ form.navbar-right {
     padding-left: 0;
     padding-right: 0;
 }
+.navbar-form .form-group {
+    margin-right: 5px;
+}
 /* end navigation bar */
 
 #footer {
