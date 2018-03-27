@@ -106,7 +106,7 @@ class EventAttendee(models.Model):
         html_content = render_to_string('accounts/ticket_email_confirmation.html', {'ticket': ticket,
                                                                                     'event': self.event,
                                                                                     'attendee': self.attendee,
-                                                                                    'total': int(self.event.ticket_price) * ticket.num_attendees})
+                                                                                    'total': int(self.event.ticket_price) * int(ticket.num_attendees)})
         text_content = strip_tags(html_content)
         msg = EmailMultiAlternatives(subject, text_content, from_address, [to_address])
         msg.attach_alternative(html_content, "text/html")
