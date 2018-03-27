@@ -314,6 +314,8 @@ class PageLinkMixin(models.Model):
         if self.link_type:
             if self.link_type.model_class() == Event:
                 return reverse("event", kwargs={"event_id": self.link.id})
+            elif self.link_type.model_class() == Page:
+                return reverse("page_id_wrapper", kwargs={"page_id": self.link_id})
             else:
                 return self.link.get_api_url()
         return ''
