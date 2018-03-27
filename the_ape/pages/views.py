@@ -29,6 +29,7 @@ REDIRECT_NEEDED_URL_PATTERNS = [
     'event',
     'person',
     'house_team',
+    'page',
 ]
 # need this because the url match detected for these categories is just 'web_page_wrapper'
 REDIRECT_NEEDED_WRAPPER_PATTERN = re.compile('^/(series|contributors)/(?P<item_id>\d+)')

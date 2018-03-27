@@ -5,12 +5,14 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.template import Node, Variable, Library
 from django.core.urlresolvers import reverse
+from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from accounts.models import UserProfile, EventAttendee, Ticket, ClassMember
 from classes.models import ApeClass
 from events.models import Event
+from pages.models import Page
 from people.models import Person, HouseTeam
 
 register = Library()
@@ -75,7 +77,7 @@ def json_safe(string):
 
 # if no redirect is needed, return False; otherwise, return correct path with slug
 def get_slug_redirect(path):
-    slug_needing_pattern = re.match('^/(?P<type>classes|events|people|house_teams)/(?P<id>\w+)', path)
+    slug_needing_pattern = re.match('^/(?P<type>classes|events|people|house_teams|page)/(?P<id>\w+)', path)
 
     # don't bother adding slug to see_all, or if the url is not displaying books, series, or contributors
     if not slug_needing_pattern:
@@ -90,15 +92,17 @@ def get_slug_redirect(path):
         item = Event.objects.get(id=item_id)
     elif item_type == 'people':
         item = Person.objects.get(id=item_id)
+    elif item_type == 'page':
+        item = Page.objects.get(id=item_id)
     else:
         item = HouseTeam.objects.get(id=item_id)
 
-    if item_type == 'pages':
-        slug = item.link_slug
+    if item_type == 'page':
+        slug = slugify(item.name)
     else:
         slug = item.slug
 
-    end_slug = re.match('^/(classes|events|people|house_teams)/\w+/(?P<page_slug>[\w|\-]+)', path)
+    end_slug = re.match('^/(classes|events|people|house_teams|page)/\w+/(?P<page_slug>[\w|\-]+)', path)
     if end_slug and end_slug.group('page_slug') == slug:
         # if current slug is correct there is no need to redirect
         return False

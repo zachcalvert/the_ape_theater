@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^people/(?P<person_id>\d+)(?:/(?P<slug>[\w-]+))?/?$', views.PersonWrapperView.as_view(), name='person_wrapper'),
     url(r'^house_teams/(?P<house_team_id>\d+)(?:/(?P<slug>[\w-]+))?/?$', views.HouseTeamWrapperView.as_view(), name='house_team_wrapper'),
 
-    url(r'^(?P<page_id>\d+)/?$', views.PageIDWrapperView.as_view(), name='page_id_wrapper'),
+    url(r'^page/(?P<page_id>\d+)(?:/(?P<slug>[\w-]+))?/?$', views.PageIDWrapperView.as_view(), name='page_id_wrapper'),
     url(r'^(?P<page_slug>.+)/?$', views.SlugPageWrapperView.as_view(), name='slug_page_wrapper'),
     url(r'^(?P<page_path>.+)/?$', views.WebPageWrapperView.as_view(), name='web_page_wrapper'),
 ]
