@@ -40,7 +40,7 @@ input[type=checkbox] {
 /* end ape modals */
 
 /* start buy/register button */
-.ape-button {
+.ape-button, .square-button {
     margin: 5px;
     padding: 10px 20px;
     font-size: 12px;
@@ -53,16 +53,16 @@ input[type=checkbox] {
     border-radius: 5px;
     box-shadow: 0 2px #777;
 }
-.ape-button:hover {
+.ape-button:hover, .square-button:hover {
     background-color: #3e8e41
 }
 
-.ape-button:active {
+.ape-button:active, .square-button:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(2px);
 }
-a.ape-button:hover {
+a.ape-button:hover, a.square-button:hover {
     text-decoration: none;
 }
 .sold-out-button {
