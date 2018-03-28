@@ -30,7 +30,7 @@ def process_card(request):
                 last_name=request.POST['last-name'],
                 email=request.POST['email-address'],
                 username=request.POST['email-address'],
-                password=''.join(random.choices(string.ascii_uppercase + string.digits, k=12))
+                password=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(12))
             )
             UserProfile.objects.create(user=user)
         else:
