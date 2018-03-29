@@ -1,0 +1,18 @@
+{% load page_tags %}
+
+<div class="gallery">
+	<div class="widget-header">
+    	<h2 class="widget-title">{{ widget.name|safe }}</h2>
+	</div>
+    <div class="gallery-widget" id="gallery-widget-{{ widget.id }}">
+	        {% for item in widget.items %}
+	        	{% if widget.item_type == 'event' %}
+		            <div class="gallery-item full-width-item" id="event-{{ item.id }}">
+		            	{% with item as event %}
+		                	{% include 'widgets/items/event_list_item.html' %}
+		                {% endwith %}
+		            </div>
+		        {% endif %}
+	        {% endfor %}
+    </div>
+</div>

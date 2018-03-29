@@ -1,0 +1,18 @@
+{% load page_tags %}
+
+<div class='ape-event-list-item'>
+    <a class="ape-event-list-item-image hide-on-mobile" href="{% url 'event_wrapper' event.id %}">
+        <img src="{{ event.image }}" alt="{{ event.name }} image">
+    </a>
+    
+    <span class="ape-event-list-item-name">{{ event.name|safe }}</span>
+
+    <span class="ape-event-list-item-start-time"><i class="fa fa-clock-o event-time-icon" aria-hidden="true"></i>&nbsp;&nbsp;{{ event.event_day|safe }}, {{ event.event_time }}</span>
+
+
+    <span class="ape-event-list-item-price">${{ event.ticket_price }}</span>
+
+    <span class="ape-event-list-item-buy">
+        <a data-toggle="modal" href="{% url 'event_wrapper' event.id %}"><button class="ape-button">Tickets</button></a>
+    </span>
+</div>

@@ -225,7 +225,14 @@ form.navbar-right {
 .bx-viewport {
     padding-left: 15px;
 }
-
+.row-carousel {
+    text-align: center;
+    position: relative;
+}
+.row-carousel i {
+    font-size: 32px;
+    color: #000;
+}
 .row-widget-item {
     padding: 5px 17px;
     margin: 0!important;
@@ -338,6 +345,41 @@ form.navbar-right {
     font-size: 14px;
 }
 /* end gallery widget event item */
+
+/* start list widget event item */
+.ape-event-list-item {
+    font-size: 14px;
+    font-weight: normal;
+}
+.ape-event-list-item-image img {
+    float: left;
+    width: 15%;
+}
+.ape-event-list-item-name {
+    width: 30%;
+    float: left;
+    text-align: left;
+    padding: 20px;
+    font-weight: bold;
+}
+.ape-event-list-item-start-time {
+    width: 22%;
+    float: left;
+    text-align: left;
+    padding-top: 20px;
+}
+.ape-event-list-item-price {
+    float: left;
+    width: 10%;
+    padding-top: 20px;
+}
+.ape-event-list-item-buy {
+    float: right;
+    width: 10%;
+    padding-top: 6px;
+    margin-right: 3%;
+}
+/* end list widget event item */
 
 
 /* start gallery widget ape class item */
@@ -530,8 +572,8 @@ form.navbar-right {
     right: 1%;
 }
 .slider-chevrons {
-    text-shadow: 2px 2px #e9ebee;
-    -webkit-text-stroke: 2px #e9ebee;
+    text-shadow: 2px 2px #fff;
+    -webkit-text-stroke: 2px #fff;
 }
 /* end image carousel widget */
 

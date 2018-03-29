@@ -414,6 +414,7 @@ class EventsWidget(GroupWidget):
         choices=(
             ('gallery', 'Cover Gallery'),
             ('row_focus', 'Row'),
+            ('list', 'List'),
         ),
     )
     upcoming_events = models.BooleanField(default=False)

@@ -12,6 +12,15 @@
     .ape-class-teacher {
         width: 25%;
     }
+    .ape-event-list-item-name {
+        padding-top: 15px;
+    }
+    .ape-event-list-item-start-time {
+        padding-top: 15px;
+    }
+    .ape-event-list-item-price {
+        padding-top: 15px;
+    }
 }
 
 @media screen and (max-width: 905px) {
@@ -88,6 +97,18 @@
     .ape-calendar iframe {
         height: 500px;
     }
+    .ape-event-list-item-name {
+        width: 33%;
+    }
+    .ape-event-list-item-start-time {
+        width: 28%;
+    }
+    .ape-event-list-item-price {
+        width: 22%;
+    }
+    .ape-event-list-item-buy {
+        margin-right: 7%;
+    }
 }
 
 /* -----------  ----------- */
@@ -144,6 +165,18 @@
         width: 80%;
         margin: 40px 20px 20px 5px;
     }
+    .ape-event-list-item-name {
+        padding: 15px 10px;
+    }
+    .ape-event-list-item-price {
+        display: none;
+    }
+    .ape-event-list-item-start-time {
+        width: 35%;
+    }
+    .ape-event-list-item-buy {
+        margin-right: 10%;
+    }
 }
 
 /* -----------  ----------- */
@@ -189,5 +222,11 @@
     .gallery th, td {
         padding: 0; 
         font-size: 10px;
+    }
+    .event-time-icon {
+        display: none;
+    }
+    .ape-event-list-item-buy {
+        margin-right: 16%;
     }
 }
