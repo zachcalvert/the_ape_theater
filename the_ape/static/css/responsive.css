@@ -38,6 +38,9 @@
     .ape-class-start-date {
         width: 18%;
     }
+    .ape-class-name {
+        width: 33%;
+    }
     .ape-class-buy {
         width: 13%;
     }
@@ -177,6 +180,10 @@
     .ape-event-list-item-buy {
         margin-right: 10%;
     }
+    .page-video video {
+        width: 100%;
+        margin-left: 0;
+    }
 }
 
 /* -----------  ----------- */
@@ -191,10 +198,10 @@
         padding: 10px 15px;
     }
     .ape-class-name {
-        width: 25%;
+        width: 30%;
     }
     .ape-class-teacher {
-        width: 40%;
+        width: 35%;
     }
     .gallery {
         margin: 10px;
