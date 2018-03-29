@@ -3,7 +3,7 @@
     <div class="widget-header">
         <h2 class="widget-title">{{ widget.name|safe }}</h2>
     </div>
-    <div class="carousel">
+    <div class="row-carousel">
         <div id="prev-items-{{ widget.id }}" class="slider-control prev"></div>
         <div id="widget-row-{{ widget.id }}" class="widget-row">
                 {% for item in widget.items %}
