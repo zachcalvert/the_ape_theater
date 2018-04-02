@@ -12,10 +12,16 @@
 		<span class="ape-workshop-price hide-on-mobile">${{ ape_class.price }}</span>
 
 		<span class="ape-class-buy" style="margin-top: -11px;">
-			{% if request.user.is_authenticated %}
-				<a data-toggle="modal" href="{% url 'ape_class_wrapper' ape_class.id %}"><button class="ape-button">Register!</button></a>
-			{% else %}
-				<a data-toggle="modal" href="{% url 'registration_register' %}"><button class="ape-button">Register!</button></a>
+			{% if ape_class.id|is_full %}
+		    	<a data-toggle="modal" href="javascript;">
+					<button style="margin-top:-9px;" disabled='disabled' class="sold-out-button">Sold Out</button>
+				</a>
+		    {% else %}
+				{% if request.user.is_authenticated %}
+					<a data-toggle="modal" href="{% url 'ape_class_wrapper' ape_class.id %}"><button class="ape-button">Register!</button></a>
+				{% else %}
+					<a data-toggle="modal" href="{% url 'registration_register' %}"><button class="ape-button">Register!</button></a>
+				{% endif %}
 			{% endif %}
 		</span>
 	</div>
@@ -37,10 +43,16 @@
 		<span class="ape-class-price ape-class-item-element hide-on-mobile">${{ ape_class.price }}</span>
 
 		<span class="ape-class-buy ape-class-item-element">
-			{% if request.user.is_authenticated %}
-				<a data-toggle="modal" href="{% url 'ape_class_wrapper' ape_class.id %}"><button class="ape-button">Register!</button></a>
-			{% else %}
-				<a data-toggle="modal" href="{% url 'registration_register' %}"><button class="ape-button">Register!</button></a>
+			{% if ape_class.id|is_full %}
+		    	<a data-toggle="modal" href="javascript;">
+					<button style="margin-top:-9px;" disabled='disabled' class="sold-out-button">Sold Out</button>
+				</a>
+		    {% else %}
+				{% if request.user.is_authenticated %}
+					<a data-toggle="modal" href="{% url 'ape_class_wrapper' ape_class.id %}"><button class="ape-button">Register!</button></a>
+				{% else %}
+					<a data-toggle="modal" href="{% url 'registration_register' %}"><button class="ape-button">Register!</button></a>
+				{% endif %}
 			{% endif %}
 		</span>
 	</div>

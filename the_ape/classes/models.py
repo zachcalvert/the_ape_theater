@@ -53,6 +53,8 @@ class ApeClass(models.Model):
     class_length = models.IntegerField(default=2, help_text='Length of one class session, in hours.')
     price = models.DecimalField(decimal_places=2, max_digits=5)
     registration_open = models.BooleanField(default=True)
+    students_registered = models.IntegerField(default=0)
+    deposit_price = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
 
     class Meta(object):
         verbose_name = 'Ape Class'
@@ -136,7 +138,8 @@ class ApeClass(models.Model):
             "bio": self.bio,
             "type": self.class_type,
             "price": self.price,
-            "num_sessions": self.num_sessions
+            "num_sessions": self.num_sessions,
+            "students_registered": self.students_registered
         }
         if self.start_date is not None:
             data["start_day"] = self.start_day()
@@ -148,6 +151,8 @@ class ApeClass(models.Model):
             data['banner_url'] = self.banner.image.url
         if self.teacher:
             data['teacher'] = self.teacher.to_data()
+        if self.deposit_price:
+            data['deposit_price'] = self.deposit_price
         return data
 
     def save(self, *args, **kwargs):

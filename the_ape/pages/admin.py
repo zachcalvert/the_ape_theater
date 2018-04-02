@@ -299,6 +299,7 @@ class StudentInline(admin.TabularInline):
 
 class ApeClassAdmin(SaveAsNewAdmin):
     list_display = ['name', 'teacher', 'start_date']
+    readonly_fields = ['students_registered',]
     inlines = [
         StudentInline,
     ]

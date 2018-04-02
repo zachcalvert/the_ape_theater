@@ -147,3 +147,11 @@ def is_sold_out(event_id):
     if event.tickets_sold >= event.max_tickets:
         return True
     return False
+
+
+@register.filter
+def is_full(class_id):
+    ape_class = ApeClass.objects.get(id=class_id)
+    if ape_class.students_registered >= ape_class.max_enrollment:
+        return True
+    return False
