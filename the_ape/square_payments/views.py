@@ -73,6 +73,8 @@ def process_card(request):
 
         #  handle successful purchases
         if purchase_model == 'ape_class':
+            payment.purchase_class.students_registered += 1
+            payment.purchase_class.save()
             class_member = ClassMember.objects.create(student=user.profile, ape_class=payment.purchase_class)
             registration = class_member.create_registration()
             class_member.send_registration_email(registration=registration)
