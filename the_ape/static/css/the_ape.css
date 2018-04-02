@@ -37,6 +37,9 @@ input[type=checkbox] {
     margin: 10px 0!important;
     border: none!important;
 }
+.modal-header p {
+    margin: 0;
+}
 /* end ape modals */
 
 /* start buy/register button */

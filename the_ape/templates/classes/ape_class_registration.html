@@ -10,7 +10,9 @@
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
 		<h3>Register for {{ ape_class.name }}</h3>
-		<h4>${{ ape_class.price }}</h4>
+		<h4>${{ ape_class.price }}</h4><br />
+		<p>Registering as {{ request.user.get_full_name }}</p>
+		<p>Confirmation email will be sent to {{ request.user.email }}</p>
 	</div>
     <table>
 	    <tbody>
@@ -35,6 +37,11 @@
 	          <button id="sq-creditcard" class="button-credit-card btn btn-primary square-button" onclick="requestCardNonce(event)">
 	            Pay with card
 	          </button>
+	        </td>
+	      </tr>
+	      <tr>
+	        <td colspan="2">
+	          To avoid being double-charged, please click 'Pay with card' only once.
 	        </td>
 	      </tr>
 	    </tbody>

@@ -12,7 +12,11 @@
 		<h3>{{ event.name|safe }}</h3> 
 		<h4>{{ event.event_day|safe }}, {{ event.event_time }}</h4>
 		<h4 id="sq-num-tickets-display">Tickets: {{ num_tickets }}</h4>
-		<h4 id="sq-total-price">Total: ${{ event.ticket_price }}</h4>
+		<h4 id="sq-total-price">Total: ${{ event.ticket_price }}</h4><br />
+		{% if request.user.is_authenticated %}
+			<p>Purchasing as {{ request.user.get_full_name }}</p>
+			<p>Confirmation email will be sent to {{ request.user.email }}</p>
+		{% endif %}
 	</div>
     <table>
 	    <tbody>
@@ -49,6 +53,11 @@
 	          <button id="sq-creditcard" class="button-credit-card btn btn-primary square-button" onclick="requestCardNonce(event)">
 	            Pay with card
 	          </button>
+	        </td>
+	      </tr>
+	      <tr>
+	        <td colspan="2">
+	          To avoid being double-charged, please click 'Pay with card' only once.
 	        </td>
 	      </tr>
 	    </tbody>
