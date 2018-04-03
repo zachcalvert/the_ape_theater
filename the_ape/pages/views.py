@@ -2,7 +2,6 @@ import json
 import re
 
 from django.contrib import messages
-from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse, Resolver404, resolve
 from django.http import Http404, HttpResponse
@@ -49,6 +48,10 @@ def handler500(request):
     return response
 
 
+
+"""
+JSON VIEWS
+"""
 class JSONHttpResponse(HttpResponse):
     def __init__(self, content=None, *args, **kwargs):
         kwargs['content_type'] = 'application/json'
@@ -112,6 +115,41 @@ class PageView(JSONView):
         return page_data
 
 
+class EventView(JSONView):
+
+    def get(self, request, event_id):
+        event = get_object_or_404(Event, pk=event_id)
+        data = event.to_data()
+        return data
+
+
+class PersonView(JSONView):
+
+    def get(self, request, person_id):
+        person = get_object_or_404(Person, pk=person_id)
+        data = person.to_data()
+        return data
+
+
+class ApeClassView(JSONView):
+
+    def get(self, request, ape_class_id):
+        ape_class = get_object_or_404(ApeClass, pk=ape_class_id)
+        data = ape_class.to_data()
+        return data
+
+
+class HouseTeamView(JSONView):
+
+    def get(self, request, house_team_id):
+        house_team = get_object_or_404(HouseTeam, pk=house_team_id)
+        data = house_team.to_data()
+        return data
+
+
+"""
+HTML VIEWS
+"""
 class WebPageWrapperView(TemplateView):
     template_name = "pages/page.html"
     context_object_name = "page"
@@ -121,6 +159,13 @@ class WebPageWrapperView(TemplateView):
         return u"/pages/" + page_path.strip('/') + u".json"
 
     def dispatch(self, request, *args, **kwargs):
+        """
+        A lot is happening here. The WebPageWrapperView parses a url request, like '/shows', 
+        calculates the API endpoint that web request corresponds to 'shows.json', issues a GET 
+        to that url, and loads the received JSON and passes that data to the template.
+
+        It also appends a slug to the resulting url if needed, for SEO purposes.
+        """
         try:
             if 'favicon.ico' in self.request.path:
                 return HttpResponse(200)
@@ -238,35 +283,3 @@ class HouseTeamWrapperView(WebPageWrapperView):
         house_team = get_object_or_404(HouseTeam, pk=house_team_id)
         context['house_team'] = house_team.to_data()
         return context
-
-
-class EventView(JSONView):
-
-    def get(self, request, event_id):
-        event = get_object_or_404(Event, pk=event_id)
-        data = event.to_data()
-        return data
-
-
-class PersonView(JSONView):
-
-    def get(self, request, person_id):
-        person = get_object_or_404(Person, pk=person_id)
-        data = person.to_data()
-        return data
-
-
-class ApeClassView(JSONView):
-
-    def get(self, request, ape_class_id):
-        ape_class = get_object_or_404(ApeClass, pk=ape_class_id)
-        data = ape_class.to_data()
-        return data
-
-
-class HouseTeamView(JSONView):
-
-    def get(self, request, house_team_id):
-        house_team = get_object_or_404(HouseTeam, pk=house_team_id)
-        data = house_team.to_data()
-        return data
