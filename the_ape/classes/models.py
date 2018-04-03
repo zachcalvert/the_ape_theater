@@ -1,4 +1,3 @@
-import pytz
 from datetime import datetime, timedelta
 
 from django.core.management import call_command
@@ -72,6 +71,7 @@ class ApeClass(models.Model):
 
     def get_absolute_url(self):
         return reverse('ape_class_wrapper', kwargs={'ape_class_id': self.pk})
+
 
     def day_of_week(self):
         if not self.start_date:
