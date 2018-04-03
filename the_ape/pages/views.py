@@ -70,24 +70,6 @@ class JSONView(View):
             return JSONHttpResponse(data)
 
 
-def widget_for_group(group, **kwargs):
-    """
-    Create (but don't save) a widget of the correct subclass of CatalogGroupWidget based on the contents of the group.
-
-    Widget is created using **kwargs
-    :return:
-    """
-    if isinstance(group, Event):
-        widget_class = EventsWidget
-    elif isinstance(group, Person):
-        widget_class = PeopleWidget
-    else:
-        widget_class = ApeClassesWidget
-
-    kwargs.setdefault('name', group.name)
-    return widget_class(**kwargs)
-
-
 class PageView(JSONView):
     content_type = "text/json"
 
@@ -160,9 +142,11 @@ class WebPageWrapperView(TemplateView):
 
     def dispatch(self, request, *args, **kwargs):
         """
-        A lot is happening here. The WebPageWrapperView parses a url request, like '/shows', 
-        calculates the API endpoint that web request corresponds to 'shows.json', issues a GET 
-        to that url, and loads the received JSON and passes that data to the template.
+        Base class view for all HTML views.
+
+        A fair bit is happening here. The WebPageWrapperView parses a url request, like '/shows', 
+        calculates the API endpoint that web request corresponds to, e.g. 'shows.json', issues a GET 
+        to that url, loads the received JSON and passes that data to the template.
 
         It also appends a slug to the resulting url if needed, for SEO purposes.
         """
