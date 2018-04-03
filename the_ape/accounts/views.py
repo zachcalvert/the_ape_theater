@@ -51,6 +51,18 @@ class TicketView(TemplateView):
 class ClassRegistrationView(TemplateView):
     template_name = 'accounts/class_registration.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Protect registrations from being viewed by anyone but the registrated user
+        """
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('home'))
+
+        registration = ClassRegistration.objects.get(uuid=kwargs.get('registration_uuid'))
+        if registration.class_member.student != request.user.profile:
+            return HttpResponseRedirect(reverse('home'))
+        return super(ClassRegistrationView, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(ClassRegistrationView, self).get_context_data(**kwargs)
         class_registration = ClassRegistration.objects.get(uuid=kwargs.get('registration_uuid'))

@@ -1,13 +1,12 @@
 import pdfkit
 from uuid import uuid4
 
-from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.html import strip_tags
-
 
 from classes.models import ApeClass
 from events.models import Event
