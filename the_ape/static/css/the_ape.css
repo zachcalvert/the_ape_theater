@@ -45,7 +45,7 @@ input[type=checkbox] {
 /* start buy/register button */
 .ape-button, .square-button {
     margin: 5px;
-    padding: 10px 20px;
+    padding: 10px 20px!important;
     font-size: 12px;
     text-align: center;
     cursor: pointer;

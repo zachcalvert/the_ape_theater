@@ -29,7 +29,10 @@
 					</a>
 			    {% else %}
 					{% if request.user.is_authenticated %}
-						<a data-toggle="modal" href="#sq-ccbox"><button class="ape-button">Register</button></a>
+						<a id="class-register-button" data-toggle="modal" href="#sq-ccbox"><button class="ape-button">Register</button></a>
+						{% if ape_class.deposit_price %}
+							<a id="class-deposit-button" data-toggle="modal" href="#sq-ccbox"><button class="ape-button">Reserve with ${{ ape_class.deposit_price|floatformat }} deposit</button></a>
+						{% endif %}
 					{% else %}
 						<a data-toggle="modal" href="{% url 'registration_register' %}"><button class="ape-button">Register!</button></a>
 					{% endif %}
@@ -60,4 +63,21 @@
 		</div>
 	</div>
 		{% include 'classes/ape_class_registration.html' %}
+{% endblock %}
+
+{% block extra_body_content %}
+	<script>
+		$(document).ready(function () {
+			$('#class-deposit-button').on('click', function() {
+				var price = {{ ape_class.deposit_price }};
+				$('#amount').val(price);
+				$('#sq-total-price').text('$' + price);
+			});
+			$('#class-register-button').on('click', function() {
+				var price = {{ ape_class.price }};
+				$('#amount').val(price);
+				$('#sq-total-price').text('$' + price);
+			});
+		});
+	</script>
 {% endblock %}

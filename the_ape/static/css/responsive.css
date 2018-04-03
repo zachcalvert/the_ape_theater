@@ -133,8 +133,11 @@
         margin-left: 5%;
     }
     .ape-modal {
-        width: 90%;
-        left: 5%;
+        width: 95%;
+        left: 2.5%;
+    }
+    #sq-ccbox {
+        padding: 5px;
     }
     .ape-map {
         height: 300px;
