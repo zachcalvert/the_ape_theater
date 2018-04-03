@@ -34,14 +34,15 @@ class SquarePayment(models.Model):
 
     @property
     def purchase(self):
+        """
+        A SquarePayment can either be for an ApeClass, or an Event. It must be for one of
+        these things, not both of them and not 0 of them.
+        """
         if self.purchase_event_id is not None:
             return self.purchase_event.name_with_date
         if self.purchase_class_id is not None:
             return self.purchase_class
         raise AssertionError("Neither 'purchase_event' nor 'purchase_class' is set")
-
-    def get_fake_card_nonce(self):
-        return 'fake-card-nonce-ok'
 
     def construct_square_request(self):
         amount = {'amount': self.amount, 'currency': self.currency}
