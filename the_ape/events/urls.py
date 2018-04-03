@@ -1,7 +1,5 @@
-from django.conf import settings
 from django.conf.urls import url
 
-import events.views as views
 import pages
 
 urlpatterns = [

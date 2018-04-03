@@ -1,4 +1,3 @@
-import pytz
 from datetime import datetime, timedelta
 
 from django.core.management import call_command
