@@ -789,4 +789,5 @@ form.navbar-right {
 .house-team-videos {
     display: inline-block;
     width: 100%;
+    list-style: none;
 }
