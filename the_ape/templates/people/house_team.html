@@ -36,27 +36,34 @@
 			</div>
 			</div>
 		</div>
-
-		<div class="gallery">
 		{% if house_team.videos %}
-			{% for video in house_team.videos %}
-				<div class="widget-header">
-			        <h2 class="widget-title">{{ video.name|safe }}</h2>
-			    </div>
-				<div class="page-video">
-					<video controls>
-					  <source src="{{ video.video_source }}" type="video/mp4">
-					  <source src="{{ video.video_source }}" type="video/ogg">
-					Your browser does not support the video tag.
-					</video>
-					{% if widget.description %}
-						<div class="video-description">
-							<p>{{ widget.description }}</p>
-						</div>
+			<div class="house-team-videos">
+				{% for video in house_team.videos %}
+					{% if house_team.videos|length > 1 %}
+						<li class="widget widget-half">
+					{% else %}
+						<li class="widget widget-full">
 					{% endif %}
-				</div>
-			{% endfor %}
+						<div class="gallery">
+							<div class="widget-header">
+						        <h2 class="widget-title">{{ video.name|safe }}</h2>
+						    </div>
+							<div class="page-video">
+								<video controls>
+								  <source src="{{ video.video_source }}" type="video/mp4">
+								  <source src="{{ video.video_source }}" type="video/ogg">
+								Your browser does not support the video tag.
+								</video>
+								{% if widget.description %}
+									<div class="video-description">
+										<p>{{ widget.description }}</p>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</li>
+				{% endfor %}
+			</div>
 		{% endif %}
-		</div>
 	</div>
 {% endblock %}

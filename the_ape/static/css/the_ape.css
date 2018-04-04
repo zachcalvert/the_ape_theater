@@ -597,6 +597,7 @@ form.navbar-right {
 
 /* ----- start video widget ------*/
 .page-video {
+    background: #000;
     text-align: center;
     border: 3px solid #f9f9f9
 }
@@ -782,4 +783,10 @@ form.navbar-right {
 .press-clipping-author {
     text-align: right;
     padding: 10px;
+}
+
+
+.house-team-videos {
+    display: inline-block;
+    width: 100%;
 }
