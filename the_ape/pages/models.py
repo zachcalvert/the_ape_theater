@@ -183,7 +183,7 @@ class Page(models.Model):
         ("shows", "Shows"),
         ("faculty", "Faculty"),
         ("talent", "Talent"),
-        ("watch", "Watch"),
+        ("apetv", "Ape TV"),
         ("hype", "Hype"),
     )
 
