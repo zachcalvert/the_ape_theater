@@ -126,6 +126,7 @@ a.ape-button:hover, a.square-button:hover {
 }
 .navbar-nav {
     margin: 0;
+    max-height: 50px;
 }
 .navbar input[type="text"]{
     height: 25px;
@@ -161,6 +162,30 @@ form.navbar-right {
     margin-right: 5px;
 }
 /* end navigation bar */
+
+
+/* nav bar slider */
+#people-page-slider {
+    background: #222;
+    display: none;
+}
+#people-page-slider a {
+    color: #999;
+}
+#people-page-slider a:hover {
+    color: #FFF;
+}
+#nested-people-dropdown-list {
+    padding: 0 9px;
+    border: 1px solid #f5f5f5;
+    border-top: none;
+}
+#nested-people-dropdown-list li {
+    padding: 8px 0;
+    font-size: 13px;
+}
+/* end nav bar slider */
+
 
 #footer {
     position: absolute;

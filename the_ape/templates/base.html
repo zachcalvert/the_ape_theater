@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles compress %}
+{% load staticfiles compress cache %}
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -53,8 +53,12 @@
             <ul class="nav navbar-nav">
               <li><a href="{% url 'slug_page_wrapper' page_slug='classes' %}">Classes</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='shows' %}">Shows</a></li>
-              <li><a href="{% url 'slug_page_wrapper' page_slug='faculty' %}">Faculty</a></li>
-              <li><a href="{% url 'slug_page_wrapper' page_slug='talent' %}">Talent</a></li>
+              <li id="people-page-trigger" style="width: 100px;">
+                  <a href="javascript:;">
+                      People&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down"></i>
+                  </a>
+                  <div id="people-page-slider"></div>
+              </li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='apetv' %}">Ape TV</a></li>
               <li><a href="{% url 'slug_page_wrapper' page_slug='hype' %}">Hype</a></li>
             </ul>
@@ -101,8 +105,61 @@
           $(document).ready(function () {
             var pathname = window.location.pathname;
             $('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+
+            if ($(window).width() < 768) {
+                $('#people-page-trigger').hide();
+            }
+
+            $(window).resize(function () {
+                if ($(window).width() < 768) {
+                  // its less then, and we want to hide the menu if nav is not active
+                  $('#people-page-trigger').hide();
+                }
+                else {
+                  $('#people-page-trigger').css("display", "inline-block");
+                }
+            });
+
+            $("#people-page-trigger").hover(function () {
+                if ($("#people-page-slider").is(":visible")) {
+                    $(this).find("i").removeClass("fa fa-chevron-up");
+                    $(this).find("i").addClass("fa fa-chevron-down");
+                    $("#people-page-slider").slideUp(200);
+                } else {
+                    $('#people-page-slider').html($('.dropdown-pagelist').html());
+                    $(this).find("i").removeClass("fa fa-chevron-down");
+                    $(this).find("i").addClass("fa fa-chevron-up");
+                    $("#people-page-slider").slideDown(200);
+                    $('.page-list-text').append(' <i class="fa fa-chevron-down">');
+                }
+            });
+
+            $('#people-page-slider').on('hover', function () {
+                if ($(this).find("ul").is(":visible")) {
+                    $(this).find("ul").slideUp(200);
+                    $(this).find("span").css('border-bottom', 'none');
+                    $(this).find("i").removeClass("fa fa-chevron-up");
+                    $(this).find("i").addClass("fa fa-chevron-down");
+                } else {
+                    $(this).find("ul").slideDown(200);
+                    $(this).find("span").css('border-bottom', '2px solid black');
+                    $(this).find("i").removeClass("fa fa-chevron-down");
+                    $(this).find("i").addClass("fa fa-chevron-up");
+                }
+            });
           });
         </script>
+
+        {% cache cache_timeout|default:0 featured_page_list %}
+            <script type="text/html" class="dropdown-pagelist">
+                <ul id="nested-people-dropdown-list">
+                  <li><a href="{% url 'slug_page_wrapper' page_slug='faculty' %}">Faculty</a></li>
+                  <li><a href="{% url 'slug_page_wrapper' page_slug='talent' %}">Talent</a></li>
+                  <li><a href="{% url 'slug_page_wrapper' page_slug='houseteams' %}">House Teams</a></li>
+                </ul>
+            </script>
+        {% endcache %}
+
       {% endblock %}
     </div>
 
