@@ -126,7 +126,7 @@
                     $(this).find("i").addClass("fa fa-chevron-down");
                     $("#people-page-slider").slideUp(200);
                 } else {
-                    $('#people-page-slider').html($('.dropdown-pagelist').html());
+                    $('#people-page-slider').html($('.dropdown-peoplelist').html());
                     $(this).find("i").removeClass("fa fa-chevron-down");
                     $(this).find("i").addClass("fa fa-chevron-up");
                     $("#people-page-slider").slideDown(200);
@@ -151,7 +151,7 @@
         </script>
 
         {% cache cache_timeout|default:0 featured_page_list %}
-            <script type="text/html" class="dropdown-pagelist">
+            <script type="text/html" class="dropdown-peoplelist">
                 <ul id="nested-people-dropdown-list">
                   <li><a href="{% url 'slug_page_wrapper' page_slug='faculty' %}">Faculty</a></li>
                   <li><a href="{% url 'slug_page_wrapper' page_slug='talent' %}">Talent</a></li>
@@ -162,7 +162,7 @@
 
       {% endblock %}
     </div>
-
+    <br />
     <div id="footer">
       <ul>
         <li>The Ape is a 501c3 non profit.</li>
