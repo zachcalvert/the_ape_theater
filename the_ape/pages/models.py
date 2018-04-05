@@ -611,7 +611,7 @@ class BannerWidget(Widget, PageLinkMixin):
 
         super(BannerWidget, self).save(*args, **kwargs)
         if collectstatic:
-            call_command('collectstatic', verbosity=1, interactive=False)
+            call_command('collectstatic', verbosity=0, interactive=False)
 
 
 class ImageCarouselWidget(Widget):
@@ -668,7 +668,7 @@ class ImageCarouselItem(PageLinkWidgetItem):
 
         super(ImageCarouselItem, self).save(*args, **kwargs)
         if collectstatic:
-            call_command('collectstatic', verbosity=1, interactive=False)
+            call_command('collectstatic', verbosity=0, interactive=False)
 
 
 class AudioWidget(Widget):
@@ -734,4 +734,4 @@ class VideoWidget(Widget):
 
         super(VideoWidget, self).save(*args, **kwargs)
         if collectstatic:
-            call_command('collectstatic', verbosity=1, interactive=False)
+            call_command('collectstatic', verbosity=0, interactive=False)
