@@ -89,23 +89,27 @@ class EventAttendee(models.Model):
             ticket.save()
         if ticket.pdf:
             pass
-            # url = 'http://localhost:8000{}'.format(reverse('ticket', kwargs={'ticket_uuid': ticket.uuid}))
-            # try:
-            #     pdf = pdfkit.from_url(url, '{}.pdf'.format(ticket.uuid))
-            #     ticket.pdf = pdf
-            # except Exception as e:
-            #     print(e)
-            # ticket.save()
         return ticket
 
-    def send_event_email(self, ticket):
-        subject = 'Ticket confirmation: {}'.format(self.event.name)
+    def send_event_email(self, ticket=None, reservation=None):
         from_address = 'noreply@theapetheater.org'
         to_address = self.attendee.user.email
-        html_content = render_to_string('accounts/ticket_email_confirmation.html', {'ticket': ticket,
-                                                                                    'event': self.event,
-                                                                                    'attendee': self.attendee,
-                                                                                    'total': int(self.event.ticket_price) * int(ticket.num_attendees)})
+
+        if ticket:
+            subject = 'Ticket confirmation: {}'.format(self.event.name)
+            total = int(self.event.ticket_price) * int(ticket.num_attendees)
+            template = 'accounts/ticket_email_confirmation.html'
+        elif reservation:
+            subject = 'Reservation confirmation: {}'.format(self.event.name)
+            total = 'FREE'
+            template = 'accounts/reservation_email_confirmation.html'
+        else:
+            return None
+
+        html_content = render_to_string(template, {'ticket': ticket or reservation,
+                                                   'event': self.event,
+                                                   'attendee': self.attendee,
+                                                   'total': total })
         text_content = strip_tags(html_content)
         msg = EmailMultiAlternatives(subject, text_content, from_address, [to_address])
         msg.attach_alternative(html_content, "text/html")

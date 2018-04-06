@@ -13,6 +13,30 @@ squareconnect.configuration.access_token = settings.SQUARE_ACCESS_TOKEN
 api_instance = TransactionsApi()
 
 
+class SeatReservation(models.Model):
+    """
+    Used in lieu of SquarePayment when a show/class is free.
+    """
+    customer = models.ForeignKey(UserProfile, null=True, related_name='reservations')
+    created = models.DateTimeField(auto_now_add=True)
+    uuid = models.CharField(max_length=50)
+
+    reserved_event = models.ForeignKey(Event, null=True, blank=True)
+    reserved_class = models.ForeignKey(ApeClass, null=True, blank=True)
+
+    @property
+    def reservation(self):
+        """
+        A SeatReservation can either be for an ApeClass, or an Event. It must be for one of
+        these things, not both of them and not 0 of them.
+        """
+        if self.reserved_event_id is not None:
+            return self.reserved_event.name_with_date
+        if self.reserved_class_id is not None:
+            return self.reserved_class
+        raise AssertionError("Neither 'reserved_event' nor 'reserved_class' is set")
+
+
 class SquarePayment(models.Model):
     customer = models.ForeignKey(UserProfile, null=True, related_name='payments')
     created = models.DateTimeField(auto_now_add=True)

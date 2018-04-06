@@ -1,0 +1,40 @@
+{% load crispy_forms_tags %}
+
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/sqpaymentform.css">
+
+<div class="modal fade ape-modal event-{{ event.id }}" id="reserve-seat-modal">
+  <form class="well" action="{% url 'reserve_seat' %}" method="post">{% csrf_token %}
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>{{ event.name|safe }}</h3> 
+		<h4>{{ event.event_day|safe }}, {{ event.event_time }}</h4>
+		<h4 id="sq-total-price">Free</h4><br />
+		{% if request.user.is_authenticated %}
+			<p>Reserving a seat for {{ request.user.get_full_name }}</p>
+			<p>Confirmation email will be sent to {{ request.user.email }}</p>
+		{% else %}
+		<table>
+		  <tbody>
+			  <tr>
+		        <td>First:</td>
+		        <td><input class="sq-input" type="string" id="first-name" name="first-name"></td>
+		      </tr><tr>
+		        <td>Last:</td>
+		        <td><input class="sq-input" type="string" id="last-name" name="last-name"></td>
+		      </tr><tr>
+		        <td>Email address:</td>
+		        <td><input class="sq-input" type="string" id="email-address" name="email-address"></td>
+		      </tr>
+		  </tbody>
+		</table>
+
+		{% endif %}
+		<button class="btn btn-primary square-button" type="submit">
+			Reserve my seat
+		</button>
+	</div>
+	<input type="hidden" id="reserved-model" name="reserved-model" value="event">
+	<input type="hidden" id="reserved-id" name="reserved-id" value="{{ event.id }}">
+	<input type="hidden" id="reserved-for" name="reserved-for" value="{{ event.name }}">
+  </form>
+</div>
