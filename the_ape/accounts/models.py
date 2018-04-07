@@ -1,4 +1,3 @@
-import pdfkit
 from uuid import uuid4
 
 from django.core.mail import EmailMultiAlternatives
@@ -43,15 +42,6 @@ class ClassMember(models.Model):
         if created:
             registration.uuid = registration.id * 52689
             registration.save()
-        if registration.pdf:
-            pass
-            # url = 'http://localhost:8000{}'.format(reverse('ticket', kwargs={'ticket_uuid': ticket.uuid}))
-            # try:
-            #     pdf = pdfkit.from_url(url, '{}.pdf'.format(ticket.uuid))
-            #     ticket.pdf = pdf
-            # except Exception as e:
-            #     print(e)
-            # ticket.save()
         return registration
 
     def send_registration_email(self, registration):
@@ -87,8 +77,6 @@ class EventAttendee(models.Model):
             ticket.uuid = ticket.id * 52689
             ticket.num_attendees = num_tickets
             ticket.save()
-        if ticket.pdf:
-            pass
         return ticket
 
     def send_event_email(self, ticket=None, reservation=None):

@@ -567,7 +567,8 @@ class ApeClassesWidget(GroupWidget):
             "start_day_as_date": item.start_day_as_date(),
             "num_sessions": item.num_sessions,
             "price": item.price,
-            "end_time": item.end_time()
+            "end_time": item.end_time(),
+            "is_free": item.is_free
         })
         if item.teacher:
             data.update({
