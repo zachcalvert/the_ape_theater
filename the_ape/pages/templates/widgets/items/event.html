@@ -14,9 +14,15 @@
 			<button disabled='disabled' class="sold-out-button">Sold Out</button>
 		</a>
     {% else %}
-		<a data-toggle="modal" href="{% url 'event_wrapper' event.id %}">
-			<button class="ape-button">Purchase Tickets</button>
-		</a>
+        {% if event.is_free %}
+    		<a data-toggle="modal" href="{% url 'event_wrapper' event.id %}">
+                <button class="ape-button">Reserve a Seat</button>
+            </a>
+        {% else %}
+            <a data-toggle="modal" href="{% url 'event_wrapper' event.id %}">
+                <button class="ape-button">Purchase Tickets</button>
+            </a>
+        {% endif %}
 	{% endif %}
 </div>
 

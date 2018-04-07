@@ -36,7 +36,7 @@ class Event(models.Model):
     name = models.CharField(max_length=100)
     bio = models.TextField()
     start_time = models.DateTimeField(null=True)
-    max_tickets = models.IntegerField(null=True)
+    max_tickets = models.IntegerField(default=20, null=True)
     tickets_sold = models.IntegerField(default=0)
     ticket_price = models.DecimalField(decimal_places=2, max_digits=5)
     banner = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
@@ -55,6 +55,12 @@ class Event(models.Model):
     @property
     def slug(self):
         return slugify(self.name)
+
+    @property
+    def is_free(self):
+        if self.ticket_price == 0:
+            return True
+        return False
 
     def get_api_url(self):
         return reverse('event', kwargs={'event_id': self.pk})
@@ -100,7 +106,8 @@ class Event(models.Model):
             "event_day": self.event_day(),
             "ticket_price": self.ticket_price,
             "name_with_date": self.name_with_date,
-            "tickets_left": self.max_tickets - self.tickets_sold
+            "tickets_left": self.max_tickets - self.tickets_sold,
+            "is_free": self.is_free
         }
         if self.banner:
             data['banner_url'] = self.banner.image.url

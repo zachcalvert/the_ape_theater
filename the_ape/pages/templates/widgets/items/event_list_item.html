@@ -10,7 +10,13 @@
     <span class="ape-event-list-item-start-time"><i class="fa fa-clock-o event-time-icon" aria-hidden="true"></i>&nbsp;&nbsp;{{ event.event_day|safe }}, {{ event.event_time }}</span>
 
 
-    <span class="ape-event-list-item-price">${{ event.ticket_price }}</span>
+    <span class="ape-event-list-item-price">
+    	{% if event.is_free %}
+    		FREE
+    	{% else %}
+    		${{ event.ticket_price }}
+    	{% endif %}
+	</span>
 
     <span class="ape-event-list-item-buy">
         <a data-toggle="modal" href="{% url 'event_wrapper' event.id %}"><button class="ape-button">Tickets</button></a>

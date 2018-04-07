@@ -16,28 +16,37 @@
 				<p>{{ event.bio|safe }}</p>
 			</div>
 			<div class="ape-class-page-tickets">
-				<div class="num-tickets">
-                  <input disabled='disabled' type="button" value="-" id="ticket-minus" class="ticket-amount-button">
-                  <input type="text" step="1" min="1" name="ticket-quantity" id="ticket-quantity" value="0" size="4" readonly>
-                  {% if event.id|is_sold_out %}
-                  	<input disabled='disabled' type="button" value="+" id="ticket-plus" class="ticket-amount-button">
-                  {% else %}
-                 	 <input type="button" value="+" id="ticket-plus" class="ticket-amount-button">
-                  {% endif %}
-                </div>
+				{% if not event.is_free %}
+					<div class="num-tickets">
+	                  <input disabled='disabled' type="button" value="-" id="ticket-minus" class="ticket-amount-button">
+	                  <input type="text" step="1" min="1" name="ticket-quantity" id="ticket-quantity" value="0" size="4" readonly>
+	                  {% if event.id|is_sold_out %}
+	                  	<input disabled='disabled' type="button" value="+" id="ticket-plus" class="ticket-amount-button">
+	                  {% else %}
+	                 	 <input type="button" value="+" id="ticket-plus" class="ticket-amount-button">
+	                  {% endif %}
+	                </div>
+	            {% endif %}
 
                 {% if event.id|is_sold_out %}
                 	<a data-toggle="modal" href="javascript;">
 						<button disabled='disabled' class="sold-out-button">Sold out!</button>
 					</a>
                 {% else %}
-					<a data-toggle="modal" href=".event-{{ event.id }}">
-						<button disabled='disabled' class="ape-button">Purchase Tickets</button>
-					</a>
+	                {% if event.is_free %}
+	                	<a data-toggle="modal" href=".event-{{ event.id }}">
+							<button class="ape-button">Reserve my seat</button>
+						</a>
+						{% include 'events/event_seat_reservation.html' %}
+	                {% else %}
+						<a data-toggle="modal" href=".event-{{ event.id }}">
+							<button disabled='disabled' class="ape-button">Purchase Tickets</button>
+						</a>
+						{% include 'events/event_ticket_purchase.html' %}
+					{% endif %}
 				{% endif %}
 			</div>
 		</div>
-		{% include 'events/event_ticket_purchase.html' %}
 	</div>
 {% endblock %}
 

@@ -66,6 +66,10 @@ class ApeClass(models.Model):
     def slug(self):
         return slugify(self.name)
 
+    @property
+    def is_free(self):
+        return self.price == 0
+
     def get_api_url(self):
         return reverse('ape_class', kwargs={'ape_class_id': self.pk})
 
@@ -139,7 +143,8 @@ class ApeClass(models.Model):
             "type": self.class_type,
             "price": self.price,
             "num_sessions": self.num_sessions,
-            "students_registered": self.students_registered
+            "students_registered": self.students_registered,
+            "is_free": self.is_free
         }
         if self.start_date is not None:
             data["start_day"] = self.start_day()

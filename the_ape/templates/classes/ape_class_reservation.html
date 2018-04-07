@@ -1,0 +1,24 @@
+{% load crispy_forms_tags %}
+
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/sqpaymentform.css">
+
+<div class="modal fade ape-modal ape-class-{{ ape_class.id }}" id="reserve-spot-modal">
+  <form class="well" action="{% url 'reserve_seat' %}" method="post">{% csrf_token %}
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>{{ class.name|safe }}</h3> 
+		<h4>{{ class.start_day|safe }}, {{ class.start_time }}</h4>
+		<h4 id="sq-total-price">Free</h4><br />
+		{% if request.user.is_authenticated %}
+			<p>Reserving a spot for {{ request.user.get_full_name }}</p>
+			<p>Confirmation email will be sent to {{ request.user.email }}</p>
+		{% endif %}
+		<button class="btn btn-primary square-button" type="submit">
+			Reserve my spot
+		</button>
+	</div>
+	<input type="hidden" id="reserved-model" name="reserved-model" value="ape_class">
+	<input type="hidden" id="reserved-id" name="reserved-id" value="{{ ape_class.id }}">
+	<input type="hidden" id="reserved-for" name="reserved-for" value="{{ ape_class.name }}">
+  </form>
+</div>

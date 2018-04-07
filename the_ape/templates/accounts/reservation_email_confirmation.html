@@ -1,0 +1,44 @@
+{% load humanize %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		.ape-event-ticket {
+		    border: 14px solid black;
+		    border-radius: 4px;
+		    width: 450px;
+		    padding: 10px;
+		    height: auto;
+		    background-color: #FFF;
+		}
+		.ape-event-ticket img {
+			width: 100%;
+		}	
+		.ape-event-ticket h2, h4 {
+		    margin: 0;
+		    text-align: center;
+		}
+		.ape-event-ticket p {
+			margin: 5px;
+		}
+	</style>
+</head>
+<body>
+	<h4 style="text-align: left;">Congratulations! You're going to {{ event.name }}</h4>
+	<p>Present this email at the door for entry.</p>
+	<p>You can also view your reservation <a href="https://theapetheater.org{{ ticket.get_absolute_url }}">here.</a>
+	<div class="ape-event-ticket">
+		<img src="https://i.imgur.com/haWfEEz.png">
+		<h2>{{ event.name }}</h2>
+		<h4>{{ event.event_day|safe }}, {{ event.event_time }}</h4>
+		<h4>ADMIT ONE</h4><br />
+		<p>Name: {{ attendee.user.get_full_name }}</p>
+		<p>Email: {{ attendee.user.email }}</p><br />
+		<p>Order date: {{ ticket.event_attendee.purchase_date }}</p>
+		<p>Order #: {{ ticket.uuid }}</p>
+		<p>Order total: {{ total }}</p>
+	</div>
+</body>
+</html>

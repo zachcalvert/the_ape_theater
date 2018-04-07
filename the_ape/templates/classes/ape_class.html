@@ -29,7 +29,13 @@
 					</a>
 			    {% else %}
 					{% if request.user.is_authenticated %}
-						<a id="class-register-button" data-toggle="modal" href="#sq-ccbox"><button class="ape-button">Register</button></a>
+						{% if ape_class.is_free %}
+							<a id="class-register-button" data-toggle="modal" href=".ape-class-{{ ape_class.id }}"><button class="ape-button">Register</button></a>
+							{% include 'classes/ape_class_reservation.html' %}
+						{% else %}
+							<a id="class-register-button" data-toggle="modal" href="#sq-ccbox"><button class="ape-button">Register</button></a>
+							{% include 'classes/ape_class_registration.html' %}
+						{% endif %}
 						{% if ape_class.deposit_price %}
 							<a id="class-deposit-button" data-toggle="modal" href="#sq-ccbox"><button class="ape-button">Reserve with ${{ ape_class.deposit_price|floatformat }} deposit</button></a>
 						{% endif %}
@@ -62,7 +68,6 @@
 			</div>
 		</div>
 	</div>
-		{% include 'classes/ape_class_registration.html' %}
 {% endblock %}
 
 {% block extra_body_content %}
