@@ -40,7 +40,6 @@ class Event(models.Model):
     tickets_sold = models.IntegerField(default=0)
     ticket_price = models.DecimalField(decimal_places=2, max_digits=5)
     banner = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
-    videos = models.ManyToManyField('pages.VideoWidget', blank=True)
 
     class Meta:
         ordering = ['-start_time']
