@@ -51,6 +51,7 @@
 {% endblock %}
 
 {% block extra_body_content %}
+	{{ block.super }}
 	<script>
 		function decrement_ticket_count() {
 		    $('#ticket-quantity').val( function(i, oldval) {

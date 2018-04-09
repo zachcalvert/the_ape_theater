@@ -71,6 +71,7 @@
 {% endblock %}
 
 {% block extra_body_content %}
+	{{ block.super }}
 	<script>
 		$(document).ready(function () {
 			$('#class-deposit-button').on('click', function() {
