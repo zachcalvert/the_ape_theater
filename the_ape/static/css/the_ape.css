@@ -65,6 +65,7 @@ input[type=checkbox] {
   box-shadow: 0 5px #666;
   transform: translateY(2px);
 }
+
 a.ape-button:hover, a.square-button:hover {
     text-decoration: none;
 }
@@ -671,7 +672,6 @@ form.navbar-right {
 }
 #ticket-minus:active, #ticket-plus:active {
   background-color: #3e8e41;
-  box-shadow: 0 5px #666;
   transform: translateY(2px);
 }
 #ticket-minus:focus, #ticket-plus:focus {outline:0;}
