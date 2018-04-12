@@ -11,7 +11,7 @@
 
 		<span class="ape-workshop-price hide-on-mobile">${{ ape_class.price }}</span>
 
-		<span class="ape-class-buy" style="margin-top: -11px;">
+		<span class="ape-class-buy" {% if not ape_class.id|is_full %}style="margin-top: -11px;"{% endif %}>
 			{% if ape_class.id|is_full %}
 		    	<a data-toggle="modal" href="javascript;">
 					<button style="margin-top:-9px;" disabled='disabled' class="sold-out-button">Sold Out</button>
