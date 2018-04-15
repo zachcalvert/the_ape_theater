@@ -74,7 +74,10 @@ class Event(models.Model):
         day = ''
         start_time = timezone.localtime(self.start_time)
         if start_time.date() == datetime.today().date():
-            return '<b style="color:red">TONIGHT</b>'
+            if start_time.time().hour <= 17:
+                return '<b style="color:red">TODAY</b>'
+            else:
+                return '<b style="color:red">TONIGHT</b>' 
         elif start_time.date() == datetime.today().date() + timedelta(days=1):
             return 'Tomorrow'
         else:
@@ -89,12 +92,14 @@ class Event(models.Model):
     def event_time(self):
         pm = False
         hour = timezone.localtime(self.start_time).time().hour
-        if hour >= 12:
+        if hour == 12:
+            return 'Noon'
+        if hour > 12:
             pm = True
             hour -= 12
-            return '{} pm'.format(hour)
+            return '{}pm'.format(hour)
         else:
-            return '{} am'.format(hour)
+            return '{}am'.format(hour)
 
     def to_data(self):
         data = {
