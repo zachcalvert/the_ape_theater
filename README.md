@@ -26,6 +26,7 @@ If you want to proceed without a virtual environment, just skip the 'mkvirtualen
 * './manage.py migrate' 
 * './manage.py collectstatic --noinput'
 * './manage.py createsuperuser'  (set whatever credentials you like, just remember them!)
+* './manage.py update_local'    (this will pull in all the performer/teacher data and images from the live site)
 * './manage.py runserver'
 
 
