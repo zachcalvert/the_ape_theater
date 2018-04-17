@@ -1,4 +1,11 @@
 /* -----------  ----------- */
+@media screen and (min-width: 1300px) {
+    .widget-two-thirds {
+        width: 66%;
+    }
+}
+
+/* -----------  ----------- */
 @media screen and (max-width: 1000px) {
     #login {
         display: block;
