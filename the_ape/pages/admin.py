@@ -292,7 +292,7 @@ class EventAdmin(SaveAsNewAdmin):
 
 class StudentInline(admin.TabularInline):
     model = ApeClass.students.through
-    fields = ['student', 'has_paid']
+    fields = ['student']
     readonly_fields = ['student']
     extra = 0
 

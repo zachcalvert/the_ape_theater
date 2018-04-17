@@ -33,7 +33,6 @@ class UserProfile(models.Model):
 class ClassMember(models.Model):
     student = models.ForeignKey(UserProfile, related_name='class_membership')
     ape_class = models.ForeignKey(ApeClass, related_name='class_membership', null=True)
-    has_paid = models.BooleanField(default=False)
     purchase_date = models.DateTimeField(auto_now_add=True)
 
 
