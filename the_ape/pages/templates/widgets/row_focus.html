@@ -12,7 +12,7 @@
                             {% include 'widgets/image.html' with url=item.image name=item.name alt_text=item.name %}
                         </a>
                         {% if widget.item_type == "event" %}
-                            <p>{{ item.name_with_date }}</p>
+                            <p>{{ item.name }}</p>
                         {% elif widget.item_type == "ape_class" %}
                             <p>{{ item.name }}</p>
                         {% endif %}

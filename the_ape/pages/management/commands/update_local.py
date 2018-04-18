@@ -14,7 +14,7 @@ from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 from django.template.defaultfilters import slugify
 
-from pages.models import Page, PersonFocusWidget
+from pages.models import Page, PersonFocusWidget, TextWidget
 from people.models import Person
 
 
@@ -30,13 +30,33 @@ BASE_URL = 'https://theapetheater.org'
 
 class Command(BaseCommand):
 
-    def update_classes(self):
+    def update_hype_page(self):
+        page, created = Page.objects.get_or_create(slug='hype')
+        page.page_to_widgets.all().delete()
+
+        hype_url = '{}/api/hype.json'.format(BASE_URL)
+        response = requests.get(hype_url)
+        response_json = json.loads(response.content.decode())
+
+        for text_widget in response_json['widgets']:
+            widget, created = TextWidget.objects.get_or_create(name=text_widget['name'])
+            widget.content = text_widget['text']
+            widget.text_color = text_widget['text_color']
+            widget.width = text_widget['width']
+            widget.save()
+            page.add_widget(widget)
+            print('added {} text widget to Hype page'.format(widget.name))
+
+    def update_house_team_page(self):
         pass
 
-    def update_shows(self):
+    def update_classes_page(self):
+        pass
+
+    def update_shows_page(self):
         pass    
 
-    def update_pages(self):
+    def update_home_page(self):
         pass
 
     def update_people(self):
@@ -100,6 +120,7 @@ class Command(BaseCommand):
 
     def update_talent_page(self):
         page, created = Page.objects.get_or_create(slug='talent')
+
         try:
             talent_widget = page.widgets_base.first().peoplewidget
             performers = Person.objects.filter(house_team__isnull=False)
@@ -110,8 +131,10 @@ class Command(BaseCommand):
 
     def update_faculty_page(self):
         page, created = Page.objects.get_or_create(slug='faculty')
+        page.page_to_widgets.all().delete()
+
         for teacher in Person.objects.filter(teaches=True):
-            widget = PersonFocusWidget.objects.create(name='{}'.format(teacher.last_name), person=teacher)
+            widget, created = PersonFocusWidget.objects.get_or_create(name='{}'.format(teacher.last_name), person=teacher)
             page.add_widget(widget)
             print('added teacher widget to Faculty page for {} {}'.format(teacher.first_name, teacher.last_name))
 
@@ -122,5 +145,6 @@ class Command(BaseCommand):
             self.update_people()
             self.update_talent_page()
             self.update_faculty_page()
+            self.update_hype_page()
 
 

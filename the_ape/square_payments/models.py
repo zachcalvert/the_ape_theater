@@ -31,7 +31,7 @@ class SeatReservation(models.Model):
         these things, not both of them and not 0 of them.
         """
         if self.reserved_event_id is not None:
-            return self.reserved_event.name_with_date
+            return self.reserved_event.name
         if self.reserved_class_id is not None:
             return self.reserved_class
         raise AssertionError("Neither 'reserved_event' nor 'reserved_class' is set")
@@ -63,7 +63,7 @@ class SquarePayment(models.Model):
         these things, not both of them and not 0 of them.
         """
         if self.purchase_event_id is not None:
-            return self.purchase_event.name_with_date
+            return self.purchase_event.name
         if self.purchase_class_id is not None:
             return self.purchase_class
         raise AssertionError("Neither 'purchase_event' nor 'purchase_class' is set")
