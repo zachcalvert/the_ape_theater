@@ -9,7 +9,7 @@
 	</div>
 	<div class="gallery">
 		<div class="widget-header">
-	    	<h2 class="widget-title">{{ event.name_with_date|safe }}, {{ event.event_time }}</h2>
+	    	<h2 class="widget-title">{{ event.name }}: {{ event.start_time|friendly_day|safe }} at {{ event.start_time|friendly_time }}</h2>
 		</div>
 		<div class="event-detail">
 			<div class="event-page-bio">

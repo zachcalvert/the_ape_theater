@@ -6,7 +6,7 @@
     </a>
 </div>
 <p class="event-name">{{ event.name }}</p>
-<p class="event-time">{{ event.event_day|safe }} at {{ event.event_time }}</p>
+<p class="event-time">{{ event.start_time|friendly_day|safe }} at {{ event.start_time|friendly_time }}</p>
 
 <div class="ape-class-page-tickets">
     {% if event.id|is_sold_out %}

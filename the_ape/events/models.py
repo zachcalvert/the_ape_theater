@@ -1,35 +1,8 @@
-from datetime import datetime, timedelta
-
 from django.core.management import call_command
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
-
-WEEKDAYS = (
-    (1, 'Monday'),
-    (2, 'Tuesday'),
-    (3, 'Wednesday'),
-    (4, 'Thursday'),
-    (5, 'Friday'),
-    (6, 'Saturday'),
-    (7, 'Sunday'),
-)
-
-MONTHS = (
-    (1, 'January'),
-    (2, 'February'),
-    (3, 'March'),
-    (4, 'April'),
-    (5, 'May'),
-    (6, 'June'),
-    (7, 'July'),
-    (8, 'August'),
-    (9, 'September'),
-    (10, 'October'),
-    (11, 'November'),
-    (12, 'December'),
-)
 
 
 class Event(models.Model):
@@ -48,10 +21,6 @@ class Event(models.Model):
         return self.name
 
     @property
-    def name_with_date(self):
-        return '{}: {}'.format(self.name, self.event_day())
-
-    @property
     def slug(self):
         return slugify(self.name)
 
@@ -67,51 +36,15 @@ class Event(models.Model):
     def get_absolute_url(self):
         return reverse('event_wrapper', kwargs={'event_id': self.pk})
 
-    def event_day(self):
-        """
-        Provide a user-friendly representation of the event start day
-        """
-        day = ''
-        start_time = timezone.localtime(self.start_time)
-        if start_time.date() == datetime.today().date():
-            if start_time.time().hour <= 17:
-                return '<b style="color:red">TODAY</b>'
-            else:
-                return '<b style="color:red">TONIGHT</b>' 
-        elif start_time.date() == datetime.today().date() + timedelta(days=1):
-            return 'Tomorrow'
-        else:
-            day_index = start_time.date().weekday()
-            day = WEEKDAYS[day_index][1]
-            month_index = start_time.month - 1
-            month = MONTHS[month_index][1]
-            day += ', {month} {date}'.format(month=month,
-                                             date=start_time.day)
-            return day
-
-    def event_time(self):
-        pm = False
-        hour = timezone.localtime(self.start_time).time().hour
-        if hour == 12:
-            return 'Noon'
-        if hour > 12:
-            pm = True
-            hour -= 12
-            return '{}pm'.format(hour)
-        else:
-            return '{}am'.format(hour)
-
     def to_data(self):
         data = {
             "id": self.id,
             "name": self.name,
             "bio": self.bio,
-            "event_time": self.event_time(),
-            "event_day": self.event_day(),
             "ticket_price": self.ticket_price,
-            "name_with_date": self.name_with_date,
             "tickets_left": self.max_tickets - self.tickets_sold,
-            "is_free": self.is_free
+            "is_free": self.is_free,
+            "start_time": timezone.localtime(self.start_time)
         }
         if self.banner:
             data['banner_url'] = self.banner.image.url

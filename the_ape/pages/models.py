@@ -452,10 +452,9 @@ class EventsWidget(GroupWidget):
         data = super(EventsWidget, self).item_data(item)
         data.update({
             "image": item.banner.image.url,
-            "event_day": item.event_day(),
-            "event_time": item.event_time(),
             "ticket_price": item.ticket_price,
             "is_free": item.is_free,
+            "start_time": timezone.localtime(item.start_time)
         })
         return data
 

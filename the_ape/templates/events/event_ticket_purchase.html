@@ -1,4 +1,4 @@
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags page_tags %}
 
 <script type="text/javascript" src="https://js.squareup.com/v2/paymentform"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/sqpaymentform.js"></script>
@@ -10,7 +10,7 @@
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
 		<h3>{{ event.name|safe }}</h3> 
-		<h4>{{ event.event_day|safe }}, {{ event.event_time }}</h4>
+		<h4>{{ event.start_time|friendly_day|safe }} at {{ event.start_time|friendly_time }}</h4>
 		<h4 id="sq-num-tickets-display">Tickets: {{ num_tickets }}</h4>
 		<h4 id="sq-total-price">Total: ${{ event.ticket_price }}</h4><br />
 		{% if request.user.is_authenticated %}

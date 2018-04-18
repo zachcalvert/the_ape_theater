@@ -7,7 +7,7 @@
     
     <span class="ape-event-list-item-name">{{ event.name|safe }}</span>
 
-    <span class="ape-event-list-item-start-time"><i class="fa fa-clock-o event-time-icon" aria-hidden="true"></i>&nbsp;&nbsp;{{ event.event_day|safe }}, {{ event.event_time }}</span>
+    <span class="ape-event-list-item-start-time"><i class="fa fa-clock-o event-time-icon" aria-hidden="true"></i>&nbsp;&nbsp;{{ event.start_time|friendly_day|safe }} at {{ event.start_time|friendly_time }}</span>
 
 
     <span class="ape-event-list-item-price">

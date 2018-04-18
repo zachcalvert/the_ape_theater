@@ -1,4 +1,6 @@
+import iso8601
 import re
+from datetime import datetime, timedelta
 from urllib.parse import urlsplit, SplitResult
 
 from django.contrib.auth.models import User
@@ -16,6 +18,32 @@ from pages.models import Page
 from people.models import Person, HouseTeam
 
 register = Library()
+
+
+WEEKDAYS = (
+    (1, 'Monday'),
+    (2, 'Tuesday'),
+    (3, 'Wednesday'),
+    (4, 'Thursday'),
+    (5, 'Friday'),
+    (6, 'Saturday'),
+    (7, 'Sunday'),
+)
+
+MONTHS = (
+    (1, 'January'),
+    (2, 'February'),
+    (3, 'March'),
+    (4, 'April'),
+    (5, 'May'),
+    (6, 'June'),
+    (7, 'July'),
+    (8, 'August'),
+    (9, 'September'),
+    (10, 'October'),
+    (11, 'November'),
+    (12, 'December'),
+)
 
 
 @register.filter
@@ -155,3 +183,48 @@ def is_full(class_id):
     if ape_class.students_registered >= ape_class.max_enrollment:
         return True
     return False
+
+
+@register.filter
+def friendly_time(start_time):
+    """
+    Given a datetime object or date string, returns a user-friendly start time
+    """
+    if isinstance(start_time, str):
+        # convert from string to datetime object
+        start_time = iso8601.parse_date(start_time)
+    hour = start_time.time().hour
+    if hour == 12:
+        return 'Noon'
+    if hour > 12:
+        hour -= 12
+        return '{}pm'.format(hour)
+    else:
+        return '{}am'.format(hour)
+
+@register.filter
+def friendly_day(start_time):
+    """
+    Given a datetime object or date string, returns a user-friendly start day.
+    If not TODAY, TONIGHT, or Tomorrow, returns in the format: Saturday, April 20
+    """
+    if isinstance(start_time, str):
+        # convert from string to datetime object
+        start_time = iso8601.parse_date(start_time)
+    day = ''
+    if start_time.date() == datetime.today().date():
+        if start_time.time().hour <= 17:
+            return '<b style="color:red">TODAY</b>'
+        else:
+            return '<b style="color:red">TONIGHT</b>'
+    elif start_time.date() == datetime.today().date() + timedelta(days=1):
+        return 'Tomorrow'
+    else:
+        day_index = start_time.date().weekday()
+        day = WEEKDAYS[day_index][1]
+        month_index = start_time.month - 1
+        month = MONTHS[month_index][1]
+        day += ', {month} {date}'.format(month=month,
+                                         date=start_time.day)
+        return day
+
