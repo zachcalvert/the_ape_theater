@@ -16,9 +16,9 @@
 		<div class="ape-class-info">
 			<span class="ape-class-detail-instructor">Instructor: {{ ape_class.teacher.name }}</span>
 			{% if ape_class.type == 'WORKSHOP' %}
-				<span class="ape-class-detail-start-date">Date: {{ ape_class.start_day_as_date }}</span>
+				<span class="ape-class-detail-start-date">Date: {{ ape_class.start_date|start_day_as_date }}</span>
 			{% else %}
-				<span class="ape-class-detail-start-date">First class: {{ ape_class.start_day_as_date }}</span>
+				<span class="ape-class-detail-start-date">First class: {{ ape_class.start_date|start_day_as_date }}</span>
 			{% endif %}
 
 			{% if not ape_class.type == 'WORKSHOP' %}
@@ -26,9 +26,9 @@
 			{% endif %}
 
 			{% if ape_class.type == 'WORKSHOP' %}
-				<span class="ape-class-detail-meeting-time">Time: {{ ape_class.start_time }} to {{ ape_class.end_time }}</span>
+				<span class="ape-class-detail-meeting-time">Time: {{ ape_class.start_date|friendly_time }} to {{ ape_class.start_date|friendly_end_time:ape_class.class_length }}</span>
 			{% else %}
-				<span class="ape-class-detail-meeting-time">Meets on: {{ ape_class.day_of_week }}s, {{ ape_class.start_time }} to {{ ape_class.end_time }}</span>
+				<span class="ape-class-detail-meeting-time">Meets on: {{ ape_class.start_date|day_of_week }}s, {{ ape_class.start_date|friendly_time }} to {{ ape_class.start_date|friendly_end_time:ape_class.class_length }}</span>
 			{% endif %}
 
 			<span class="ape-class-detail-price">Cost: ${{ ape_class.price }}</span>

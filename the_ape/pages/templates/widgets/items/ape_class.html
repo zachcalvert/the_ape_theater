@@ -1,13 +1,12 @@
 {% load page_tags %}
 
-
 {% if ape_class.type == 'WORKSHOP' %}
 	<div class='ape-workshop-item'>
 		<a class="ape-workshop-name" href="{% url 'ape_class_wrapper' ape_class.id %}">{{ ape_class.name|safe }}</a>
 		{% if ape_class.teacher %}
 			<span class="ape-workshop-teacher"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<a href="{% url 'person_wrapper' ape_class.teacher.id %}">{{ ape_class.teacher.name }}</a></span>
 		{% endif %}
-		<span class="ape-workshop-start-time hide-on-mobile"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ ape_class.start_date }}, {{ ape_class.start_time }}</span>
+		<span class="ape-workshop-start-time hide-on-mobile"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ ape_class.start_date|friendly_day|safe }}, {{ ape_class.start_date|friendly_time }}</span>
 
 		<span class="ape-workshop-price hide-on-mobile">${{ ape_class.price }}</span>
 
@@ -29,14 +28,14 @@
 	<div class="ape-class-item">
 		<a class="ape-class-name ape-class-item-element" href="{% url 'ape_class_wrapper' ape_class.id %}">{{ ape_class.name|safe }}</a>
 
-		<span class="ape-class-start-date ape-class-item-element"><i class="fa fa-flag-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ ape_class.start_day_as_date }}</span>
+		<span class="ape-class-start-date ape-class-item-element"><i class="fa fa-flag-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ ape_class.start_date|start_day_as_date }}</span>
 
 		{% if ape_class.teacher %}
 			<span class="ape-class-teacher ape-class-item-element"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<a href="{% url 'person_wrapper' ape_class.teacher.id %}">{{ ape_class.teacher.name }}</a></span>
 		{% endif %}
 
 
-		<span class="ape-class-time ape-class-item-element hide-on-tablet"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ ape_class.day_of_week }}s, {{ ape_class.start_time }} to {{ ape_class.end_time }}</span>
+		<span class="ape-class-time ape-class-item-element hide-on-tablet"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;&nbsp;{{ ape_class.start_date|day_of_week }}s, {{ ape_class.start_date|friendly_time }} to {{ ape_class.start_date|friendly_end_time:ape_class.class_length }}</span>
 
 		<span class="ape-class-sessions ape-class-item-element hide-on-mobile"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;{{ ape_class.num_sessions }} weeks</span>
 

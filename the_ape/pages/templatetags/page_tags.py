@@ -8,6 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.template import Node, Variable, Library
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
+from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
@@ -202,6 +203,7 @@ def friendly_time(start_time):
     else:
         return '{}am'.format(hour)
 
+
 @register.filter
 def friendly_day(start_time):
     """
@@ -209,7 +211,6 @@ def friendly_day(start_time):
     If not TODAY, TONIGHT, or Tomorrow, returns in the format: Saturday, April 20
     """
     if isinstance(start_time, str):
-        # convert from string to datetime object
         start_time = iso8601.parse_date(start_time)
     day = ''
     if start_time.date() == datetime.today().date():
@@ -227,4 +228,38 @@ def friendly_day(start_time):
         day += ', {month} {date}'.format(month=month,
                                          date=start_time.day)
         return day
+
+@register.filter
+def day_of_week(start_time):
+    if isinstance(start_time, str):
+        start_time = iso8601.parse_date(start_time)
+    day_index = start_time.weekday()
+    return WEEKDAYS[day_index][1]
+
+
+@register.filter
+def start_day_as_date(start_time):
+    """
+    Return a datetime object in the format: MM/DD/YY
+    """
+    if isinstance(start_time, str):
+        start_time = iso8601.parse_date(start_time)
+    start_time = timezone.localtime(start_time)
+    return '{}/{}/{}'.format(start_time.month, start_time.day, str(start_time.year)[2:])
+
+
+@register.filter
+def friendly_end_time(start_time, hours):
+    """
+    Given a datetime object (or datestring) and length (in hours), returns a friendly end time.
+    """
+    if isinstance(start_time, str):
+        start_time = iso8601.parse_date(start_time)
+    hour = start_time.time().hour + hours
+    if hour >= 12:
+        if hour > 12:
+            hour -= 12
+        return '{}pm'.format(hour)
+    else:
+        return '{}am'.format(hour)
 

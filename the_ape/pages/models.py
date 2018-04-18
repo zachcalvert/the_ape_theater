@@ -560,13 +560,10 @@ class ApeClassesWidget(GroupWidget):
             "image": item.banner.image.url,
             "type": item.class_type,
             "bio": item.bio,
-            "start_date": item.start_day(),
-            "start_time": item.start_time(),
-            "day_of_week": item.day_of_week(),
-            "start_day_as_date": item.start_day_as_date(),
+            "start_date": timezone.localtime(item.start_date),
+            "class_length": item.class_length,
             "num_sessions": item.num_sessions,
             "price": item.price,
-            "end_time": item.end_time(),
             "is_free": item.is_free
         })
         if item.teacher:

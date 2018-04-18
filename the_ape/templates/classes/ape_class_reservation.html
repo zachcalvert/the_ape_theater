@@ -1,4 +1,4 @@
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags page_tags %}
 
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/sqpaymentform.css">
 
@@ -7,7 +7,7 @@
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
 		<h3>{{ class.name|safe }}</h3> 
-		<h4>{{ class.start_day|safe }}, {{ class.start_time }}</h4>
+		<h4>{{ class.start_date|friendly_day|safe }}, {{ class.start_date|friendly_time }}</h4>
 		<h4 id="sq-total-price">Free</h4><br />
 		{% if request.user.is_authenticated %}
 			<p>Reserving a spot for {{ request.user.get_full_name }}</p>

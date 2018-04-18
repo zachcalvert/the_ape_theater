@@ -1,35 +1,8 @@
-from datetime import datetime, timedelta
-
 from django.core.management import call_command
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
-
-WEEKDAYS = (
-    (1, 'Monday'),
-    (2, 'Tuesday'),
-    (3, 'Wednesday'),
-    (4, 'Thursday'),
-    (5, 'Friday'),
-    (6, 'Saturday'),
-    (7, 'Sunday'),
-)
-
-MONTHS = (
-    (1, 'January'),
-    (2, 'February'),
-    (3, 'March'),
-    (4, 'April'),
-    (5, 'May'),
-    (6, 'June'),
-    (7, 'July'),
-    (8, 'August'),
-    (9, 'September'),
-    (10, 'October'),
-    (11, 'November'),
-    (12, 'December'),
-)
 
 
 class ApeClass(models.Model):
@@ -76,65 +49,6 @@ class ApeClass(models.Model):
     def get_absolute_url(self):
         return reverse('ape_class_wrapper', kwargs={'ape_class_id': self.pk})
 
-
-    def day_of_week(self):
-        if not self.start_date:
-            return None
-        start_date = timezone.localtime(self.start_date)
-        day_index = start_date.weekday()
-        return WEEKDAYS[day_index][1]
-
-    def start_day_as_date(self):
-        """
-        Return the first day in the format: MM/DD/YY
-        """
-        if not self.start_date:
-            return ''
-        start_date = timezone.localtime(self.start_date)
-        return '{}/{}/{}'.format(start_date.month, start_date.day, str(start_date.year)[2:])
-
-    def start_day(self):
-        """
-        Provide a user-friendly representation of the class start day
-        """
-        day = ''
-        if not self.start_date:
-            return None
-        start_date = timezone.localtime(self.start_date)
-        if start_date == datetime.today().date():
-            return '<b style="color:red">TONIGHT</b>'
-        elif start_date == datetime.today().date() + timedelta(days=1):
-            return 'Tomorrow'
-        else:
-            day = self.day_of_week()
-            month_index = start_date.month - 1
-            month = MONTHS[month_index][1]
-            day += ', {month} {date}'.format(month=month,
-                                             date=start_date.day)
-            return day
-
-    def start_time(self):
-        pm = False
-        hour = timezone.localtime(self.start_date).time().hour
-        if hour >= 12:
-            pm = True
-            if hour > 12:
-                hour -= 12
-            return '{}pm'.format(hour)
-        else:
-            return '{}am'.format(hour)
-
-    def end_time(self):
-        pm = False
-        hour = timezone.localtime(self.start_date).time().hour + self.class_length
-        if hour >= 12:
-            pm = True
-            if hour > 12:
-                hour -= 12
-            return '{}pm'.format(hour)
-        else:
-            return '{}am'.format(hour)
-
     def to_data(self):
         data = {
             "id": self.id,
@@ -147,11 +61,8 @@ class ApeClass(models.Model):
             "is_free": self.is_free
         }
         if self.start_date is not None:
-            data["start_day"] = self.start_day()
-            data["start_time"] = self.start_time()
-            data["end_time"] = self.end_time()
-            data["day_of_week"] = self.day_of_week()
-            data["start_day_as_date"] = self.start_day_as_date()
+            data["start_date"] = timezone.localtime(self.start_date)
+            data["class_length"] = self.class_length
         if self.banner:
             data['banner_url'] = self.banner.image.url
         if self.teacher:
