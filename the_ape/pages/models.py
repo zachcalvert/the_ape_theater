@@ -454,7 +454,8 @@ class EventsWidget(GroupWidget):
             "image": item.banner.image.url,
             "ticket_price": item.ticket_price,
             "is_free": item.is_free,
-            "start_time": timezone.localtime(item.start_time)
+            "start_time": timezone.localtime(item.start_time),
+            "bio": item.bio
         })
         return data
 
