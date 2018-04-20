@@ -508,7 +508,8 @@ class PeopleWidget(GroupWidget):
     def item_data(self, item):
         data = super(PeopleWidget, self).item_data(item)
         data.update({
-            "image": item.headshot.url
+            "image": item.headshot.url,
+            "bio": item.bio
         })
         return data
 
@@ -604,7 +605,6 @@ class BannerWidget(Widget, PageLinkMixin):
         if self.pk is not None:
             orig = BannerWidget.objects.get(pk=self.pk)
             if orig.image != self.image:
-                print('image changed')
                 collectstatic = True
         else:
             collectstatic = True  # this is a newly created instance
@@ -661,7 +661,6 @@ class ImageCarouselItem(PageLinkWidgetItem):
         if self.pk is not None:
             orig = ImageCarouselItem.objects.get(pk=self.pk)
             if orig.image != self.image:
-                print('image changed')
                 collectstatic = True
         else:
             collectstatic = True  # this is a newly created instance
