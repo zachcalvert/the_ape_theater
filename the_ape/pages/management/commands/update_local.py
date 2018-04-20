@@ -41,12 +41,12 @@ class Command(BaseCommand):
         person, created = Person.objects.get_or_create(first_name=first, last_name=last)
         if created:
             print('Created new person: {}'.format(person))
-            person_url = '{}{}'.format(BASE_URL, person_json['path'])
-            response = requests.get(talent_url)
-            response_json = json.loads(response.content.decode())
 
         if not person.headshot.name or person.headshot.name == '':
-            image_url = '{}{}'.format(BASE_URL, person_json['image'])
+            try:
+                image_url = '{}{}'.format(BASE_URL, person_json['image'])
+            except KeyError:
+                image_url = '{}{}'.format(BASE_URL, person_json['image_url'])
             image = requests.get(image_url)
             img_temp = NamedTemporaryFile(delete=True)
             img_temp.write(image.content)
