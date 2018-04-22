@@ -200,12 +200,12 @@ class WidgetItemFormset(forms.models.BaseInlineFormSet):
         form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput(attrs={'class': "widget-item-delete"})
 
 
-class AbstractGroupWidgetForm(WidgetForm):
+class GroupWidgetForm(WidgetForm):
     item_model = None  # override in subclasses
     item_form = WidgetItemForm
 
     def __init__(self, *args, **kwargs):
-        super(AbstractGroupWidgetForm, self).__init__(*args, **kwargs)
+        super(GroupWidgetForm, self).__init__(*args, **kwargs)
         ItemFormset = inlineformset_factory(
             self.Meta.model, self.item_model,
             formset=WidgetItemFormset,
@@ -222,13 +222,13 @@ class AbstractGroupWidgetForm(WidgetForm):
         self.formset = ItemFormset(*args, **kwargs)
 
     def is_valid(self):
-        valid = super(AbstractGroupWidgetForm, self).is_valid()
+        valid = super(GroupWidgetForm, self).is_valid()
         if self.cleaned_data.get('delete', False):
             return True #do this before we check the formsets -- they won't matter anyway
         return valid and self.formset.is_valid()
 
     def save(self, commit=True):
-        widget = super(AbstractGroupWidgetForm, self).save(commit)
+        widget = super(GroupWidgetForm, self).save(commit)
         self.formset.instance = widget
         self.formset.save(commit)
         return widget
@@ -237,7 +237,7 @@ class AbstractGroupWidgetForm(WidgetForm):
         pass  # for compatability
 
 
-class ImageCarouselWidgetForm(AbstractGroupWidgetForm):
+class ImageCarouselWidgetForm(GroupWidgetForm):
     item_model = pages.models.ImageCarouselItem
 
 
@@ -265,12 +265,6 @@ class EventWidgetForm(WidgetForm):
 
 class BannerWidgetForm(WidgetForm):
     item_model = pages.models.BannerWidget
-
-
-class GroupWidgetForm(WidgetForm):
-
-    def save(self, commit=True):
-        return super(GroupWidgetForm, self).save(commit)
 
 
 def get_widget_form(widget_type=None, prefix='__prefix__', inline=True, data=None, *args, **kwargs):

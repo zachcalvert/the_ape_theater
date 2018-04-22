@@ -379,20 +379,20 @@ class TextWidget(Widget):
         return data
 
 
-class AbstractGroupWidget(Widget):
+class GroupWidget(Widget):
+    """
+    Base class for a group of items.
+    """
     group_type = None
+
+    class DefaultMeta:
+        required_fields = ['display_type']
 
     class Meta:
         abstract = True
 
-    def item_type(self):
-        raise NotImplementedError("Group widgets need to say their item_type")
-
-    def item_data(self, item):
-        raise NotImplementedError()
-
     def to_data(self, *args, **kwargs):
-        data = super(AbstractGroupWidget, self).to_data(*args, **kwargs)
+        data = super(GroupWidget, self).to_data(*args, **kwargs)
         data.update({
             "type": self.display_type,
             "item_type": self.item_type(),
@@ -404,16 +404,8 @@ class AbstractGroupWidget(Widget):
             data["group_type"] = self.group_type
         return data
 
-
-class GroupWidget(AbstractGroupWidget):
-    """
-    A group of classes, events, or people
-    """
-    class DefaultMeta:
-        required_fields = ['display_type']
-
-    class Meta:
-        abstract = True
+    def item_type(self):
+        raise NotImplementedError("Group widgets need to say their item_type")
 
     @property
     def items(self):
@@ -482,21 +474,6 @@ class EventsWidget(GroupWidget):
             "is_free": item.is_free,
             "start_time": timezone.localtime(item.start_time),
             "bio": item.bio
-        })
-        return data
-
-
-class PersonFocusWidget(Widget):
-    """
-    A more detailed display for a Person. Includes their bio.
-    """
-    person = models.ForeignKey(Person)
-
-    def to_data(self, *args, **kwargs):
-        data = super(PersonFocusWidget, self).to_data(*args, **kwargs)
-        data.update({
-            "type": "person_focus",
-            "person": self.person.to_data(*args, **kwargs)
         })
         return data
 
@@ -601,6 +578,21 @@ class ApeClassesWidget(GroupWidget):
             data.update({
                 "teacher": item.teacher.to_data()
             })
+        return data
+
+
+class PersonFocusWidget(Widget):
+    """
+    A more detailed display for a Person. Includes their bio.
+    """
+    person = models.ForeignKey(Person)
+
+    def to_data(self, *args, **kwargs):
+        data = super(PersonFocusWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": "person_focus",
+            "person": self.person.to_data(*args, **kwargs)
+        })
         return data
 
 
