@@ -59,6 +59,20 @@ class AbstractWidget(models.Model):
 
 
 class Widget(AbstractWidget):
+    """
+    A component of a Page.
+
+    Can take these forms:
+        a large image (BannerWidget)
+        a large carousel of images (ImageCarouselWidget)
+        a grouping of objects (PeopleWidget, ApeClassesWidget, EventsWidget)
+        an audio clip (AudioWidget)
+        a video clip (VideoWidget)
+        or just some text (TextWidget)
+
+    Widgets can also be shared across Page instances, i.e. the Home page and the Classes page could
+    display the same ImageCarouselWidget. Changing this widget would affect both pages in this case.
+    """
     WIDTH_CHOICES = (
         ("full", "Full"),
         ("two_thirds", "Two Thirds"),
@@ -176,6 +190,12 @@ class PageManager(models.Manager):
 
 
 class Page(models.Model):
+    """
+    Data model for a web page, so that the content of the site can be managed through the admin.
+    A Page essentially just fetches the Widgets it has relationships with in the DB and displays them, in order.
+    There are some customizations built in (background_color, text_color, etc), so that any given Page
+    can have a different look and feel.
+    """
 
     SLUG_CHOICES = (
         ("home", "Home"),
@@ -231,6 +251,9 @@ class Page(models.Model):
 
     @staticmethod
     def autocomplete_search_fields():
+        """
+        Admin search
+        """
         return ("id__iexact", "name__icontains", "slug__icontains")
 
     def background_data(self):
@@ -418,6 +441,9 @@ class EventsWidget(GroupWidget):
             ('list', 'List'),
         ),
     )
+    # The following two fields allow us to have an EventsWidget that displays whatever
+    # shows are happening in the next X days. When these fields are set, the contents of this
+    # widget do not need to be managed.
     upcoming_events = models.BooleanField(default=False)
     upcoming_events_window = models.IntegerField(
         blank=True, null=True,
@@ -461,6 +487,9 @@ class EventsWidget(GroupWidget):
 
 
 class PersonFocusWidget(Widget):
+    """
+    A more detailed display for a Person. Includes their bio.
+    """
     person = models.ForeignKey(Person)
 
     def to_data(self, *args, **kwargs):
@@ -615,7 +644,9 @@ class BannerWidget(Widget, PageLinkMixin):
 
 
 class ImageCarouselWidget(Widget):
-
+    """
+    Container class for the images in the carousel slider.
+    """
     class Meta:
         verbose_name = "carousel of big images"
         verbose_name_plural = "carousels of big images"
