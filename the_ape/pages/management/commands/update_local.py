@@ -186,7 +186,7 @@ class Command(BaseCommand):
         return widget
 
     def update_slugged_page(self, slug):
-        page, created = Page.objects.get_or_create(slug=slug)
+        page, created = Page.objects.get_or_create(name=slug, slug=slug)
         page.page_to_widgets.all().delete()
 
         page_url = '{}/api/{}.json'.format(BASE_URL, slug)
@@ -207,3 +207,6 @@ class Command(BaseCommand):
                 print('UPDATING: {} page'.format(slug))
                 self.update_slugged_page(slug)
                 print('Finished updating {} page\n'.format(slug))
+            # we create just the Ape TV page, downloading its video widgets and 
+            # reuploading them would take quite a while
+            page, created = Page.objects.get_or_create(name='Ape TV', slug='apetv')
