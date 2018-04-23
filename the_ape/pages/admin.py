@@ -18,7 +18,7 @@ from pages.admin_forms import FilteredSelect, PageForm, get_widget_form
 from pages.admin_views import WidgetFormView, WidgetNameLookupView, WidgetPageLookupView
 from pages.fields import SortedManyToManyField
 import pages.views
-from pages.models import Page, ApeClassesWidget, EventsWidget, PeopleWidget
+from pages.models import Page, ApeClassesWidget, EventsWidget, PeopleWidget, VideosWidget, Video
 from pages.templatetags.page_tags import admin_url
 from people.models import HouseTeam, Person
 
@@ -305,6 +305,10 @@ class ApeClassAdmin(SaveAsNewAdmin):
     ]
 
 
+class VideoAdmin(admin.ModelAdmin):
+    list_display = ['name', 'description']
+
+
 admin.site.register(ApeClass, ApeClassAdmin)
 admin.site.register(Event, EventAdmin)
 
@@ -317,3 +321,5 @@ for model in WIDGET_MODELS:
 admin.site.unregister(ApeClassesWidget)
 admin.site.unregister(EventsWidget)
 admin.site.unregister(PeopleWidget)
+admin.site.unregister(VideosWidget)
+admin.site.register(Video, VideoAdmin)

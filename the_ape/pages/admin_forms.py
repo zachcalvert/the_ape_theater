@@ -122,6 +122,7 @@ class WidgetForm(FileRecoveryForm):
             'people': FilteredSelectMultiple(verbose_name='people', is_stacked=False),
             'ape_classes': FilteredSelectMultiple(verbose_name='ape classes', is_stacked=False),
             'events': FilteredSelectMultiple(verbose_name='events', is_stacked=False),
+            'videos': FilteredSelectMultiple(verbose_name='videos', is_stacked=False),
         }
         fields = '__all__'
 
@@ -267,6 +268,10 @@ class BannerWidgetForm(WidgetForm):
     item_model = pages.models.BannerWidget
 
 
+class VideoWidgetForm(WidgetForm):
+    item_model = pages.models.Video
+
+
 def get_widget_form(widget_type=None, prefix='__prefix__', inline=True, data=None, *args, **kwargs):
     prefix = "widget-{}".format(prefix)
     kwargs['prefix'] = prefix
@@ -284,7 +289,8 @@ def get_widget_form(widget_type=None, prefix='__prefix__', inline=True, data=Non
         pages.models.EventsWidget: EventWidgetForm,
         pages.models.BannerWidget: BannerWidgetForm,
         pages.models.PersonFocusWidget: PersonFocusWidgetForm,
-        pages.models.ApeClassesWidget: ApeClassWidgetForm
+        pages.models.ApeClassesWidget: ApeClassWidgetForm,
+        pages.models.VideosWidget: VideoWidgetForm,
     }
     if widget_type in registry:
         BaseForm = registry.get(widget_type)

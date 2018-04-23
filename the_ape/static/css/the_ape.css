@@ -275,6 +275,9 @@ form.navbar-right {
 .row-widget-item:hover {
     background: #F9F9F9;
 }
+.row-video-item {
+    width: 600px;
+}
 
 /* end row widget */
 
@@ -631,19 +634,25 @@ form.navbar-right {
 /* ----- end audio widget ------*/
 
 /* ----- start video widget ------*/
-.page-video {
-    background: #000;
-    text-align: center;
-    border: 3px solid #f9f9f9
-}
-.page-video video {
-    width: 80%;
-    margin-left: 10%;
-    display: block;
-}
 .video-description {
     padding: 10px 0;
-    background: #f5f5f5;
+    background: #f9f9f9;
+}
+.video-gallery-item {
+    background: #f9f9f9;
+    text-align: center;
+    border: 3px solid #f5f5f5;
+}
+.video-gallery-item video {
+    width: 100%;
+}
+.video-row-item {
+    background: #f9f9f9;
+    text-align: center;
+    border: 3px solid #f5f5f5;
+}
+.video-row-item video {
+    width: 100%;
 }
 /* ----- end video widget ------*/
 

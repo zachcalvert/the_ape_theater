@@ -24,6 +24,12 @@
 		                	{% include 'widgets/items/ape_class.html' %}
 		                {% endwith %}
 		            </div>
+		        {% elif widget.item_type == 'video' %}
+		            <div class="gallery-item wide-item">
+		            	{% with item as video %}
+		                	{% include 'widgets/items/video_gallery_item.html' %}
+		                {% endwith %}
+		            </div>
 		        {% endif %}
 	        {% endfor %}
     </div>

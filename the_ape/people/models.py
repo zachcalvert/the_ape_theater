@@ -8,7 +8,7 @@ class HouseTeam(models.Model):
     name = models.CharField(max_length=50)
     logo = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
     image_carousel = models.ForeignKey('pages.ImageCarouselWidget', null=True, blank=True)
-    videos = models.ManyToManyField('pages.VideoWidget', blank=True)
+    videos = models.ManyToManyField('pages.Video', blank=True)
     show_time = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
@@ -71,7 +71,7 @@ class Person(models.Model):
     teaches = models.BooleanField(default=False)
     performs = models.BooleanField(default=True)
     house_teams = models.ManyToManyField(HouseTeam, through='HouseTeamMembership', related_name='performers')
-    videos = models.ManyToManyField('pages.VideoWidget', blank=True)
+    videos = models.ManyToManyField('pages.Video', blank=True)
     active = models.BooleanField(default=True)
 
     objects = PeopleManager()

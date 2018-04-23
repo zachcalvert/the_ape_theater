@@ -1,0 +1,15 @@
+<div class="video-gallery-item" id="video-{{ video.id }}">
+	<video controls>
+	  <source src="{{ video.source }}" type="video/mp4">
+	  <source src="{{ video.source }}" type="video/ogg">
+	  Your browser does not support the video tag.
+	</video>
+	<div class="widget-header" style="background: #f9f9f9">
+		<h2 class="widget-title">{{ video.name|safe }}</h2>
+	</div>
+	{% if video.description %}
+		<div class="video-description">
+			<p>{{ video.description }}</p>
+		</div>
+	{% endif %}
+</div>
