@@ -31,7 +31,7 @@ class HouseTeam(models.Model):
             "path": self.get_api_url(),
             "show_time": self.show_time,
             "performers": [
-                performer.to_data() for performer in self.performers.all()
+                performer.to_data(house_team=False) for performer in self.performers.all()
             ]
         }
         if self.image_carousel:
@@ -98,7 +98,7 @@ class Person(models.Model):
     def get_absolute_url(self):
         return reverse('person_wrapper', kwargs={'person_id': self.pk})
 
-    def to_data(self):
+    def to_data(self, house_team=True):
         data = {
             "id": self.id,
             "name": self.name,
@@ -108,7 +108,7 @@ class Person(models.Model):
             "path": self.get_api_url(),
             "url": self.get_absolute_url()
         }
-        if self.house_team:
+        if house_team and self.house_team:
             data["house_team"] = self.house_team.to_data(members=False)
         if self.headshot:
             data['image_url'] = self.headshot.url
