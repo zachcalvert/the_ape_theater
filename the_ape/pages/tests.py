@@ -16,7 +16,7 @@ from events.models import Event
 from pages.models import Page, BannerWidget, TextWidget, ImageCarouselWidget, \
     PersonFocusWidget, EventsWidget
 from pages.templatetags.page_tags import wrapped_url
-from people.models import HouseTeam, Person
+from people.models import HouseTeam, Person, HouseTeamMembership
 
 
 def make_image_file(name="test.png", size=(200, 1), color="red"):
@@ -40,8 +40,11 @@ class TestWidgetAPI(TestCase):
             image=make_image_file(size=(2048, 1), color="#ffffff")
         )
         self.house_team = HouseTeam.objects.create(name="The Goof Troop")
-        self.person1= Person.objects.create(first_name="Funnyboy", last_name="Jones", house_team=self.house_team)
-        self.person2 = Person.objects.create(first_name="Lisa", last_name="Crackemups", house_team=self.house_team)
+        self.person1= Person.objects.create(first_name="Funnyboy", last_name="Jones")
+        self.person2 = Person.objects.create(first_name="Lisa", last_name="Crackemups")
+
+        HouseTeamMembership.objects.create(person=self.person1, house_team=self.house_team)
+        HouseTeamMembership.objects.create(person=self.person2, house_team=self.house_team)
 
         self.event1 = Event.objects.create(name="Friday Night Laffs", bio="Every Friday!", ticket_price=10, banner=self.banner)
         self.event2 = Event.objects.create(name="Saturday Night Shakes", bio="Every Saturday!", ticket_price=2, banner=self.banner)
@@ -290,8 +293,11 @@ class WebPageWrapperTest(TestCase):
 
     def setUp(self):
         self.house_team = HouseTeam.objects.create(name="The Goof Troop")
-        self.person1= Person.objects.create(first_name="Funnyboy", last_name="Jones", house_team=self.house_team)
-        self.person2 = Person.objects.create(first_name="Lisa", last_name="Crackemups", house_team=self.house_team)
+        self.person1 = Person.objects.create(first_name="Funnyboy", last_name="Jones")
+        self.person2 = Person.objects.create(first_name="Lisa", last_name="Crackemups")
+
+        HouseTeamMembership.objects.create(person=self.person1, house_team=self.house_team)
+        HouseTeamMembership.objects.create(person=self.person2, house_team=self.house_team)
 
         self.event1 = Event.objects.create(name="Friday Night Laffs", bio="Every Friday!", ticket_price=10)
 
