@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 
-from people.models import Person, HouseTeam
+from people.models import Person, HouseTeam, HouseTeamMembership
 
 
 class PersonForm(forms.ModelForm):
@@ -14,12 +14,20 @@ class PersonForm(forms.ModelForm):
             'videos': FilteredSelectMultiple(verbose_name='videos', is_stacked=False),
         }
 
+class HouseTeamMembershipInline(admin.TabularInline):
+    model = HouseTeamMembership
+    fields = ['house_team']
+    extra = 0
+
 
 class PersonAdmin(admin.ModelAdmin):
     search_fields = ['first_name', 'last_name']
-    list_display = ['name', 'teaches', 'performs', 'house_team', 'headshot', 'active']
+    list_display = ['name', 'teaches', 'performs', 'headshot', 'active']
     list_filter = ['teaches', 'performs']
     form = PersonForm
+    inlines = [
+        HouseTeamMembershipInline
+    ]
 
     def get_queryset(self, request):
         return Person.all_objects
@@ -36,9 +44,9 @@ class HouseTeamForm(forms.ModelForm):
 
 
 class PerformerInline(admin.TabularInline):
-    model = Person
-    readonly_fields = ['name']
-    fields = ['name']
+    model = HouseTeam.performers.through
+    readonly_fields = ['person']
+    fields = ['person']
     extra = 0
 
 
