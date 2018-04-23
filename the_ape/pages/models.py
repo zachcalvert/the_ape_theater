@@ -742,6 +742,10 @@ class AudioWidget(Widget):
 
 
 class Video(models.Model):
+    """
+    Class representing an uploaded Video file. Can be referenced across multiple VideosWidgets
+    without needing to be uploaded multiple times.
+    """
     name = models.CharField(max_length=100)
     video_file = models.FileField(upload_to='videos', help_text="Allowed type - .mp4, .ogg")
     description = models.TextField(null=True, blank=True)
@@ -762,8 +766,7 @@ class Video(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        We collect static when video changes because it seems easier than
-        implementing webpack
+        Collect static when video changes because it is easier than implementing webpack.
         """
         collectstatic = False
 
@@ -773,7 +776,8 @@ class Video(models.Model):
                 print('video changed')
                 collectstatic = True
         else:
-            collectstatic = True  # this is a newly created instance
+            # this is a newly created instance
+            collectstatic = True
 
         super(Video, self).save(*args, **kwargs)
         if collectstatic:
