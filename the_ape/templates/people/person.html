@@ -15,9 +15,6 @@
 			    </div>
 			    <div class="person-focus-right-column">
 			    	<div class="person-focus-bio">{{ person.bio|safe }}</div>
-			    	{% if person.house_team %}
-			    		<div class="person-focus-house-team">House team: <a href="{{ person.house_team.path|wrapped_url }}">{{ person.house_team.name }}</a></div>
-			    	{% endif %}
 			    	{% if person.website %}
 			    		<div class="person-focus-website">Website: <a href="{{ person.website }}">{{ person.website }}</a></div>
 			    	{% endif %}
@@ -25,7 +22,35 @@
 			</div>
 		</div>
 	</div>
-
+	
+	{% if person.house_teams %}
+		<div class="gallery widget-full">
+			{% if person.house_teams|length > 1 %}
+				<div class="widget-header">
+			        <h2 class="widget-title">House Teams</h2>
+			    </div>
+			    {% for team in person.house_teams %}
+					<div class="gallery-item wide-item">
+						<a href="{% url 'house_team_wrapper' team.id %}">
+		        			<img style="width: 100%;" src="{{ team.logo.image.url }}" />
+		    			</a>
+	    			</div>
+				{% endfor %}
+			{% else %}
+				<div class="widget-header">
+			        <h2 class="widget-title">House Team</h2>
+			    </div>
+			    {% for team in person.house_teams %}
+					<div class="gallery-item full-width-item">
+						<a href="{% url 'house_team_wrapper' team.id %}">
+		        			<img style="width: 100%;" src="{{ team.logo.image.url }}" />
+		    			</a>
+	    			</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	{% endif %}
+	
 	<div class="gallery">
 		{% if person.videos %}
 			{% for video in person.videos %}
