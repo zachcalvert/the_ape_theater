@@ -596,6 +596,21 @@ class PersonFocusWidget(Widget):
         return data
 
 
+class HouseTeamFocusWidget(Widget):
+    """
+    A detailed display for a House Team. Includes their performance time.
+    """
+    house_team = models.ForeignKey(HouseTeam)
+
+    def to_data(self, *args, **kwargs):
+        data = super(HouseTeamFocusWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": "house_team_focus",
+            "house_team": self.house_team.to_data(*args, **kwargs)
+        })
+        return data
+
+
 class BannerWidget(Widget, PageLinkMixin):
     image = models.ImageField(upload_to='images/banner/')
 

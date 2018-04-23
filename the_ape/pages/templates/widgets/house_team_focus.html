@@ -1,0 +1,13 @@
+{% load page_tags %}
+
+<div class="gallery">
+    <div class="widget-header">
+        Cashmere
+        {% if widget.house_team.show_time %}
+            <span style="float:right;">{{ widget.house_team.show_time }}</span>
+        {% endif %}
+    </div>
+    <a href="{% url 'house_team_wrapper' widget.house_team.id %}">
+        <img style="width: 100%;" src="{{ widget.house_team.logo.image.url }}" />
+    </a>
+</div>
