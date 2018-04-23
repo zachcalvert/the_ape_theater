@@ -6,8 +6,10 @@ from django.urls import reverse
 
 class HouseTeam(models.Model):
     name = models.CharField(max_length=50)
+    logo = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
     image_carousel = models.ForeignKey('pages.ImageCarouselWidget', null=True, blank=True)
     videos = models.ManyToManyField('pages.VideoWidget', blank=True)
+    show_time = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -22,19 +24,20 @@ class HouseTeam(models.Model):
     def get_absolute_url(self):
         return reverse('house_team', kwargs={'house_team_id': self.pk})
 
-
     def to_data(self, members=True):
         data = {
             "id": self.id,
             "name": self.name,
-            "path": self.get_api_url()
-        }
-        if members:
-            data["performers"] = [
+            "path": self.get_api_url(),
+            "show_time": self.show_time,
+            "performers": [
                 performer.to_data() for performer in self.performers.all()
             ]
+        }
         if self.image_carousel:
             data['image_carousel'] = self.image_carousel.to_data()
+        if self.logo:
+            data['logo'] = self.logo.to_data()
         if self.videos.exists():
             data['videos'] = [
                 {
