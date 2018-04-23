@@ -1,9 +1,19 @@
+"""
+The views for this app are split into two sections:
+1. Views that return JSON for a requested resource (a Page, an Event, etc)
+2. Views that wrap the above JSON views and render that data to an HTML template.
+
+The views were written this way to expose an API for all the Pages on the site. This
+leaves the door open for us to drop in a different frontend framework at some point
+(angular, react, whatever is hip and trendy in a year). It also allows for an iOS or Android
+app to be built with very little extra work needing to be done server-side.
+"""
 import json
 import re
 
 from django.contrib import messages
 from django.core.serializers.json import DjangoJSONEncoder
-from django.core.urlresolvers import reverse, Resolver404, resolve
+from django.core.urlresolvers import Resolver404, resolve
 from django.http import Http404, HttpResponse
 from django.http.response import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
@@ -23,15 +33,6 @@ from pages.templatetags.page_tags import get_slug_redirect
 from people.models import Person, HouseTeam
 
 
-REDIRECT_NEEDED_URL_PATTERNS = [
-    'ape_class',
-    'event',
-    'person',
-    'house_team',
-    'page',
-]
-
-
 def handler404(request):
     response = render_to_response('404.html', {},
                                   context_instance=RequestContext(request))
@@ -47,9 +48,9 @@ def handler500(request):
 
 
 
-"""
-JSON VIEWS
-"""
+#####################################################
+# JSON VIEWS
+#####################################################
 class JSONHttpResponse(HttpResponse):
     def __init__(self, content=None, *args, **kwargs):
         kwargs['content_type'] = 'application/json'
@@ -127,9 +128,18 @@ class HouseTeamView(JSONView):
         return data
 
 
-"""
-HTML VIEWS
-"""
+#####################################################
+# HTML VIEWS
+#####################################################
+REDIRECT_NEEDED_URL_PATTERNS = [
+    'ape_class',
+    'event',
+    'person',
+    'house_team',
+    'page',
+]
+
+
 class WebPageWrapperView(TemplateView):
     template_name = "pages/page.html"
     context_object_name = "page"
