@@ -30,10 +30,11 @@ class HouseTeam(models.Model):
             "name": self.name,
             "path": self.get_api_url(),
             "show_time": self.show_time,
-            "performers": [
+        }
+        if members:
+            data["performers"] = [
                 performer.to_data(house_team=False) for performer in self.performers.all()
             ]
-        }
         if self.image_carousel:
             data['image_carousel'] = self.image_carousel.to_data()
         if self.logo:
@@ -69,7 +70,7 @@ class Person(models.Model):
     headshot = models.ImageField(null=True, blank=True)
     teaches = models.BooleanField(default=False)
     performs = models.BooleanField(default=True)
-    house_team = models.ForeignKey(HouseTeam, null=True, blank=True, related_name='performers')
+    house_teams = models.ManyToManyField(HouseTeam, through='HouseTeamMembership', related_name='performers')
     videos = models.ManyToManyField('pages.VideoWidget', blank=True)
     active = models.BooleanField(default=True)
 
@@ -108,8 +109,10 @@ class Person(models.Model):
             "path": self.get_api_url(),
             "url": self.get_absolute_url()
         }
-        if house_team and self.house_team:
-            data["house_team"] = self.house_team.to_data(members=False)
+        if house_team and self.house_teams.exists():
+            data["house_teams"] = [
+                house_team.to_data(members=False) for house_team in self.house_teams.all()
+            ]
         if self.headshot:
             data['image_url'] = self.headshot.url
         if self.videos.exists():
@@ -141,3 +144,8 @@ class Person(models.Model):
         super(Person, self).save(*args, **kwargs)
         if collectstatic:
             call_command('collectstatic', verbosity=1, interactive=False)
+
+
+class HouseTeamMembership(models.Model):
+    person = models.ForeignKey(Person, related_name='house_team_performers')
+    house_team = models.ForeignKey(HouseTeam, related_name='house_team_performers', null=True)
