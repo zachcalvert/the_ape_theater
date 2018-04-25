@@ -449,6 +449,14 @@ class EventsWidget(GroupWidget):
     def item_type(self):
         return "event"
 
+    def to_data(self, *args, **kwargs):
+        data = super(EventsWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "upcoming_events": self.upcoming_events,
+            "upcoming_events_window": self.upcoming_events_window
+        })
+        return data
+
     @property
     def items(self):
         events = Event.objects.all()

@@ -194,6 +194,8 @@ class Command(BaseCommand):
                 widget.display_type = widget_type
                 widget.width = widget_json['width']
                 widget.type = widget_json['type']
+                widget.upcoming_events = widget_json['upcoming_events']
+                widget.upcoming_events_window = widget_json['upcoming_events_window']
                 widget.save()
                 for item in widget_json['items']:
                     show = self.create_show_from_json(item)
