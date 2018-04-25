@@ -2,6 +2,6 @@
 
 <div class="page-text">
     <p style="color: {{ widget.text_color }}; text-align: center;">
-        {{ widget.text|linebreaksbr }}
+        {{ widget.text|safe|linebreaksbr }}
     </p>
 </div>
