@@ -11,7 +11,7 @@
 	<div class="ape-class-detail">
 
 	    <div class="ape-class-detail-left-column">
-	    	<div class="ape-class-detail-bio">{{ ape_class.bio|safe }}</div>
+	    	<div class="ape-class-detail-bio">{{ ape_class.bio|safe|linebreaksbr }}</div>
 		</div>
 		<div class="ape-class-info">
 			<span class="ape-class-detail-instructor">Instructor: {{ ape_class.teacher.name }}</span>
@@ -67,7 +67,7 @@
 			    	{% include 'widgets/image.html' with url=ape_class.teacher.image_url %}
 			    </div>
 			    <div class="person-focus-right-column">
-			    	<div class="person-focus-bio">{{ ape_class.teacher.bio|safe }}</div>
+			    	<div class="person-focus-bio">{{ ape_class.teacher.bio|safe|linebreaksbr }}</div>
 			    	{% if person.house_team %}
 			    		<div class="person-focus-house-team">Plays on <a href="{{ ape_class.teacher.house_team.path|wrapped_url }}">{{ ape_class.teacher.house_team.name }}</a></div>
 			    	{% endif %}

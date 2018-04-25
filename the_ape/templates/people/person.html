@@ -14,7 +14,7 @@
 			    	{% include 'widgets/image.html' with url=person.image_url %}
 			    </div>
 			    <div class="person-focus-right-column">
-			    	<div class="person-focus-bio">{{ person.bio|safe }}</div>
+			    	<div class="person-focus-bio">{{ person.bio|safe|linebreaksbr }}</div>
 			    	{% if person.website %}
 			    		<div class="person-focus-website">Website: <a href="{{ person.website }}">{{ person.website }}</a></div>
 			    	{% endif %}
