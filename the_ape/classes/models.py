@@ -6,6 +6,11 @@ from django.utils import timezone
 
 
 class ApeClass(models.Model):
+    """
+    A model for any class/workshop someone can take at The Ape. 
+
+    Anonymous Users are not allowed to register for a class, people must create an account to register for a class.
+    """
     TYPE_CHOICES = (
         ('IMPROV', 'Improv'),
         ('SKETCH', 'Sketch'),
@@ -37,10 +42,16 @@ class ApeClass(models.Model):
 
     @property
     def slug(self):
+        """
+        Provide a slug property to make event detail urls SEO-friendly
+        """
         return slugify(self.name)
 
     @property
     def is_free(self):
+        """
+        If class is free, we display different messaging around registering for it.
+        """
         return self.price == 0
 
     def get_api_url(self):
@@ -73,8 +84,7 @@ class ApeClass(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        We collect static when banners change because it seems easier than
-        implementing webpack
+        We collect static when banners change because it is easier than implementing webpack.
         """
         collectstatic = False
 

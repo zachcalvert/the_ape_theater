@@ -8,6 +8,9 @@ from django.utils import timezone
 class Event(models.Model):
     """
     Model representing any one-time event for which the theater can sell tickets.
+
+    Anonymous Users are allowed to purchase tickets for an event. In this case,
+    we create an account for them with the provided name and email address.
     """
     name = models.CharField(max_length=100)
     bio = models.TextField()
