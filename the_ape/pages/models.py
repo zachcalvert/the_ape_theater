@@ -838,3 +838,8 @@ class VideosWidget(GroupWidget):
             "description": item.description
         })
         return data
+
+
+class VideoWidget(Widget):
+    video_file = models.FileField(upload_to='videos', help_text="Allowed type - .mp4, .ogg")
+    description = models.TextField(null=True, blank=True)

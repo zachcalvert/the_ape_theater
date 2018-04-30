@@ -18,12 +18,12 @@ from pages.admin_forms import FilteredSelect, PageForm, get_widget_form
 from pages.admin_views import WidgetFormView, WidgetNameLookupView, WidgetPageLookupView
 from pages.fields import SortedManyToManyField
 import pages.views
-from pages.models import Page, ApeClassesWidget, EventsWidget, PeopleWidget, VideosWidget, Video
+from pages.models import Page, ApeClassesWidget, EventsWidget, PeopleWidget, VideosWidget, Video, VideoWidget
 from pages.templatetags.page_tags import admin_url
 from people.models import HouseTeam, Person
 
 WIDGET_MODELS = [model for model in apps.get_models(pages.models)
-                 if issubclass(model, pages.models.Widget) and model != pages.models.Widget]
+                 if issubclass(model, pages.models.Widget) and model != pages.models.Widget and model != pages.models.VideoWidget]
 
 
 class AjaxModelAdmin(admin.ModelAdmin):
