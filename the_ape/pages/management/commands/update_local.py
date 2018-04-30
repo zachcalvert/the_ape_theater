@@ -18,8 +18,8 @@ from django.template.defaultfilters import slugify
 from classes.models import ApeClass
 from events.models import Event
 from pages.models import Page, PersonFocusWidget, TextWidget, ImageCarouselItem, ImageCarouselWidget, \
-    ApeClassesWidget, BannerWidget, EventsWidget, PeopleWidget
-from people.models import Person
+    ApeClassesWidget, BannerWidget, EventsWidget, PeopleWidget, HouseTeamFocusWidget
+from people.models import Person, HouseTeam, HouseTeamMembership
 
 
 PAGES_TO_CREATE = [
@@ -64,6 +64,30 @@ class Command(BaseCommand):
         if not person:
             person = self.create_person_from_json(focus_json['person'])
         widget, created = PersonFocusWidget.objects.get_or_create(name='{}'.format(person.last_name), person=person)
+        return widget
+
+    def create_house_team_focus_widget_from_json(self, focus_json):
+        team_name = focus_json['house_team']['name']
+        team, created = HouseTeam.objects.get_or_create(name=team_name)
+        if 'logo' in focus_json['house_team']:
+            banner_url = '{}{}'.format(BASE_URL, focus_json['house_team']['logo']['image']['url'])
+            team.banner = self.create_banner_widget_from_url(banner_url, team.name)
+        if 'performers' in focus_json['house_team']:
+            for performer in focus_json['house_team']['performers']:
+                first, last = performer['name'].split(' ')
+                try:
+                    person = Person.objects.get(first_name=first, last_name=last)
+                except Person.DoesNotExist:
+                    print('House team {} references performer {}, who has not been created yet.'.format(team.name, performer['name']))
+                    continue
+                HouseTeamMembership.objects.get_or_create(house_team=team, person=person)
+                print('added {} to {}'.format(person, team))
+        if 'image_carousel' in focus_json['house_team']:
+            team.image_carousel = self.create_carousel_widget_from_json(focus_json['house_team']['image_carousel'])
+        team.show_time = focus_json['house_team']['show_time']
+        team.save()
+
+        widget, created = HouseTeamFocusWidget.objects.get_or_create(name='{}'.format(team.name), house_team=team)
         return widget
 
     def create_class_from_json(self, class_json):
@@ -152,6 +176,9 @@ class Command(BaseCommand):
         elif widget_type == 'person_focus':
             widget = self.create_person_focus_widget_from_json(widget_json)
 
+        elif widget_type == 'house_team_focus':
+            widget = self.create_house_team_focus_widget_from_json(widget_json)
+
         elif widget_json['item_type'] is not None:
             if widget_json['item_type'] == 'ape_class':
                 widget, created = ApeClassesWidget.objects.get_or_create(name=widget_json['name'])
@@ -167,6 +194,8 @@ class Command(BaseCommand):
                 widget.display_type = widget_type
                 widget.width = widget_json['width']
                 widget.type = widget_json['type']
+                widget.upcoming_events = widget_json['upcoming_events']
+                widget.upcoming_events_window = widget_json['upcoming_events_window']
                 widget.save()
                 for item in widget_json['items']:
                     show = self.create_show_from_json(item)

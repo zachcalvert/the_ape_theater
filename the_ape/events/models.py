@@ -6,6 +6,12 @@ from django.utils import timezone
 
 
 class Event(models.Model):
+    """
+    Model representing any one-time event for which the theater can sell tickets.
+
+    Anonymous Users are allowed to purchase tickets for an event. In this case,
+    we create an account for them with the provided name and email address.
+    """
     name = models.CharField(max_length=100)
     bio = models.TextField()
     start_time = models.DateTimeField(null=True)
@@ -22,10 +28,16 @@ class Event(models.Model):
 
     @property
     def slug(self):
+        """
+        Provide a slug property to make event detail urls SEO-friendly
+        """
         return slugify(self.name)
 
     @property
     def is_free(self):
+        """
+        If an event is free, we display different messaging around ticket purchases.
+        """
         if self.ticket_price == 0:
             return True
         return False
@@ -53,8 +65,7 @@ class Event(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        We collect static when banners change because it seems easier than
-        implementing webpack
+        We collect static when banners change because it is easier than implementing webpack.
         """
         collectstatic = False
 

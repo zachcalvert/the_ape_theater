@@ -12,7 +12,7 @@
                 </a>
             </div>
             <div class="person-focus-right-column">
-                <div class="person-focus-bio">{{ widget.person.bio|safe }}</div>
+                <div class="person-focus-bio">{{ widget.person.bio|safe|linebreaksbr }}</div>
                 {% if widget.person.house_team %}
                     <div class="person-focus-house-team">House team: <a href="{{ person.house_team.path|wrapped_url }}">{{ widget.person.house_team.name }}</a></div>
                 {% endif %}

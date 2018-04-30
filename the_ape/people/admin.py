@@ -43,7 +43,6 @@ class HouseTeamForm(forms.ModelForm):
 
 class PerformerInline(admin.TabularInline):
     model = HouseTeam.performers.through
-    readonly_fields = ['person']
     fields = ['person']
     extra = 0
 
