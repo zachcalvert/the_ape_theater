@@ -749,34 +749,97 @@ class AudioWidget(Widget):
             call_command('collectstatic', verbosity=1, interactive=False)
 
 
-class VideoWidget(Widget):
+class Video(models.Model):
+    """
+    Class representing an uploaded Video file. Can be referenced across multiple VideosWidgets
+    without needing to be uploaded multiple times.
+    """
+    name = models.CharField(max_length=100)
     video_file = models.FileField(upload_to='videos', help_text="Allowed type - .mp4, .ogg")
     description = models.TextField(null=True, blank=True)
 
+    def get_api_url(self):
+        return ''
+
+    def __str__(self):
+        return self.name
+
     def to_data(self, *args, **kwargs):
-        data = super(VideoWidget, self).to_data(*args, **kwargs)
-        data.update({
-            "type": "video",
+        data = {
+            "name": self.name,
             "description": self.description,
-            "video_source": self.video_file.url,
-        })
+            "source": self.video_file.url,
+        }
         return data
 
     def save(self, *args, **kwargs):
         """
-        We collect static when video changes because it seems easier than
-        implementing webpack
+        Collect static when video changes because it is easier than implementing webpack.
         """
         collectstatic = False
 
         if self.pk is not None:
-            orig = VideoWidget.objects.get(pk=self.pk)
+            orig = Video.objects.get(pk=self.pk)
             if orig.video_file != self.video_file:
                 print('video changed')
                 collectstatic = True
         else:
-            collectstatic = True  # this is a newly created instance
+            # this is a newly created instance
+            collectstatic = True
 
-        super(VideoWidget, self).save(*args, **kwargs)
+        super(Video, self).save(*args, **kwargs)
         if collectstatic:
             call_command('collectstatic', verbosity=0, interactive=False)
+
+
+class VideoFocusWidget(Widget):
+    video = models.ForeignKey(Video)
+
+    def to_data(self, *args, **kwargs):
+        data = super(VideoFocusWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": "video_focus",
+            "video": self.video.to_data(*args, **kwargs)
+        })
+        return data
+
+
+class VideosWidget(GroupWidget):
+    videos = models.ManyToManyField(Video, blank=True, related_name='video_widgets')
+    display_type = models.CharField(
+        max_length=100,
+        default='gallery',
+        null=True,
+        blank=True,
+        choices=(
+            ('gallery', 'Cover Gallery'),
+            ('row_focus', 'Row'),
+        ),
+    )
+
+    class Meta:
+        verbose_name = "group of videos"
+        verbose_name_plural = "groups of videos"
+
+    def item_type(self):
+        return "video"
+
+    @property
+    def items(self):
+        videos = Video.objects.all()
+        if self.pk and self.videos.exists():
+            videos = Video.objects.filter(video_widgets=self)
+        return videos.distinct()
+
+    def item_data(self, item):
+        data = super(VideosWidget, self).item_data(item)
+        data.update({
+            "source": item.video_file.url,
+            "description": item.description
+        })
+        return data
+
+
+class VideoWidget(Widget):
+    video_file = models.FileField(upload_to='videos', help_text="Allowed type - .mp4, .ogg")
+    description = models.TextField(null=True, blank=True)

@@ -10,9 +10,7 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = '__all__'
-        widgets = {
-            'videos': FilteredSelectMultiple(verbose_name='videos', is_stacked=False),
-        }
+
 
 class HouseTeamMembershipInline(admin.TabularInline):
     model = HouseTeamMembership

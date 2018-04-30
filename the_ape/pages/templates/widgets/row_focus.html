@@ -7,16 +7,18 @@
         <div id="prev-items-{{ widget.id }}" class="slider-control prev"></div>
         <div id="widget-row-{{ widget.id }}" class="widget-row">
                 {% for item in widget.items %}
-                    <div class="row-widget-item">
-                        <a class="cover " href="{{ item.path|wrapped_url }}" title="{{ item.name }}">
-                            {% include 'widgets/image.html' with url=item.image name=item.name alt_text=item.name %}
-                        </a>
-                        {% if widget.item_type == "event" %}
+                    {% if widget.item_type == 'video' %}
+                        {% with item as video %}
+                            {% include 'widgets/items/video_row_item.html' %}
+                        {% endwith %}
+                    {% else %}
+                        <div class="row-widget-item">
+                            <a class="cover " href="{{ item.path|wrapped_url }}" title="{{ item.name }}">
+                                {% include 'widgets/image.html' with url=item.image name=item.name alt_text=item.name %}
+                            </a>
                             <p>{{ item.name }}</p>
-                        {% elif widget.item_type == "ape_class" %}
-                            <p>{{ item.name }}</p>
-                        {% endif %}
-                    </div>
+                        </div>
+                    {% endif %}
                 {% endfor %}
         </div>
         <div id="next-items-{{ widget.id }}" class="slider-control next"></div>
@@ -29,8 +31,8 @@
         widgetRow.bxSlider({
             minSlides: 1,
             maxSlides: 5,
-            slideWidth: 300,
-            slideMargin: 34,
+            slideWidth: {% if widget.item_type == 'video' %}700{% else %}300{% endif %},
+            slideMargin: {% if widget.item_type == 'video' %}15{% else %}34{% endif %},
             adaptiveHeight: true,
             pager: false,
             nextSelector: "#next-items-{{ widget.id }}",
