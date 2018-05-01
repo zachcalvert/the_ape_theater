@@ -290,6 +290,7 @@ def get_widget_form(widget_type=None, prefix='__prefix__', inline=True, data=Non
         pages.models.BannerWidget: BannerWidgetForm,
         pages.models.PersonFocusWidget: PersonFocusWidgetForm,
         pages.models.ApeClassesWidget: ApeClassWidgetForm,
+        pages.models.PeopleWidget: PersonWidgetForm,
         pages.models.VideosWidget: VideoWidgetForm,
     }
     if widget_type in registry:
