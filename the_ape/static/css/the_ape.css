@@ -829,7 +829,9 @@ form.navbar-right {
     padding: 10px;
 }
 
-
+.page-video video {
+    width: 100%;
+}
 .house-team-videos {
     display: inline-block;
     width: 100%;
