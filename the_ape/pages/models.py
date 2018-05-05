@@ -379,6 +379,22 @@ class TextWidget(Widget):
         return data
 
 
+class PressClippingWidget(TextWidget):
+    background_color = ColorField(blank=True)
+    author = models.CharField(max_length=100)
+    external_link = models.URLField(max_length=2000, null=True, blank=True)
+
+    def to_data(self, *args, **kwargs):
+        data = super(PressClippingWidget, self).to_data(*args, **kwargs)
+        data.update({
+            "type": "press_clipping",
+            "author": self.author,
+            "external_link": self.external_link,
+            "background_color": self.background_color,
+        })
+        return data
+
+
 class GroupWidget(Widget):
     """
     Base class for a group of items.

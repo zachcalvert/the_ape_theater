@@ -1,0 +1,18 @@
+{% load page_tags %}
+
+<div class="gallery press-clipping"
+	{% if widget.background_color %}
+		style="background: {{ widget.background_color }}"
+	{% else %}
+		style="background: #ffffff"
+	{% endif %}
+>
+	<div class="press-clipping-quote">
+		<span style="color: {{ widget.text_color }}">{{ widget.text|safe|linebreaksbr }}</span>
+	</div>
+	<div  style="color: {{ widget.text_color }}" class="press-clipping-author">- {{ widget.author }}.
+		{% if widget.external_link %} 
+			<a style="color: {{ widget.text_color }}; text-decoration: underline;" target="_blank" href="{{ widget.external_link }}">Source</a>
+		{% endif %}
+	</div>
+</div>
