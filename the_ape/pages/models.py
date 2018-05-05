@@ -380,6 +380,12 @@ class TextWidget(Widget):
 
 
 class PressClippingWidget(TextWidget):
+    """
+    Provide a simpler mechanism for displaying people's reviews of the theater on the site.
+
+    Author is whoever said/wrote it.
+    External link is optional. Applies if the content is a snippet from a larger article/source.
+    """
     background_color = ColorField(blank=True)
     author = models.CharField(max_length=100)
     external_link = models.URLField(max_length=2000, null=True, blank=True)
