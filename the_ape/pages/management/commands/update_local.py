@@ -34,6 +34,8 @@ PAGES_TO_CREATE = [
 
 BASE_URL = 'https://theapetheater.org'
 
+UNSUPPORTED_WIGDET_TYPES = ['audio', 'videoswidget', 'video_focus']
+
 class Command(BaseCommand):
 
     def create_person_from_json(self, person_json):
@@ -164,7 +166,8 @@ class Command(BaseCommand):
     def create_widget_from_json(self, widget_json):
         widget_type = widget_json['type']
 
-        if widget_type == 'audio' or widget_type == 'video':
+        if widget_type in UNSUPPORTED_WIGDET_TYPES:
+            print('skipping audio/video widget: {}'.format(widget_json['name']))
             return None
 
         elif widget_type == 'text':
