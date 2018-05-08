@@ -17,8 +17,8 @@ from django.template.defaultfilters import slugify
 
 from classes.models import ApeClass
 from events.models import Event
-from pages.models import Page, PersonFocusWidget, TextWidget, ImageCarouselItem, ImageCarouselWidget, \
-    ApeClassesWidget, BannerWidget, EventsWidget, PeopleWidget, HouseTeamFocusWidget
+from pages.models import Page, Widget, PersonFocusWidget, TextWidget, ImageCarouselItem, ImageCarouselWidget, \
+    ApeClassesWidget, BannerWidget, EventsWidget, PeopleWidget, HouseTeamFocusWidget, PressClippingWidget
 from people.models import Person, HouseTeam, HouseTeamMembership
 
 
@@ -132,6 +132,18 @@ class Command(BaseCommand):
 
         return text_widget
 
+    def create_press_clipping_widget_from_json(self, widget_json):
+        press_widget, created = PressClippingWidget.objects.get_or_create(name=widget_json['name'])
+        press_widget.content = widget_json['text']
+        press_widget.text_color = widget_json['text_color']
+        press_widget.background_color = widget_json['background_color']
+        press_widget.author = widget_json['author']
+        press_widget.external_link = widget_json['external_link']
+        press_widget.width = widget_json['width']
+        press_widget.save()
+
+        return press_widget
+
     def create_carousel_widget_from_json(self, widget_json):
         carousel_widget, created = ImageCarouselWidget.objects.get_or_create(name=widget_json['name'])
         carousel_widget.width = widget_json['width']
@@ -181,6 +193,9 @@ class Command(BaseCommand):
 
         elif widget_type == 'house_team_focus':
             widget = self.create_house_team_focus_widget_from_json(widget_json)
+
+        elif widget_type == 'press_clipping':
+            widget = self.create_press_clipping_widget_from_json(widget_json)
 
         elif widget_json['item_type'] is not None:
             if widget_json['item_type'] == 'ape_class':
@@ -235,6 +250,8 @@ class Command(BaseCommand):
 
         # disallow running in production
         if settings.DEBUG:
+            Page.objects.all().delete()
+            Widget.objects.all().delete()
             for slug in PAGES_TO_CREATE:
                 print('UPDATING: {} page'.format(slug))
                 self.update_slugged_page(slug)
