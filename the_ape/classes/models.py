@@ -21,7 +21,7 @@ class ApeClass(models.Model):
     name = models.CharField(max_length=50)
     bio = models.TextField()
     class_type = models.CharField(choices=TYPE_CHOICES, max_length=50)
-    banner = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
+    banner = models.ForeignKey('pages.BannerWidget', null=True)
 
     teacher = models.ForeignKey('people.Person', null=True, blank=True)
     start_date = models.DateTimeField(null=True, blank=True)
