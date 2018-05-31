@@ -195,13 +195,22 @@ def friendly_time(start_time):
         # convert from string to datetime object
         start_time = iso8601.parse_date(start_time)
     hour = start_time.time().hour
-    if hour == 12:
+    minute = start_time.time().minute
+    if hour == 12 and minute == 0:
         return 'Noon'
-    if hour > 12:
+    elif hour == 12:
+        return '{}:{}pm'.format(hour, minute)
+    elif hour > 12:
         hour -= 12
-        return '{}pm'.format(hour)
+        if minute == 0:
+            return '{}pm'.format(hour)
+        else:
+            return '{}:{}pm'.format(hour, minute)
     else:
-        return '{}am'.format(hour)
+        if minute == 0:
+            return '{}am'.format(hour)
+        else:
+            return '{}:{}am'.format(hour, minute)
 
 
 @register.filter
