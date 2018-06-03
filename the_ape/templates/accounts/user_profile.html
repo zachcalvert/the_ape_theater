@@ -22,7 +22,7 @@
 			{% for show in user.profile.shows.all %}
 				<div class="user-profile-show">
 					<div>{{ show.name }}</div>
-					<div>{{ show.event_day|safe }}, {{ show.event_time }}</div>
+					<div>{{ show.start_time|friendly_day|safe }}, {{ show.start_time|friendly_time|safe }}</div>
 					<div><a target="_blank" href="{{ show.id|ticket_link:user.profile.id }}">View Ticket</a></div>
 				</div>
 			{% endfor %}
