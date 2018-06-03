@@ -39,7 +39,7 @@
 			{% for class in user.profile.classes.all %}
 				<div class="user-profile-class">
 					<div>{{ class.name }}</div>
-					<div>{{ class.start_day }}</div>
+					<div>{{ class.start_date|friendly_day|safe }}, {{ class.start_date|friendly_time|safe }}</div>
 					<div><a target="_blank" href="{{ class.id|class_registration_link:user.profile.id }}">View Registration</a></div>
 				</div>
 			{% endfor %}
