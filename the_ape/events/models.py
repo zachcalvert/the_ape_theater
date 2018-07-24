@@ -18,7 +18,7 @@ class Event(models.Model):
     max_tickets = models.IntegerField(default=20, null=True)
     tickets_sold = models.IntegerField(default=0)
     ticket_price = models.DecimalField(decimal_places=2, max_digits=5)
-    banner = models.ForeignKey('pages.BannerWidget', null=True, blank=True)
+    banner = models.ForeignKey('pages.BannerWidget', null=True)
 
     class Meta:
         ordering = ['-start_time']
